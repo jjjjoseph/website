@@ -12,7 +12,7 @@ language: zh-tw                          # 網站語言：繁體中文
 timezone: Asia/Taipei                    # 時區：臺北時間
 
 # ─── URL 設定 ─────────────────────────────
-url: https://your-username.github.io/your-repo   # 請改成你的 GitHub Pages 網址或自有網域
+url: https://github.com/joseph/website.git   # 請改成你的 GitHub Pages 網址或自有網域
 permalink: :year/:month/:day/:title/             # 文章永久連結格式
 permalink_defaults: {}
 
@@ -88,7 +88,7 @@ theme: shoka
 # 安裝方式：npm install hexo-deployer-git --save
 deploy:
   type: git
-  repository: https://github.com/your-username/your-repo.git
+  repository: https://github.com/joseph/website.git
   branch: gh-pages
 
 # ─── 其餘欄位通常維持預設或留空即可 ─────────────
