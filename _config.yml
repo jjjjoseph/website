@@ -1,0 +1,94 @@
+# =========================
+# Hexo 根目錄 _config.yml
+# =========================
+
+# ─── Site 基本資訊 ───────────────────────────
+title: My Hexo Blog                      # 網站標題，請自行修改
+subtitle: ''                              # 副標題，可留空
+description: '使用 Hexo + Shoka 架設的靜態網站'  # 網站描述
+keywords: hexo,shoka,blog                # SEO 關鍵字，可自行增刪
+author: John Doe                         # 作者名稱，請改成自己的名字或暱稱
+language: zh-tw                          # 網站語言：繁體中文
+timezone: Asia/Taipei                    # 時區：臺北時間
+
+# ─── URL 設定 ─────────────────────────────
+url: https://your-username.github.io/your-repo   # 請改成你的 GitHub Pages 網址或自有網域
+permalink: :year/:month/:day/:title/             # 文章永久連結格式
+permalink_defaults: {}
+
+# 如果想要「漂亮 URL」(去掉 .html, index.html)，可啟用下面兩行：
+# pretty_urls:
+#   trailing_index: false
+#   trailing_html: false
+
+# ─── 目錄路徑設定 ───────────────────────────
+source_dir: source       # 原始檔 (Markdown、圖片等) 所在
+public_dir: public       # Hexo 產生的靜態檔放這裡
+tag_dir: tags            # 標籤頁面所放的資料夾
+archive_dir: archives    # 歸檔 (Archives) 資料夾
+category_dir: categories # 分類頁面資料夾
+code_dir: downloads/code # 文章中若使用 post_asset_folder 產生的程式碼會放這裡
+i18n_dir: :lang
+skip_render:
+
+# ─── 撰寫文章 & 語法高亮設定 ─────────────────
+new_post_name: :title.md     # 新文章檔名格式
+default_layout: post         # 新文章使用的預設佈局
+titlecase: false             # 標題不自動轉大寫
+external_link:
+  enable: true               # 外部連結自動加 target="_blank"
+  field: site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true                 # 允許預定未來日期的文章發佈
+
+# 這裡使用 highlight.js 做語法高亮
+syntax_highlighter: highlight.js
+highlight:
+  line_number: true
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: true
+prismjs:
+  preprocess: true
+  line_number: true
+  tab_replace: ''
+
+# ─── 首頁 & 分頁設定 ─────────────────────────
+index_generator:
+  path: ''                  # 部署在根目錄
+  per_page: 10              # 首頁一次顯示 10 篇文章
+  order_by: -date           # 依照日期倒序排列
+
+default_category: uncategorized
+category_map:
+tag_map:
+
+meta_generator: true        # HEAD meta 裡會加上 Hexo 版本資訊
+
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+updated_option: 'mtime'     # 文章若更新，顯示檔案最後修改時間
+
+per_page: 10                # 除了首頁，其他列表也一次顯示 10 篇
+pagination_dir: page        # 分頁資料夾名稱
+
+include:
+exclude:
+ignore:
+
+# ─── 啟用 Shoka 主題 ──────────────────────────
+theme: shoka
+
+# ─── 部署 (Deploy) 設定 ───────────────────────
+# 安裝方式：npm install hexo-deployer-git --save
+deploy:
+  type: git
+  repository: https://github.com/your-username/your-repo.git
+  branch: gh-pages
+
+# ─── 其餘欄位通常維持預設或留空即可 ─────────────
