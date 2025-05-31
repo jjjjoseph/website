@@ -1,51 +1,63 @@
-# =========================
 # Hexo 根目錄 _config.yml
-# =========================
 
 # ─── Site 基本資訊 ───────────────────────────
-title: My Hexo Blog                      # 網站標題，請自行修改
-subtitle: ''                              # 副標題，可留空
-description: '使用 Hexo + Shoka 架設的靜態網站'  # 網站描述
-keywords: hexo,shoka,blog                # SEO 關鍵字，可自行增刪
-author: John Doe                         # 作者名稱，請改成自己的名字或暱稱
-language: zh-tw                          # 網站語言：繁體中文
-timezone: Asia/Taipei                    # 時區：臺北時間
+title: Joseph's Blog                      # 需要改：這是網站名稱，顯示在瀏覽器分頁標題以及部分佈景中。請改成你的網站中文名稱，例如：
+
+
+subtitle: ''                              # 可選改：若想顯示副標題，可填簡短文字；不需要就留空或刪除。
+                                         # 例如： subtitle: "學程式、寫程式、分享程式"
+
+description: '使用 Hexo + Shoka 架設的靜態網站'  # 建議改：這段會放在 HTML 的 <meta name="description"> 裡，對 SEO 有幫助。請改成你的網站描述，例如：
+                                         # description: '小明的技術隨筆，記錄前端、後端、部署等筆記。'
+
+keywords: 帥企鵝, gj94fu4k6                # 建議改：相當於 meta keywords，用來告訴搜尋引擎你的網站主題。填你想排名的關鍵字，例如：
+                                         # keywords: 網頁開發, JavaScript, 部署, 技術筆記
+
+author: 品逸                         # 必須改：網站作者／博主名稱，預設是 John Doe，請改為你的名字或網路暱稱。例如：
+                                         # author: "小明"
+
+language: zh-tw                          # 若你確實是以「繁體中文」為主，可保留 zh-tw。如果想用簡體就改為 zh-cn，或者全站英文就改 en。
+                                         # 例如： language: zh-cn
+
+timezone: Asia/Taipei                    # 若你所在時區是臺北，可保留。若你身在其他時區，也請對應改為正確時區，例如：
+                                         # Asia/Shanghai（中國大陸）、America/New_York（美東）、Europe/London（倫敦）等。
 
 # ─── URL 設定 ─────────────────────────────
-url: https://github.com/joseph/website.git   # 請改成你的 GitHub Pages 網址或自有網域
-permalink: :year/:month/:day/:title/             # 文章永久連結格式
-permalink_defaults: {}
-
-# 如果想要「漂亮 URL」(去掉 .html, index.html)，可啟用下面兩行：
-# pretty_urls:
-#   trailing_index: false
-#   trailing_html: false
+url: https://jjjjoseph.github.io/website/   # 必須改：這裡填的是「你的 GitHub Pages 網址」或「自有網域」。**絕對不要**留成 .git 結尾。  
+                                           # 若你走 GitHub Pages，剛才我們部署成功的網址是：
+                                           #   https://jjjjoseph.github.io/website/
+                                           # 如果未來改成自有域名，例如 blog.mydomain.com，就改成：
+                                           #   url: https://blog.mydomain.com/
+permalink: :year/:month/:day/:title/        # 文章網址格式，如果你想保留就留著；也可以改成例如： /:title/，/archives/:year/:month/:title/ 等，只要符合 Hexo 規則即可。
 
 # ─── 目錄路徑設定 ───────────────────────────
-source_dir: source       # 原始檔 (Markdown、圖片等) 所在
-public_dir: public       # Hexo 產生的靜態檔放這裡
-tag_dir: tags            # 標籤頁面所放的資料夾
-archive_dir: archives    # 歸檔 (Archives) 資料夾
-category_dir: categories # 分類頁面資料夾
-code_dir: downloads/code # 文章中若使用 post_asset_folder 產生的程式碼會放這裡
+# 下面這些目錄基本上不用動，都是 Hexo 產生檔案時的預設放置位置。
+
+source_dir: source       
+public_dir: public       
+tag_dir: tags            
+archive_dir: archives    
+category_dir: categories 
+code_dir: downloads/code 
 i18n_dir: :lang
 skip_render:
 
 # ─── 撰寫文章 & 語法高亮設定 ─────────────────
-new_post_name: :title.md     # 新文章檔名格式
-default_layout: post         # 新文章使用的預設佈局
-titlecase: false             # 標題不自動轉大寫
+# 一般也不太需要改，除非你想要調整 highlight.js 或 Prism.js 的設定。
+
+new_post_name: :title.md     
+default_layout: post         
+titlecase: false             
 external_link:
-  enable: true               # 外部連結自動加 target="_blank"
+  enable: true              
   field: site
   exclude: ''
 filename_case: 0
 render_drafts: false
 post_asset_folder: false
 relative_link: false
-future: true                 # 允許預定未來日期的文章發佈
+future: true                 
 
-# 這裡使用 highlight.js 做語法高亮
 syntax_highlighter: highlight.js
 highlight:
   line_number: true
@@ -60,35 +72,36 @@ prismjs:
 
 # ─── 首頁 & 分頁設定 ─────────────────────────
 index_generator:
-  path: ''                  # 部署在根目錄
-  per_page: 10              # 首頁一次顯示 10 篇文章
-  order_by: -date           # 依照日期倒序排列
+  path: ''                  
+  per_page: 10              
+  order_by: -date           
 
 default_category: uncategorized
 category_map:
 tag_map:
 
-meta_generator: true        # HEAD meta 裡會加上 Hexo 版本資訊
+meta_generator: true        
 
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
-updated_option: 'mtime'     # 文章若更新，顯示檔案最後修改時間
+updated_option: 'mtime'     
 
-per_page: 10                # 除了首頁，其他列表也一次顯示 10 篇
-pagination_dir: page        # 分頁資料夾名稱
+per_page: 10                
+pagination_dir: page        
 
 include:
 exclude:
 ignore:
 
 # ─── 啟用 Shoka 主題 ──────────────────────────
-theme: shoka
+theme: shoka                    # 如果你想換成別的主題再改成對應主題名稱，但現在使用 Shoka，這行無須動。
 
 # ─── 部署 (Deploy) 設定 ───────────────────────
-# 安裝方式：npm install hexo-deployer-git --save
+# 這裡要配合你 GitHub 上的倉庫 URL 做調整
 deploy:
   type: git
-  repository: https://github.com/joseph/website.git
-  branch: gh-pages
+  repository: https://github.com/jjjjoseph/website.git  # 必須改：改成你 GitHub 上真實存在、且有推送權限的倉庫地址，末尾要帶 .git。
+                                                        # 範例：https://github.com/你的GitHub帳號/倉庫名稱.git
+  branch: gh-pages        # 通常不用改（表示把靜態檔推到 gh-pages 分支），除非你要用別的分支。
 
 # ─── 其餘欄位通常維持預設或留空即可 ─────────────
