@@ -57,7 +57,7 @@ layout: page
 
 **程式碼**
 
-```markdown
+```cpp
 class Solution {
 public:
     vector<int> twoSum(const vector<int>& nums, const int target) {
@@ -130,7 +130,7 @@ public:
 > - 最後遍歷完字串，如果堆疊為空表示所有括號都正確配對，回傳 `true`；否則回傳 `false`。  
 
 **程式碼**
-```markdown
+```cpp
 class Solution {
 public:
     bool isValid(string s) {
@@ -208,7 +208,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -219,7 +219,7 @@ public:
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-
+ 
 #include <iostream>
 using namespace std;
 
@@ -314,7 +314,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 #include <vector>
 using namespace std;
 
@@ -399,7 +399,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 #include <string>
 using namespace std;
 
@@ -506,7 +506,7 @@ Output:
 
 **程式碼**
 
-```markdown
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -621,7 +621,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 #include <string>
 #include <vector>
 using namespace std;
@@ -706,7 +706,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 #include <vector>
 using namespace std;
 
@@ -841,7 +841,7 @@ From the center of the image (position (1,1)), all pixels connected by a path of
 
 **程式碼**
 
-```markdown
+```cpp
 #include <vector>
 using namespace std;
 
@@ -957,7 +957,7 @@ private:
 
 **程式碼**
 
-```markdown
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -1066,7 +1066,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -1176,7 +1176,7 @@ private:
 
 **程式碼**
 
-```markdown
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -1276,7 +1276,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 #include <stack>
 using namespace std;
 
@@ -1386,7 +1386,7 @@ private:
 
 **程式碼**
 
-```markdown
+```cpp
 // Forward declaration of isBadVersion API.
 bool isBadVersion(int version);
 
@@ -1464,7 +1464,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 #include <string>
 #include <vector>
 using namespace std;
@@ -1548,7 +1548,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 #include <vector>
 using namespace std;
 
@@ -1624,7 +1624,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 #include <string>
 #include <vector>
 using namespace std;
@@ -1740,7 +1740,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -1838,7 +1838,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 #include <vector>
 using namespace std;
 
@@ -1912,7 +1912,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 #include <string>
 #include <algorithm>
 using namespace std;
@@ -1993,7 +1993,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -2087,7 +2087,7 @@ private:
 
 **程式碼**
 
-```markdown
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -2186,7 +2186,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -2270,7 +2270,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 #include <vector>
 #include <unordered_set>
 using namespace std;
@@ -2343,7 +2343,7 @@ public:
 
 **程式碼**
 
-```markdown
+```cpp
 #include <vector>
 #include <algorithm>
 using namespace std;
