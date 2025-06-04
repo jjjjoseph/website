@@ -16,19 +16,19 @@ keywords: 帥企鵝, gj94fu4k6                # 建議改：相當於 meta keywo
 author: 品逸                         # 必須改：網站作者／博主名稱，預設是 John Doe，請改為你的名字或網路暱稱。例如：
                                          # author: "小明"
 
-language: zh-TW                          # 若你確實是以「繁體中文」為主，可保留 zh-tw。如果想用簡體就改為 zh-cn，或者全站英文就改 en。
+language: zh-tw                          # 若你確實是以「繁體中文」為主，可保留 zh-tw。如果想用簡體就改為 zh-cn，或者全站英文就改 en。
                                          # 例如： language: zh-cn
 
 timezone: Asia/Taipei                    # 若你所在時區是臺北，可保留。若你身在其他時區，也請對應改為正確時區，例如：
                                          # Asia/Shanghai（中國大陸）、America/New_York（美東）、Europe/London（倫敦）等。
 
 # ─── URL 設定 ─────────────────────────────
-url: https://jjjjoseph.github.io/website/   # 必須改：這裡填的是「你的 GitHub Pages 網址」或「自有網域」。**絕對不要**留成 .git 結尾。  
+url: http://localhost:4000   # 必須改：這裡填的是「你的 GitHub Pages 網址」或「自有網域」。**絕對不要**留成 .git 結尾。  
                                            # 若你走 GitHub Pages，剛才我們部署成功的網址是：
                                            #   https://jjjjoseph.github.io/website/
                                            # 如果未來改成自有域名，例如 blog.mydomain.com，就改成：
                                            #   url: https://blog.mydomain.com/
-root: /website/                  # 必須改：這是網站根目錄，若你部署在 GitHub Pages 的子目錄下，請保留 /website/。如果是根域名（例如 https://mydomain.com/），就改成 /。                                           
+root: /                  # 必須改：這是網站根目錄，若你部署在 GitHub Pages 的子目錄下，請保留 /website/。如果是根域名（例如 https://mydomain.com/），就改成 /。                                           
 permalink: :year/:month/:day/:title/        # 文章網址格式，如果你想保留就留著；也可以改成例如： /:title/，/archives/:year/:month/:title/ 等，只要符合 Hexo 規則即可。
 
 # ─── 目錄路徑設定 ───────────────────────────
