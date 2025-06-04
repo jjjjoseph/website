@@ -28,7 +28,7 @@ url: http://localhost:4000   # 必須改：這裡填的是「你的 GitHub Pages
                                            #   https://jjjjoseph.github.io/website/
                                            # 如果未來改成自有域名，例如 blog.mydomain.com，就改成：
                                            #   url: https://blog.mydomain.com/
-root: /                  # 必須改：這是網站根目錄，若你部署在 GitHub Pages 的子目錄下，請保留 /website/。如果是根域名（例如 https://mydomain.com/），就改成 /。                                           
+root: /website/                  # 必須改：這是網站根目錄，若你部署在 GitHub Pages 的子目錄下，請保留 /website/。如果是根域名（例如 https://mydomain.com/），就改成 /。                                           
 permalink: :year/:month/:day/:title/        # 文章網址格式，如果你想保留就留著；也可以改成例如： /:title/，/archives/:year/:month/:title/ 等，只要符合 Hexo 規則即可。
 
 # ─── 目錄路徑設定 ───────────────────────────

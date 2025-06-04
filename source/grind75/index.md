@@ -1333,3 +1333,7 @@ private:
 
  - 空間複雜度：O(n)
      - 需要額外使用兩個堆疊來儲存最多 n 個元素。
+
+## Week 2 (12/12)
+
+### First Bad Version
