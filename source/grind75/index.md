@@ -2373,3 +2373,961 @@ public:
 ## Week 3 (8/8)
 
 ### Insert Interval
+
+> [題目連結](https://leetcode.com/problems/insert-interval/)  
+> **標籤**: Array, Sorting  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個由不重疊且依照起點排序的區間列表 `intervals`，以及一個新的區間 `newInterval`，請在列表中插入 `newInterval`，並確保最終結果中的區間仍然是不重疊且已排序。如果插入後有任何區間重疊，請將它們合併為一個區間。  
+>  
+> 每個區間由 `[start, end]` 表示，且 `start <= end`。
+
+**範例**
+
+> Example 1:  
+> Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
+> Output: [[1,5],[6,9]]
+> Explanation: 插入 [2,5] 後，與 [1,3] 重疊，合併為 [1,5]。
+
+> Example 2:  
+> Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,9]
+> Output: [[1,2],[3,10],[12,16]]
+> Explanation:
+> 插入 [4,9] 後，會與 [3,5],[6,7],[8,10] 三個區間重疊，合併為 [3,10]。  
+
+**限制**
+
+> - `0 <= intervals.length <= 10^4`  
+> - `intervals[i].length == 2`  
+> - `0 <= intervals[i][0] <= intervals[i][1] <= 10^5`  
+> - `intervals` 依照 `intervals[i][0]`（起點）嚴格遞增排序，且彼此不重疊。  
+> - `newInterval.length == 2`  
+> - `0 <= newInterval[0] <= newInterval[1] <= 10^5`  
+
+**思路**
+
+> - 因為原本的 `intervals` 已經依起點排序，且彼此不重疊，我們只需將 `newInterval` 插入適當位置，並與相鄰的重疊區間做合併。整體流程可分為三個階段：  
+>  
+>   1. **將所有在 `newInterval` 之前且不會重疊的區間先加入結果**  
+>      - 換言之，遍歷原列表，對於每個區間 `intervals[i]`，如果其結束時間 `intervals[i][1] < newInterval[0]`（比 `newInterval` 的起點還要早結束），則代表這些區間完全在 `newInterval` 之前且不重疊，直接推入結果 `result`。  
+>  
+>   2. **處理與 `newInterval` 可能重疊的區間，進行合併**  
+>      - 當遇到某個區間 `intervals[i]` 的起點 `intervals[i][0] <= newInterval[1]` 時，代表它與 `newInterval` 有重疊，需更新：  
+>        - `newInterval[0] = min(newInterval[0], intervals[i][0])`  
+>        - `newInterval[1] = max(newInterval[1], intervals[i][1])`  
+>      - 此時不立即將 `intervals[i]` 推入 `result`，而是持續向後合併所有重疊區間。只要 `intervals[i][0] <= newInterval[1]`，就持續更新 `newInterval`。  
+>  
+>   3. **將合併完成的 `newInterval` 推入結果**  
+>      - 當遇到第一個不與 `newInterval` 重疊的區間時（或原列表已遍歷完），將合併後的 `newInterval` 推入 `result`，並切換到下一個階段。  
+>  
+>   4. **將所有在 `newInterval` 之後且不會重疊的區間加入結果**  
+>      - 從目前位置繼續遍歷，每個區間的起點都比 `newInterval[1]` 大，直接推入 `result` 即可。  
+>  
+> 以上步驟保證最終的 `result` 依然是按照起點排序，且所有重疊區間已經被合併。
+
+**程式碼**
+
+```cpp
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>> result;
+        int n = intervals.size();
+        int i = 0;
+
+        // 1. 處理所有在 newInterval 之前且不重疊的區間
+        while (i < n && intervals[i][1] < newInterval[0]) {
+            result.push_back(intervals[i]);
+            i++;
+        }
+
+        // 2. 處理與 newInterval 重疊的區間，合併到 newInterval 中
+        while (i < n && intervals[i][0] <= newInterval[1]) {
+            newInterval[0] = min(newInterval[0], intervals[i][0]);
+            newInterval[1] = max(newInterval[1], intervals[i][1]);
+            i++;
+        }
+        // 合併完成後，把 newInterval 加入結果
+        result.push_back(newInterval);
+
+        // 3. 處理所有在 newInterval 之後且不重疊的區間
+        while (i < n) {
+            result.push_back(intervals[i]);
+            i++;
+        }
+
+        return result;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 我們僅對 intervals 列表做一次線性掃描，n 為原列表長度。
+
+ - 空間複雜度：O(n)
+     - 除了用於輸出結果的 result，僅使用常數級別的額外變數（i, n 及更新 newInterval 的空間），因此額外空間為 O(1)。最終輸出空間則為 O(n + 1)，可視為 O(n)。
+
+### 01 Matrix
+
+> [題目連結](https://leetcode.com/problems/01-matrix/)  
+> **標籤**: Breadth-First Search, Dynamic Programming, Queue, Matrix  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個由 0 和 1 組成的 m x n 二維矩陣 `mat`，請返回一個同樣大小的矩陣 `res`，其中 `res[i][j]` 是原矩陣中位置 `(i, j)` 到最近的 0 的距離。距離由上下左右四個方向的一步算作 1。  
+
+**範例**
+
+> Example 1:  
+> Input:  
+> mat = [
+>   [0,0,0],
+>   [0,1,0],
+>   [0,0,0]
+> ]
+
+> Output:  
+> [
+>   [0,0,0],
+>   [0,1,0],
+>   [0,0,0]
+> ]
+
+> Example 2:  
+> Input:  
+> mat = [
+>   [0,0,0],
+>   [0,1,0],
+>   [1,1,1]
+> ]
+
+> Output:  
+> [
+>   [0,0,0],
+>   [0,1,0],
+>   [1,2,1]
+> ]
+
+**限制**
+
+> - `m == mat.length`  
+> - `n == mat[i].length`  
+> - `1 <= m, n <= 10^4`  
+> - `1 <= m * n <= 10^5`  
+> - `mat[i][j]` 為 `0` 或 `1`  
+> - 保證至少有一個 `0`  
+
+**思路**
+
+> 由於每個格子的值要計算到最近的 0 的最短步數，若對每個 1 單獨做 BFS，複雜度將高達 O((mn)·(mn))，在大矩陣中無法接受。  
+> 
+> 我們可以反向思考，將所有值為 0 的位置作為 BFS 的多源起點，同時從每個 0 開始向外擴散，逐步標記各 1 到「其最近 0」的距離。  
+> 
+> 演算法步驟如下：  
+> 1. **初始化距離矩陣 `dist`**  
+>    - 建立與 `mat` 同維度的距離矩陣 `dist`，初始化為一個很大的整數（如 `INT_MAX` 或 `m+n`）。  
+> 2. **多源 BFS**  
+>    - 建立一個佇列 `queue<pair<int,int>> q`。  
+>    - 遍歷 `mat` 中所有格子，若 `mat[i][j] == 0`，則將 `(i, j)` 推入佇列 `q`，並將 `dist[i][j] = 0`。  
+>    - 四個方向的偏移陣列 `dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}}` 用於遍歷相鄰格子。  
+> 3. **執行 BFS 擴散**  
+>    - 當 `q` 不為空時，不斷取出當前格 `(r, c)`：  
+>      1. 對於四個方向 `d`，計算鄰格 `(nr, nc) = (r + d.first, c + d.second)`。  
+>      2. 檢查 `(nr, nc)` 是否在矩陣內，且若 `dist[nr][nc] > dist[r][c] + 1`，代表從當前 0 或已知較近 0 過來能取得更短距離：  
+>         - 更新 `dist[nr][nc] = dist[r][c] + 1`，  
+>         - 並將 `(nr, nc)` 推入佇列 `q`。  
+>    - 由於所有 0 先入隊，第一輪拓展時距離將被標記為 1，再下一輪擴散將標記距離 2，以此類推。最終 `dist[i][j]` 即為該格到最近 0 的距離。  
+> 
+> 這種方法相當於從所有 0「同時」開始做 BFS，保證第一次到達某個 1 的距離即為最短距離。整體時間複雜度為 O(mn)。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <queue>
+#include <utility>
+#include <algorithm>
+#include <limits>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
+        int m = mat.size();
+        int n = mat[0].size();
+        // 初始化 dist 矩陣，預設為一個足夠大的值
+        const int INF = m + n; 
+        vector<vector<int>> dist(m, vector<int>(n, INF));
+        queue<pair<int,int>> q;
+
+        // 1. 將所有 0 的位置入隊，並將 dist 設為 0
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] == 0) {
+                    dist[i][j] = 0;
+                    q.emplace(i, j);
+                }
+            }
+        }
+
+        // 四個方向偏移：下、上、右、左
+        vector<pair<int,int>> dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+
+        // 2. 多源 BFS，從所有 0 同時擴散
+        while (!q.empty()) {
+            auto [r, c] = q.front();
+            q.pop();
+            for (auto& d : dirs) {
+                int nr = r + d.first;
+                int nc = c + d.second;
+                // 若鄰格在範圍內，且可用更短距離更新
+                if (nr >= 0 && nr < m && nc >= 0 && nc < n) {
+                    if (dist[nr][nc] > dist[r][c] + 1) {
+                        dist[nr][nc] = dist[r][c] + 1;
+                        q.emplace(nr, nc);
+                    }
+                }
+            }
+        }
+
+        return dist;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(mn)
+     - 每個格子最多被加入佇列一次，且從佇列中彈出後最多檢查 4 個鄰格，總共為 O(mn)。
+
+ - 空間複雜度：O(mn)
+     - 使用一個與輸入矩陣等大的距離矩陣 dist，以及最壞情況下可達 O(mn) 大小的佇列。
+
+### K Closest Points to Origin
+
+> [題目連結](https://leetcode.com/problems/k-closest-points-to-origin/)  
+> **標籤**: Array, Math, Divide and Conquer, Sorting, Heap (Priority Queue)  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個「點」的列表 `points`，其中 `points[i] = [xi, yi]` 表示第 i 個點在 2D 平面上的座標。請返回距離原點 (0,0) 最近的 k 個點。  
+>  
+> 所有點到原點的距離由歐幾里得距離計算：`sqrt(xi^2 + yi^2)`。你可以按任何順序返回答案。答案傳回的 k 個點必須精確為「距離最小的 k 個」，不需要排序。  
+
+**範例**
+
+> Example 1:  
+> Input: points = [[1,3],[-2,2]], k = 1  
+> Output: [[-2,2]]  
+> Explanation:  
+> 點 (-2,2) 到原點距離為 sqrt(4+4) = sqrt(8) ≈ 2.828；  
+> 而點 (1,3) 到原點距離為 sqrt(1+9) = sqrt(10) ≈ 3.162。  
+> 因此最近的 1 個點為 [-2,2]。  
+
+> Example 2:  
+> Input: points = [[3,3],[5,-1],[-2,4]], k = 2  
+> Output: [[3,3],[-2,4]]  
+> Explanation:  
+> 距離分別為：  
+> (3,3) → sqrt(9+9)=sqrt(18) ≈ 4.243  
+> (5,-1) → sqrt(25+1)=sqrt(26) ≈ 5.099  
+> (-2,4) → sqrt(4+16)=sqrt(20) ≈ 4.472  
+> 最近的兩個點為 (3,3) 與 (-2,4)，順序可以互換。  
+
+**限制**
+
+> - `1 <= k <= points.length <= 10^4`  
+> - `-10^4 <= xi, yi <= 10^4`  
+> - 答案保證是唯一的（除了順序）。  
+
+**思路**
+
+> 本題要求返回距離原點最近的 k 個點，可使用以下常見方法：  
+>  
+> 1. **Max-Heap (Priority Queue) 維護大小為 k 的集合**  
+>    - 我們可以維護一個「最大堆」，堆中保存當前距離最小的 k 個點，並以距離作為比較依據。  
+>    - 遍歷所有 `points`：  
+>      1. 對第 i 個點 `(x, y)`，計算其「距離平方」`d = x*x + y*y`（不需開根號，比較平方即可）。  
+>      2. 如果堆的大小小於 k，就直接將 `(d, i)` 推入最大堆；  
+>      3. 否則，比較當前點距離 `d` 與堆頂元素的距離（即目前 k 個最遠點的距離），若 `d` 比堆頂小，代表這個點更接近原點，應該將堆頂彈出、並把 `(d, i)` 推入，否則跳過。  
+>    - 最終，堆中就保留了 k 個「距離最小」的點；取出它們的索引即可。  
+>    - **時間複雜度**：O(n log k)，其中 n 為點的數量；每次對堆操作為 log k，總共 n 次插入／比較。  
+>    - **空間複雜度**：O(k)，最大堆中最多保存 k 個點。  
+>  
+> 2. **快速選擇法 (Quickselect)**  
+>    - 類似快速排序的「分區」操作，利用 `nth_element` 或手動實現 partition，一次可以將第 k 小(距離)的點放到正確位置，左側都是更小距離的點。  
+>    - `nth_element(points.begin(), points.begin()+k, points.end(), cmp)` 之後，前 k 個元素即為距離最小的 k 個點，但不保證排序。  
+>    - **時間複雜度**：平均 O(n)，最壞 O(n^2)（但使用標準庫的 `nth_element` 大多能保證線性平均）。  
+>    - **空間複雜度**：O(1)（就地在原陣列操作）。  
+>  
+> 此處我們以 **最大堆** 方法示範，因為邏輯清晰易理解。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <queue>
+#include <cmath>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        // 定義一個「最大堆」，元素對以 pair<distanceSquared, index>
+        // distanceSquared 用作比較（距離平方越大排越前面）
+        using PII = pair<int,int>;
+        auto cmp = [](const PII& a, const PII& b) {
+            // 距離平方大的排在堆頂（最大堆）
+            return a.first < b.first;
+        };
+        priority_queue<PII, vector<PII>, decltype(cmp)> maxHeap(cmp);
+
+        int n = points.size();
+        // 遍歷所有點，維護一個大小最多為 k 的最大堆
+        for (int i = 0; i < n; i++) {
+            int x = points[i][0];
+            int y = points[i][1];
+            int distSq = x * x + y * y;  // 距離平方
+            if ((int)maxHeap.size() < k) {
+                // 先把前 k 個點放入堆
+                maxHeap.emplace(distSq, i);
+            } else if (distSq < maxHeap.top().first) {
+                // 若當前點更接近原點，彈出堆頂後推入
+                maxHeap.pop();
+                maxHeap.emplace(distSq, i);
+            }
+            // 否則，當前點距離比堆中最遠的 k 個點還大，跳過
+        }
+
+        // 現在堆中有 k 個「距離最小」的點，把它們取出
+        vector<vector<int>> result;
+        result.reserve(k);
+        while (!maxHeap.empty()) {
+            int idx = maxHeap.top().second;
+            maxHeap.pop();
+            result.push_back(points[idx]);
+        }
+        return result;  // 返回順序可不固定
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n log k)
+     - n = points.size()，每次插入／彈出堆的操作為 O(log k)，共進行 n 次。
+
+ - 空間複雜度：O(k)
+     - 最大堆中最多保存 k 個元素，此外只使用常數級輔助變數。
+
+
+### Longest Substring Without Repeating Characters
+
+> [題目連結](https://leetcode.com/problems/longest-substring-without-repeating-characters/)  
+> **標籤**: Hash Table, Two Pointers, String, Sliding Window  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個字串 `s`，請找出不含重複字符的最長子字串的長度。  
+
+**範例**
+
+> Example 1:  
+> Input: `s = "abcabcbb"`  
+> Output: `3`  
+> Explanation: 最長不含重複字符的子字串是 `"abc"`，長度為 3。  
+
+> Example 2:  
+> Input: `s = "bbbbb"`  
+> Output: `1`  
+> Explanation: 最長不含重複字符的子字串是 `"b"`，長度為 1。  
+
+> Example 3:  
+> Input: `s = "pwwkew"`  
+> Output: `3`  
+> Explanation: 最長不含重複字符的子字串是 `"wke"`（注意是子字串，必須是連續的），長度為 3。  
+>    請注意，你的答案必須是子字串的長度，`"pwke"` 不是連續的子字串。  
+
+**限制**
+
+> - `0 <= s.length <= 5 * 10^4`  
+> - `s` 由英文字母、數字、符號和空格組成。  
+
+**思路**
+
+> 本題可以利用「滑動視窗」（Sliding Window）＋「哈希表（字元映射）」技巧，在 O(n) 時間內找出最長不含重複字符的子字串長度。  
+> 
+> 1. **定義左右指標**  
+>    - 使用兩個指標 `left`、`right` 表示視窗範圍，初始都指向 0。視窗代表目前考慮的子字串 `s[left..right-1]`。  
+>    - 我們會讓 `right` 向右逐步擴展，同時保證視窗內沒有重複字符；只要發現重複，就移動 `left` 直到視窗內不含該重複字元為止。  
+> 
+> 2. **哈希表記錄最近出現位置**  
+>    - 建立一個大小至少為 128（覆蓋 ASCII 範圍）的整數陣列 `lastIndex[128]`，初始值皆設為 -1。當我們遍歷到 `s[right]`，若之前 `lastIndex[s[right]]` ≠ -1，代表在 `s[right]` 字符上次出現的位置。  
+>    - 每次右指標 `right` 移動到新字元時，檢查該字元上次出現的位置 `prev = lastIndex[s[right]]`：  
+>      1. 如果 `prev >= left`，代表該字符之前在當前視窗範圍內出現過，因此必須將 `left` 更新到 `prev + 1`，才能移除重複。  
+>      2. 將 `lastIndex[s[right]] = right` 作為該字符的新紀錄。  
+> 
+> 3. **更新答案**  
+>    - 在每次擴展 `right` 之前或之後（都可，只要維持視窗內無重複即可），計算當前視窗長度 `right - left + 1`，並與 `maxLen` 比較取最大值。  
+> 
+> 4. **遍歷終止條件**  
+>    - 讓 `right` 從 0 一路移動到 `n-1`，整個過程 O(n)；更新 `left` 最多也 O(n) 次，因此總複雜度 O(n)。  
+> 
+> 下面以範例 `s = "abba"` 來示範：  
+> 
+> - 初始化：`left = 0, maxLen = 0, lastIndex 全部為 -1`  
+> 
+> - `right = 0`，`s[0] = 'a'`：  
+>   - `prev = lastIndex['a'] = -1`，不需移動 `left`。  
+>   - 更新 `lastIndex['a'] = 0`。  
+>   - 當前視窗長度 `0 - 0 + 1 = 1`，`maxLen = 1`。  
+> 
+> - `right = 1`，`s[1] = 'b'`：  
+>   - `prev = lastIndex['b'] = -1`，不需移動 `left`。  
+>   - 更新 `lastIndex['b'] = 1`。  
+>   - 當前視窗長度 `1 - 0 + 1 = 2`，`maxLen = 2`。  
+> 
+> - `right = 2`，`s[2] = 'b'`：  
+>   - `prev = lastIndex['b'] = 1`，此時 `1 >= left(0)`，表示重複出現在視窗內。  
+>   - 更新 `left = prev + 1 = 2`，移除先前的 `'b'`。  
+>   - 更新 `lastIndex['b'] = 2`。  
+>   - 當前視窗長度 `2 - 2 + 1 = 1`，`maxLen = max(2,1) = 2`。  
+> 
+> - `right = 3`，`s[3] = 'a'`：  
+>   - `prev = lastIndex['a'] = 0`，因為 `0 < left(2)`，表示上次的 `'a'` 已不在當前視窗內，故不移動 `left`。  
+>   - 更新 `lastIndex['a'] = 3`。  
+>   - 當前視窗長度 `3 - 2 + 1 = 2`，`maxLen = max(2,2) = 2`。  
+> 
+> 最終 `maxLen = 2`，對應的最長子字串例如 `"ab"` 或 `"ba"`。  
+
+**程式碼**
+
+```cpp
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(const string& s) {
+        int n = s.size();
+        // lastIndex 用於記錄每個 ASCII 字元上次出現的位置，初始化為 -1
+        vector<int> lastIndex(128, -1);
+
+        int maxLen = 0;
+        int left = 0;  // 滑動視窗左邊界
+
+        for (int right = 0; right < n; right++) {
+            char c = s[right];
+            int prev = lastIndex[c];
+            // 如果該字元上次出現在視窗內，則移動左邊界
+            if (prev >= left) {
+                left = prev + 1;
+            }
+            // 更新該字元最近出現的位置
+            lastIndex[c] = right;
+            // 計算當前視窗長度並更新最大值
+            maxLen = max(maxLen, right - left + 1);
+        }
+
+        return maxLen;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - right 指標從 0 到 n-1 各走一次；left 最多向右移動 n 次，整體加起來為線性時間。
+
+ - 空間複雜度：O(1)
+     - 我們只使用固定大小為 128 的陣列儲存 ASCII 字元的最近位置，不隨字串長度 n 增長。
+
+### 3Sum
+
+> [題目連結](https://leetcode.com/problems/3sum/)  
+> **標籤**: Array, Two Pointers, Sorting  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個整數陣列 `nums`，請找出所有不重複且總和為 0 的三元組 `[nums[i], nums[j], nums[k]]`，並將這些三元組以二維陣列形式回傳。  
+>  
+> 注意：答案中不能包含重複的三元組。  
+
+**範例**
+
+> Example 1:  
+> Input: nums = [-1,0,1,2,-1,-4]
+> Output: [[-1,-1,2],[-1,0,1]]
+> Explanation:
+> 三元組 [-1,-1,2] 和 [-1,0,1] 的元素和均為 0，且不重複。
+
+> Example 2:  
+> Input: nums = [0, 1, 1]
+> Output: []
+
+> Example 3:  
+> Input: nums = [0, 0, 0]
+> Output: [[0, 0, 0]]
+
+**限制**
+
+> - `0 <= nums.length <= 3000`  
+> - `-10^5 <= nums[i] <= 10^5`  
+
+**思路**
+
+> 1. **排序 (Sorting)**  
+>    - 先將陣列 `nums` 依升冪排序，方便後續使用雙指針掃描並去重。  
+>  
+> 2. **固定第一個數字，對剩餘部分做雙指針搜尋**  
+>    - 令三元組的第一個元素索引為 `i`，遍歷 `i` 從 `0` 到 `n-3`（因為至少要三個元素）。  
+>    - 為了避免重複，在遍歷 `i` 時，如果 `i > 0` 且 `nums[i] == nums[i-1]`，直接跳過。  
+>    - 接著在排序好的陣列中，對 `i` 之後的子陣列使用左右指標 `left = i+1`、`right = n-1`，在 `left < right` 的情況下：  
+>      1. 計算三數總和 `sum = nums[i] + nums[left] + nums[right]`。  
+>      2. 如果 `sum == 0`，則找到一組符合條件的三元組，將其加入結果，並同時移動 `left++`、`right--`，但要跳過重複元素（`while (left < right && nums[left] == nums[left-1]) left++;`、`while (left < right && nums[right] == nums[right+1]) right--;`），以避免重複三元組。  
+>      3. 如果 `sum < 0`，代表總和太小，需要增大 `left` 對應的值，故 `left++`。  
+>      4. 如果 `sum > 0`，代表總和太大，需要減小 `right` 對應的值，故 `right--`。  
+>    - 重複上述雙指針搜尋流程直到 `left >= right`。  
+>  
+> 3. **去重技巧**  
+>    - 在固定 `i` 時：若 `i > 0` 且 `nums[i] == nums[i-1]`，直接跳過，避免第一個數字重複。  
+>    - 找到 `sum == 0` 後，移動 `left`、`right` 時，跳過相鄰且相同的值。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> result;
+        int n = nums.size();
+        if (n < 3) return result;
+        
+        // 1. 排序
+        sort(nums.begin(), nums.end());
+        
+        // 2. 遍歷 i 作為三元組的第一個元素
+        for (int i = 0; i < n - 2; i++) {
+            // 避免第一個元素重複
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            int left = i + 1;
+            int right = n - 1;
+            
+            // 3. 雙指針搜尋其餘兩個元素
+            while (left < right) {
+                long sum = (long)nums[i] + nums[left] + nums[right];
+                if (sum == 0) {
+                    // 找到一組符合條件的三元組
+                    result.push_back({nums[i], nums[left], nums[right]});
+                    
+                    // 跳過重複的 left 元素
+                    int leftVal = nums[left];
+                    while (left < right && nums[left] == leftVal) {
+                        left++;
+                    }
+                    // 跳過重複的 right 元素
+                    int rightVal = nums[right];
+                    while (left < right && nums[right] == rightVal) {
+                        right--;
+                    }
+                }
+                else if (sum < 0) {
+                    // 總和太小，left 往右移動
+                    left++;
+                }
+                else { // sum > 0
+                    // 總和太大，right 往左移動
+                    right--;
+                }
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n²)
+     - 排序 O(n log n)；主迴圈遍歷 i 為 O(n)，每次在子陣列執行雙指針搜尋為 O(n)，合計為 O(n²)。
+
+ - 空間複雜度：O(log n)（排序所需）
+     - 若忽略返回結果所佔空間，只使用排程排序遞迴空間為 O(log n)。若計算輸出占用，則最壞情況 O(n²)（取決於可形成幾組三元組）。
+
+### Binary Tree Level Order Traversal
+
+> [題目連結](https://leetcode.com/problems/binary-tree-level-order-traversal/)  
+> **標籤**: Tree, Breadth-First Search, Queue  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個二元樹的根節點 `root`，請返回其「層序遍歷」（level order traversal）的節點值——即從左到右，逐層訪問所有節點。輸出結果應為一個二維陣列，其中第 `i` 個子陣列包含樹的第 `i` 層所有節點的值。  
+
+**範例**
+
+> Example 1:  
+> Input: root = [3,9,20,null,null,15,7]
+> Output: [[3],[9,20],[15,7]]
+> Explanation:
+> 層序遍歷結果為 [[3], [9,20], [15,7]]。
+```text
+  3
+  / \
+ 9  20
+    / \
+   15  7
+```
+
+> Example 2:  
+> Input: root = [1]
+> Output: [[1]]
+
+> Example 3:  
+> Input: root = []
+> Output: []
+
+**限制**
+
+> - 樹中節點總數在範圍 `[0, 2000]`。  
+> - `-1000 <= Node.val <= 1000`。  
+
+**思路**
+
+> - 本題最常用的做法是「廣度優先搜尋」（Breadth-First Search, BFS），利用佇列（queue）按層次逐層訪問。  
+> - 具體流程：  
+>   1. 如果 `root` 為 `nullptr`，直接回傳空陣列 `[]`。  
+>   2. 建立一個佇列 `queue<TreeNode*> q`，先將 `root` 推入。  
+>   3. 當佇列不為空時，先記錄當前層的節點數 `levelSize = q.size()`，這個值代表本次要從佇列中取出的節點數量（相當於本層的節點數）。  
+>   4. 建立一個臨時容器 `vector<int> levelVals`，用來儲存本層所有節點的值。  
+>   5. 用一個迴圈跑 `levelSize` 次，每次從佇列中取出一個節點 `node = q.front()`、`q.pop()`，並把 `node->val` 加入 `levelVals`。若 `node->left` 非空，則 `q.push(node->left)`；若 `node->right` 非空，則 `q.push(node->right)`。  
+>   6. 當 `levelSize` 次迴圈結束，代表本層所有節點都處理完，將 `levelVals` 推入結果二維陣列 `result`。  
+>   7. 重複步驟 3～6，直到佇列為空。  
+> - 這樣可以保證每次只將同一層的節點值收集一次，並依序推入結果。  
+
+**程式碼**
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+#include <vector>
+#include <queue>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> result;
+        if (root == nullptr) {
+            return result;  // 空樹返回空陣列
+        }
+        queue<TreeNode*> q;
+        q.push(root);
+        
+        while (!q.empty()) {
+            int levelSize = q.size();  // 當前層的節點數
+            vector<int> levelVals;
+            levelVals.reserve(levelSize);
+            
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode* node = q.front();
+                q.pop();
+                levelVals.push_back(node->val);
+                if (node->left) {
+                    q.push(node->left);
+                }
+                if (node->right) {
+                    q.push(node->right);
+                }
+            }
+            
+            result.push_back(levelVals);
+        }
+        
+        return result;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - n 為樹中節點總數。每個節點會被加入佇列並彈出一次，並進行常數次操作（讀值、推入子節點），整體為 O(n)。
+
+ - 空間複雜度：O(n)
+     - 佇列最壞情況下可能儲存一整層所有節點，例如接近 n/2 個（若樹為完全二元樹）。此外，結果的二維陣列也會儲存所有節點值，需 O(n)。
+
+### Clone Graph
+
+> [題目連結](https://leetcode.com/problems/clone-graph/)  
+> **標籤**: Hash Table, Depth-First Search, Breadth-First Search, Graph  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個無向連通圖的節點 `node`，請返回此圖的深拷貝（Clone）。  
+>  
+> 圖中每個節點包含一個整數 `val`（節點編號），以及一個鄰居列表 `vector<Node*> neighbors`，代表與該節點相連的所有節點。節點編號範圍為 1 到 N（N ≤ 100）。  
+>  
+> 需構造一個與原圖結構、節點值完全相同的新圖，且新舊圖之間的節點指標互不相同。
+
+**範例**
+
+> Example 1:
+> adjList = [[2,4],[1,3],[2,4],[1,3]]
+> 返回：[[2,4],[1,3],[2,4],[1,3]]
+> 圖結構：
+```text
+1 -- 2
+|    |
+4 -- 3
+```
+
+> Example 2:
+> adjList = [[]]
+> 圖只有一個節點，且沒有鄰居，返回：[[]]
+
+> Example 3:
+> adjList = [] 
+> 空圖，返回：nullptr
+
+**限制**
+
+> 節點數量不超過 100。
+> 節點值 val 範圍為 1 <= val <= 100，且圖為無向連通圖。
+> 同一節點的鄰居列表中不含重複節點。
+> 圖中無自環或重邊。
+
+**思路**
+
+> 複製一個圖的常見方法是透過 深度優先搜尋（DFS） 或 廣度優先搜尋（BFS），並使用一個 哈希映射 來保存「原節點指標 → 新節點指標」的映射，避免重複複製同一個節點。
+>　下面以 DFS 方式示範：
+> 1. **建立映射表**
+>  - 使用 unordered_map<Node*, Node*> visited;
+>    - Key：原圖的節點指標
+>    - Value：對應已創建的複製節點指標
+> 2. **遞迴 DFS 函式 `clone(Node* node)`**
+>  - 如果 `node == nullptr`，直接返回 `nullptr`。
+>  - 如果 `visited.count(node)` 已包含此 `node`，代表該節點已被複製過，直接返回 `visited[node]`。
+>  - 否則：
+>    - 創建一個新節點 Node* copy = new Node(node->val);，先只複製節點值，不處理鄰居列表。
+>    - 在 visited[node] = copy; 中記錄這個映射關係，避免後續重複複製。
+>    - 遍歷 node->neighbors 中的每個鄰居 nei：呼叫 clone(nei)，並將返回的新節點指標加入 copy->neighbors。
+>    - 返回 copy。
+> 3. 主函式 `cloneGraph(Node* node)`
+>  - 如果輸入 node == nullptr，直接返回 nullptr。
+>  - 否則呼叫並返回 clone(node)，即可獲得整個圖的克隆。
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+    Node() : val(0), neighbors(vector<Node*>()) {}
+    Node(int _val) : val(_val), neighbors(vector<Node*>()) {}
+    Node(int _val, vector<Node*> _neighbors) : val(_val), neighbors(_neighbors) {}
+};
+
+class Solution {
+public:
+    unordered_map<Node*, Node*> visited;
+
+    Node* cloneGraph(Node* node) {
+        if (node == nullptr) return nullptr;
+        return clone(node);
+    }
+
+private:
+    Node* clone(Node* node) {
+        if (visited.count(node)) {
+            return visited[node];
+        }
+        Node* copy = new Node(node->val);
+        visited[node] = copy;
+        for (Node* nei : node->neighbors) {
+            copy->neighbors.push_back(clone(nei));
+        }
+        return copy;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(N + M)
+     - N 為節點數量，M 為邊的數量。每個節點只會被 clone 訪問一次，並處理它所有的鄰邊。
+
+ - 空間複雜度：O(N)
+     - 使用 visited 哈希映射存儲 N 個節點，遞迴棧最壞情況也為 O(N)。
+
+### Evaluate Reverse Polish Notation
+
+> [題目連結](https://leetcode.com/problems/evaluate-reverse-polish-notation/)  
+> **標籤**: Stack, Array  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 15 分鐘  
+
+**題目描述**
+
+> Evaluate the value of an arithmetic expression in Reverse Polish Notation.  
+>  
+> 有效的運算符為 `+`, `-`, `*`, `/`。每個運算符都應該作用於最近的兩個操作數之上。除法運算符 `/` 表示整數除法，結果會向零取整。  
+>  
+> 你可以假設給定的 RPN 表達式總是有效的，也就是說運算過程中不會出現除以零的情況，並且最終得到的結果只會有一個值。  
+>  
+> 舉例來說，給定 RPN 表達式索引為 `["2", "1", "+", "3", "*"]`，其對應的計算步驟為：  
+> 1. 遇到 `"2"` 與 `"1"`，先把兩個數字當作操作數推入堆疊。  
+> 2. 遇到 `"+"`，從堆疊彈出 `1` 和 `2`，計算 `2 + 1 = 3`，再把結果 `3` 推回堆疊。  
+> 3. 接著讀到 `"3"`，把 `3` 推入堆疊。  
+> 4. 最後讀到 `"*"`，從堆疊彈出剛剛的 `3`（結果）和新推入的 `3`，計算 `3 * 3 = 9`，再把結果 `9` 推回。  
+> 5. 到達結尾，堆疊中只剩下一個值 `9`，即為最終答案。  
+
+**範例**
+
+> Example 1:  
+> Input: `tokens = ["2", "1", "+", "3", "*"]`  
+> Output: `9`  
+> Explanation: `((2 + 1) * 3) = 9`  
+
+> Example 2:  
+> Input: `tokens = ["4", "13", "5", "/", "+"]`  
+> Output: `6`  
+> Explanation: `(4 + (13 / 5)) = 6`  
+
+> Example 3:  
+> Input: `tokens = ["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"]`  
+> Output: `22`  
+> Explanation:  
+>   1. 當前堆疊狀態：`[10, 6, 9, 3]`  
+>   2. 遇到 `"+"`：彈出 `3, 9` → `9 + 3 = 12` → 推入 `12` → `[10, 6, 12]`  
+>   3. 遇到 `"-11"`：推入 `-11` → `[10, 6, 12, -11]`  
+>   4. 遇到 `"*"`：彈出 `-11, 12` → `12 * -11 = -132` → 推入 `-132` → `[10, 6, -132]`  
+>   5. 遇到 `"/"`：彈出 `-132, 6` → `6 / -132 = 0`（整數除法向零取整）→ 推入 `0` → `[10, 0]`  
+>   6. 遇到 `"*"`：彈出 `0, 10` → `10 * 0 = 0` → 推入 `0` → `[0]`  
+>   7. 遇到 `"17"`：推入 `17` → `[0, 17]`  
+>   8. 遇到 `"+"`：彈出 `17, 0` → `0 + 17 = 17` → 推入 `17` → `[17]`  
+>   9. 遇到 `"5"`：推入 `5` → `[17, 5]`  
+>  10. 遇到 `"+"`：彈出 `5, 17` → `17 + 5 = 22` → 推入 `22` → `[22]`  
+>  11. 最終答案 `22`。  
+
+**限制**
+
+> - `1 <= tokens.length <= 10^4`  
+> - 每個 `tokens[i]` 要麼是一個整數（可能帶負號），要麼是運算符 `"+"`, `"-"`, `"*"`, `"/"`  
+> - 在 RPN 運算過程中，不會出現除以零的情況  
+> - 最終結果一定是一個整數，且範圍在 32 位元整數之內  
+
+**思路**
+
+> - 使用棧（Stack）來模擬 RPN 計算：  
+>   1. 遍歷 `tokens` 陣列，若當前元素是數字字串，就將其轉換成 `int` 後推入棧中。  
+>   2. 若當前元素是運算符（`"+", "-", "*", "/"`），則從棧中先後彈出兩個操作數（右操作數先彈出，左操作數後彈出）。  
+>   3. 根據運算符對這兩個操作數執行相應運算，並把計算結果再推回棧中。  
+>   4. 反覆上述步驟，直到遍歷結束，棧中只剩一個元素，即為最終答案。  
+> - 注意：除法運算時要做整數除法，向零取整。C++ 中使用 `/` 即可滿足該條件。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <string>
+#include <stack>
+#include <cstdlib>   // for std::stoi
+
+using namespace std;
+
+class Solution {
+public:
+    int evalRPN(const vector<string>& tokens) {
+        stack<int> st;
+        
+        for (const auto& tok : tokens) {
+            if (tok == "+" || tok == "-" || tok == "*" || tok == "/") {
+                // 先彈出右操作數，再彈出左操作數
+                int b = st.top(); st.pop();
+                int a = st.top(); st.pop();
+                int res = 0;
+                
+                if (tok == "+") {
+                    res = a + b;
+                } else if (tok == "-") {
+                    res = a - b;
+                } else if (tok == "*") {
+                    res = a * b;
+                } else { // tok == "/"
+                    // C++ / 即為向零取整
+                    res = a / b;
+                }
+                
+                st.push(res);
+            } else {
+                // 整數字串，轉成 int 並推入棧中
+                st.push(stoi(tok));
+            }
+        }
+        
+        // 最終棧中只剩一個結果
+        return st.top();
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 需要對 tokens 進行一次線性遍歷。對於每個元素，要麼做一次 push（O(1)），要麼做一次 pop、運算、再 push（都為 O(1) 操作）。因此整體為 O(n)。
+
+ - 空間複雜度：O(n)
+     - 最壞情況下（所有元素都是數字），棧中最多會存 n 個數字，所以需要 O(n) 的額外空間。
+
+## Week 4 (8/8)
