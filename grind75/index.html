@@ -89,12 +89,12 @@ Hi~~ = Joseph's Blog</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciszlczyj20zk0m816d.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph4fomxoj20zk0m8axp.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciszlczyj20zk0m816d.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
         </ul>
       </div>
     </header>
@@ -2256,7 +2256,539 @@ Hi~~ = Joseph's Blog</title>
 </ul>
 </li>
 </ul>
-<h2 id="Week-4-8-8"><a href="#Week-4-8-8" class="headerlink" title="Week 4 (8&#x2F;8)"></a>Week 4 (8&#x2F;8)</h2>
+<h2 id="Week-4-8-8"><a href="#Week-4-8-8" class="headerlink" title="Week 4 (8&#x2F;8)"></a>Week 4 (8&#x2F;8)</h2><h3 id="Course-Schedule"><a href="#Course-Schedule" class="headerlink" title="Course Schedule"></a>Course Schedule</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvY291cnNlLXNjaGVkdWxlLw==">題目連結</span><br><strong>標籤</strong>: Graph, Topological Sort, DFS<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>你需要修 <code>numCourses</code> 門課程，編號從 <code>0</code> 到 <code>numCourses - 1</code>。有一個列表 <code>prerequisites</code>，其中的每一對 <code>[a, b]</code> 表示要修課程 <code>a</code> 必須先修過課程 <code>b</code>。  </p>
+<p>請判斷是否存在一種選課順序，使你能修完所有課程。如果可以，返回 <code>true</code>；否則，返回 <code>false</code>。  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:<br>Input: <code>numCourses = 2, prerequisites = [[1,0]]</code><br>Output: <code>true</code><br>Explanation: 學生先修課程 <code>0</code>，接著修課程 <code>1</code>。  </p>
+</blockquote>
+<blockquote>
+<p>Example 2:<br>Input: <code>numCourses = 2, prerequisites = [[1,0],[0,1]]</code><br>Output: <code>false</code><br>Explanation: 存在循環依賴，無法完成所有課程。  </p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>1 &lt;= numCourses &lt;= 10^5</code>  </li>
+<li><code>0 &lt;= prerequisites.length &lt;= 5000</code>  </li>
+<li><code>prerequisites[i].length == 2</code>  </li>
+<li><code>0 &lt;= ai, bi &lt; numCourses</code>  </li>
+<li>所有 <code>prerequisites[i]</code> 互不相同</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>本題實質是在判斷有向圖中是否存在拓撲排序（即是否能夠將有向圖排成無環序列）。如果圖中沒有環，則存在拓撲排序，代表可以依照該順序修完所有課程。  </p>
+<p>常見的做法有兩種：  </p>
+<ol>
+<li><p><strong>入度 (Kahn’s Algorithm) + BFS</strong>  </p>
+<ul>
+<li>構建鄰接表與入度數組：對於每個先修關係 <code>[a, b]</code>，在鄰接表中記錄邊 <code>b → a</code>，並將 <code>a</code> 的入度 <code>in[a]++</code>。  </li>
+<li>將所有入度為 <code>0</code> 的節點（即沒有先修課的課程）都加入隊列。  </li>
+<li>不斷從隊列中彈出節點 <code>u</code>，將 <code>u</code> 的鄰接節點 <code>v</code> 的入度減 <code>1</code>，若此時 <code>in[v]</code> 變為 <code>0</code>，則將 <code>v</code> 推入隊列。  </li>
+<li>同時計算已處理的節點個數 <code>count</code>。遍歷完隊列後，如果 <code>count == numCourses</code>，表示所有課程都能被加入拓撲序列，返回 <code>true</code>；否則存在環，返回 <code>false</code>。</li>
+</ul>
+</li>
+<li><p><strong>DFS 判斷有向圖是否存在環</strong>  </p>
+<ul>
+<li>使用深度優先搜尋 (DFS)，同時維護一個狀態數組 <code>state[i]</code>，<code>0</code> 表示未訪問，<code>1</code> 表示訪問中（在遞歸棧上），<code>2</code> 表示已完成訪問。  </li>
+<li>對於每個尚未訪問的節點 <code>u</code> 執行 DFS：  <ol>
+<li>將 <code>state[u] = 1</code>，遍歷所有鄰接節點 <code>v</code>，若 <code>state[v] == 0</code>，則遞歸 DFS(v)；若 <code>state[v] == 1</code>，表示發現環，直接返回 <code>true</code>。  </li>
+<li>完成對 <code>u</code> 的所有鄰接節點訪問後，將 <code>state[u] = 2</code>。</li>
+</ol>
+</li>
+<li>若整個過程中都沒有發現「回到訪問中節點」的情況，則圖中無環，返回 <code>true</code>。否則，返回 <code>false</code>。</li>
+</ul>
+</li>
+</ol>
+<p>下面以 <strong>Kahn’s Algorithm (BFS)</strong> 方法實現。  </p>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">canFinish</span><span class="params">(<span class="type">int</span> numCourses, <span class="type">const</span> vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; prerequisites)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 建立鄰接表與入度數組</span></span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">adj</span>(numCourses);</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inDegree</span><span class="params">(numCourses, <span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; pre : prerequisites) &#123;</span><br><span class="line">            <span class="type">int</span> course = pre[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> prereq = pre[<span class="number">1</span>];</span><br><span class="line">            adj[prereq].<span class="built_in">push_back</span>(course);</span><br><span class="line">            inDegree[course]++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 將所有入度為 0 的節點加入佇列</span></span><br><span class="line">        queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; numCourses; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (inDegree[i] == <span class="number">0</span>) &#123;</span><br><span class="line">                q.<span class="built_in">push</span>(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. BFS 拓撲排序</span></span><br><span class="line">        <span class="type">int</span> visitedCount = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">            visitedCount++;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 將 u 的所有鄰接節點入度減 1，若變為 0，則加入佇列</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> v : adj[u]) &#123;</span><br><span class="line">                inDegree[v]--;</span><br><span class="line">                <span class="keyword">if</span> (inDegree[v] == <span class="number">0</span>) &#123;</span><br><span class="line">                    q.<span class="built_in">push</span>(v);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. 如果處理過的節點數等於 numCourses，表示所有課程都能完成</span></span><br><span class="line">        <span class="keyword">return</span> visitedCount == numCourses;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(N + E)</p>
+<ul>
+<li><p>N 為課程數（numCourses），E 為先修關係數（prerequisites.size()）。</p>
+</li>
+<li><p>建立圖與計算入度需要 O(E)；BFS 遍歷所有節點和邊也需要 O(N + E)。</p>
+</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(N + E)</p>
+<ul>
+<li>需要存儲鄰接表（共 E 條邊）和入度數組（大小為 N），以及 BFS 佇列在最壞情況下可裝 N 個節點。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Implement-Trie-Prefix-Tree"><a href="#Implement-Trie-Prefix-Tree" class="headerlink" title="Implement Trie (Prefix Tree)"></a>Implement Trie (Prefix Tree)</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvaW1wbGVtZW50LXRyaWUtcHJlZml4LXRyZWUv">題目連結</span><br><strong>標籤</strong>: Design, Trie<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>實作一個 Trie（又稱 Prefix Tree），包含以下操作：  </p>
+<ol>
+<li><code>Trie()</code>：初始化 Trie 物件。  </li>
+<li><code>void insert(String word)</code>：將字串 <code>word</code> 插入 Trie。  </li>
+<li><code>boolean search(String word)</code>：如果字串 <code>word</code> 存在於 Trie 中（作為完整的字串），則返回 <code>true</code>；否則返回 <code>false</code>。  </li>
+<li><code>boolean startsWith(String prefix)</code>：如果 Trie 中存在以字串 <code>prefix</code> 為開頭的任何單詞，則返回 <code>true</code>；否則返回 <code>false</code>。</li>
+</ol>
+</blockquote>
+<p><strong>輸入／輸出 範例</strong></p>
+<blockquote>
+<p>注意：題目不需要你從標準輸入讀取任何資料，也不需要你輸出格式化結果到標準輸出，僅需實作上述四個函式接口。  </p>
+<p>下面給出一個模擬呼叫過程的範例，展示「操作序列」對應的回傳結果：  </p>
+<p>input：<br>[“Trie”,”insert”,”search”,”search”,”startsWith”,”insert”,”search”]<br>[[],[“apple”],[“apple”],[“app”],[“app”],[“app”],[“app”]]</p>
+<p>output：<br>[null,null,true,false,true,null,true]</p>
+<p><strong>說明</strong>：  </p>
+<ol>
+<li><code>Trie trie = new Trie();</code>  → 回傳 <code>null</code> （初始化）  </li>
+<li><code>trie.insert(&quot;apple&quot;);</code>   → 回傳 <code>null</code> （插入不回傳結果）  </li>
+<li><code>trie.search(&quot;apple&quot;);</code>   → 回傳 <code>true</code> （字串 “apple” 存在）  </li>
+<li><code>trie.search(&quot;app&quot;);</code>     → 回傳 <code>false</code>（字串 “app” 不是完整儲存的單詞）  </li>
+<li><code>trie.startsWith(&quot;app&quot;);</code>→ 回傳 <code>true</code> （有單詞以 “app” 為前綴）  </li>
+<li><code>trie.insert(&quot;app&quot;);</code>     → 回傳 <code>null</code> （插入 “app”）  </li>
+<li><code>trie.search(&quot;app&quot;);</code>     → 回傳 <code>true</code> （”app” 現在已經被插入）</li>
+</ol>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li>所有字串僅包含小寫英文字母 <code>a</code> 到 <code>z</code>。  </li>
+<li><code>1 &lt;= word.length, prefix.length &lt;= 2000</code>。  </li>
+<li>最多執行 <code>insert</code>, <code>search</code>, <code>startsWith</code> 操作共 <code>10^4</code> 次。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<ul>
+<li>使用 Trie 結構：以節點（Node）為單位，每個節點持有 26 個子指標（對應 a–z）與一個布林標記 <code>isEnd</code> 表示該節點是否為某字串的結尾。  </li>
+<li>插入（<code>insert</code>）時，從根節點出發，沿著 <code>word</code> 中每個字符依次檢查子指標是否為 <code>nullptr</code>。若為空便建立新節點；最後將當前節點的 <code>isEnd</code> 設為 <code>true</code>。  </li>
+<li>搜尋完整字串（<code>search</code>）時，沿 <code>word</code> 所有字符往下遍歷。如果某一步子指標為 <code>nullptr</code>，直接返回 <code>false</code>；遍歷完成後，檢查當前節點的 <code>isEnd</code>。若為 <code>true</code>，代表整個 <code>word</code> 存在於 Trie 中，返回 <code>true</code>，否則返回 <code>false</code>。  </li>
+<li>搜尋前綴（<code>startsWith</code>）時，類似 <code>search</code>，但到遍歷結束即可返回 <code>true</code>，不需檢查 <code>isEnd</code>。</li>
+</ul>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;array&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Trie</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// 定義 Trie 節點</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">TrieNode</span> &#123;</span><br><span class="line">        <span class="type">bool</span> isEnd;                         <span class="comment">// 標記是否為字串結尾</span></span><br><span class="line">        array&lt;TrieNode*, 26&gt; children;      <span class="comment">// 26 個子指標對應 a–z</span></span><br><span class="line">        </span><br><span class="line">        <span class="built_in">TrieNode</span>() : <span class="built_in">isEnd</span>(<span class="literal">false</span>) &#123;</span><br><span class="line">            children.<span class="built_in">fill</span>(<span class="literal">nullptr</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    TrieNode* root;  <span class="comment">// 根節點</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/** 初始化 Trie 物件 */</span></span><br><span class="line">    <span class="built_in">Trie</span>() &#123;</span><br><span class="line">        root = <span class="keyword">new</span> <span class="built_in">TrieNode</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** 將字串 word 插入 Trie */</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">const</span> string&amp; word)</span> </span>&#123;</span><br><span class="line">        TrieNode* node = root;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> c : word) &#123;</span><br><span class="line">            <span class="type">int</span> idx = c - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;children[idx] == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">                node-&gt;children[idx] = <span class="keyword">new</span> <span class="built_in">TrieNode</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            node = node-&gt;children[idx];</span><br><span class="line">        &#125;</span><br><span class="line">        node-&gt;isEnd = <span class="literal">true</span>;  <span class="comment">// 標記字串結尾</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** 搜尋完整字串 word 是否存在於 Trie */</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">search</span><span class="params">(<span class="type">const</span> string&amp; word)</span> </span>&#123;</span><br><span class="line">        TrieNode* node = root;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> c : word) &#123;</span><br><span class="line">            <span class="type">int</span> idx = c - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;children[idx] == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;   <span class="comment">// 過程中若無對應節點，代表字串不存在</span></span><br><span class="line">            &#125;</span><br><span class="line">            node = node-&gt;children[idx];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node-&gt;isEnd;     <span class="comment">// 需確保該節點是完整單詞的結尾</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** 判斷是否存在以 prefix 為開頭的任何字串 */</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">startsWith</span><span class="params">(<span class="type">const</span> string&amp; prefix)</span> </span>&#123;</span><br><span class="line">        TrieNode* node = root;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> c : prefix) &#123;</span><br><span class="line">            <span class="type">int</span> idx = c - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;children[idx] == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;   <span class="comment">// 若某步驟找不到節點，代表無此前綴</span></span><br><span class="line">            &#125;</span><br><span class="line">            node = node-&gt;children[idx];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;            <span class="comment">// 遍歷完前綴就代表存在</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ~<span class="built_in">Trie</span>() &#123;</span><br><span class="line">        <span class="comment">// 清除所分配的記憶體</span></span><br><span class="line">        <span class="built_in">clearTrie</span>(root);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">/** 遞迴釋放節點 */</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">clearTrie</span><span class="params">(TrieNode* node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!node) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;children[i]) &#123;</span><br><span class="line">                <span class="built_in">clearTrie</span>(node-&gt;children[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">delete</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度</p>
+<ul>
+<li>insert(word): O(m)，其中 m 為要插入字串的長度。</li>
+<li>search(word): O(m)，其中 m 為要搜尋字串的長度。</li>
+<li>startsWith(prefix): O(m)，其中 m 為前綴字串的長度。</li>
+</ul>
+</li>
+<li><p>空間複雜度</p>
+<ul>
+<li>最壞情況下，Trie 中節點數量等於所有插入字串長度的總和。若插入 k 個字串，總長度為 S，則空間複雜度為 O(S)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Coin-Change"><a href="#Coin-Change" class="headerlink" title="Coin Change"></a>Coin Change</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvY29pbi1jaGFuZ2Uv">題目連結</span><br><strong>標籤</strong>: Dynamic Programming, BFS（也可用 BFS 解法）<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一組不同面額的硬幣 <code>coins</code> 與一個總金額 <code>amount</code>，請找出可以湊出該金額的最少硬幣數量。<br>如果無法湊出該金額，則返回 <code>-1</code>。<br>你可以假設每種面額的硬幣數量無限多個。</p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:<br>Input: <code>coins = [1, 2, 5], amount = 11</code><br>Output: <code>3</code><br>Explanation: 11 &#x3D; 5 + 5 + 1  </p>
+</blockquote>
+<blockquote>
+<p>Example 2:<br>Input: <code>coins = [2], amount = 3</code><br>Output: <code>-1</code><br>Explanation: 無法湊出 3  </p>
+</blockquote>
+<blockquote>
+<p>Example 3:<br>Input: <code>coins = [1], amount = 0</code><br>Output: <code>0</code><br>Explanation: 不需要任何硬幣即可湊出 0  </p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>1 &lt;= coins.length &lt;= 12</code>  </li>
+<li><code>1 &lt;= coins[i] &lt;= 2^31 - 1</code>  </li>
+<li><code>0 &lt;= amount &lt;= 10^4</code>  </li>
+<li>面額資料均為正整數，且最多只有 12 種硬幣</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>本題關鍵在於動態規劃（DP）。我們想求出「湊出金額 <code>j</code> 所需的最少硬幣數量」，設 <code>dp[j]</code> 為湊出金額 <code>j</code> 所需最少硬幣數。  </p>
+<ul>
+<li><p>初始條件：  </p>
+<ul>
+<li><code>dp[0] = 0</code> （湊出 0，需要 0 個硬幣）。  </li>
+<li>對於 <code>j &gt; 0</code>，先將 <code>dp[j]</code> 初始化為一個很大的數（例如 <code>amount + 1</code>，代表無法湊出）。</li>
+</ul>
+</li>
+<li><p>狀態轉移：  </p>
+<ul>
+<li>對於每個面額 <code>coin</code>，如果當前目標金額為 <code>j</code>，且 <code>j - coin &gt;= 0</code>，則可以由 <code>dp[j - coin]</code> 轉移得到：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">    dp[j] = min(dp[j], dp[j - coin] + 1)</span><br><span class="line">    ```  </span><br><span class="line">  - 以上含義為：若我們已知湊出 `j - coin` 需要的最少硬幣數為 `dp[j - coin]`，那麼再加上一個面額為 `coin` 的硬幣，總共就能湊出 `j`，所需硬幣數為 `dp[j - coin] + 1`。對於所有面額都嘗試一次，就能得到最少硬幣數。  </span><br><span class="line"> </span><br><span class="line">- 最終答案：如果 `dp[amount]` 還保持初始的「無窮」值（大於 `amount`），說明無法湊出，回傳 `-1`；否則回傳 `dp[amount]`。  </span><br><span class="line"> </span><br><span class="line">由於 `amount` 最大為 10^4，`coins.length` 最多 12，雙重迴圈 O(amount × coins.length) 約為 10^5，到底可以接受。  </span><br><span class="line"></span><br><span class="line">**程式碼**</span><br><span class="line"></span><br><span class="line">```cpp</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">   int coinChange(const vector&lt;int&gt;&amp; coins, int amount) &#123;</span><br><span class="line">       // 如果金額為 0，直接返回 0</span><br><span class="line">       if (amount == 0) return 0;</span><br><span class="line">       </span><br><span class="line">       // 初始化 dp 陣列，大小為 amount + 1，初始都設為 amount+1（代表無法湊出）</span><br><span class="line">       vector&lt;int&gt; dp(amount + 1, amount + 1);</span><br><span class="line">       dp[0] = 0;  // 湊出 0 元需要 0 枚硬幣</span><br><span class="line">       </span><br><span class="line">       // 對於每個金額 j，嘗試所有硬幣面額做轉移</span><br><span class="line">       for (int j = 1; j &lt;= amount; j++) &#123;</span><br><span class="line">           for (int coin : coins) &#123;</span><br><span class="line">               if (j - coin &gt;= 0) &#123;</span><br><span class="line">                   dp[j] = min(dp[j], dp[j - coin] + 1);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       </span><br><span class="line">       // 若最終 dp[amount] 還是初始的「amount+1」，表示無法湊出</span><br><span class="line">       return dp[amount] &gt; amount ? -1 : dp[amount];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(amount × n)，其中 amount 為目標金額大小，n &#x3D; coins.length 為硬幣種類數。</p>
+<ul>
+<li>外層迴圈從 1 到 amount，內層迴圈遍歷每種硬幣，總共約 amount × n 次操作。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(amount)，需要額外一個大小為 amount + 1 的 dp 陣列。</p>
+</li>
+</ul>
+<h3 id="Product-of-Array-Except-Self"><a href="#Product-of-Array-Except-Self" class="headerlink" title="Product of Array Except Self"></a>Product of Array Except Self</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvcHJvZHVjdC1vZi1hcnJheS1leGNlcHQtc2VsZi8=">題目連結</span><br><strong>標籤</strong>: Array, Prefix Sum (或 前綴&#x2F;後綴乘積)<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個整數陣列 <code>nums</code>，長度為 <code>n</code>，請返回一個陣列 <code>answer</code>，其中 <code>answer[i]</code> 等於 <code>nums</code> 中除了自身 <code>nums[i]</code> 之外所有元素的乘積。  </p>
+<p>請注意，要求在不使用除法且在 O(n) 時間內完成此操作。保證運算結果符合 32 位有號整數範圍。  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:<br>Input: <code>nums = [1,2,3,4]</code><br>Output: <code>[24,12,8,6]</code><br>Explanation：  </p>
+<ul>
+<li>對於 i &#x3D; 0，answer[0] &#x3D; 2 * 3 * 4 &#x3D; 24  </li>
+<li>對於 i &#x3D; 1，answer[1] &#x3D; 1 * 3 * 4 &#x3D; 12  </li>
+<li>對於 i &#x3D; 2，answer[2] &#x3D; 1 * 2 * 4 &#x3D; 8  </li>
+<li>對於 i &#x3D; 3，answer[3] &#x3D; 1 * 2 * 3 &#x3D; 6</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Example 2:<br>Input: <code>nums = [-1,1,0,-3,3]</code><br>Output: <code>[0,0,9,0,0]</code><br>Explanation：  </p>
+<ul>
+<li>有一個元素為 0，因此只要計算除該 0 之外其他數字的乘積：(-1)<em>1</em>(-3)*3 &#x3D; 9  </li>
+<li>其他位置因為包含自身為 0 或者遇到陣列中有 0，也會使對應位置結果為 0。</li>
+</ul>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>n == nums.length</code>  </li>
+<li><code>2 &lt;= n &lt;= 10^5</code>  </li>
+<li><code>-30 &lt;= nums[i] &lt;= 30</code>  </li>
+<li>保證任意前綴與後綴的乘積結果均符合 32 位有號整數範圍（即 <code>-2^31</code> 到 <code>2^31 - 1</code>）。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>本題要求在 O(n) 時間內計算每個位置 i 的「除自身之外所有元素乘積」，且不能使用除法。常見技巧是利用「前綴乘積」與「後綴乘積」。  </p>
+<p>步驟如下：  </p>
+<ol>
+<li>建立長度為 n 的結果陣列 <code>answer</code>，用來暫存最終答案。  </li>
+<li>首先從左到右計算「前綴乘積」（Prefix Product）：  <ul>
+<li>定義 <code>left_prod[i]</code> 為陣列 <code>nums</code> 中索引小於 i 的所有元素乘積。例如 <code>left_prod[0] = 1</code>（因為左側沒有元素），<code>left_prod[1] = nums[0]</code>，<code>left_prod[2] = nums[0]*nums[1]</code>，以此類推。  </li>
+<li>可以直接把 <code>left_prod</code> 存到 <code>answer</code> 中，令 <code>answer[i] = left_prod[i]</code>。</li>
+</ul>
+</li>
+<li>接著從右到左計算「後綴乘積」（Right Product），並且同時把它乘到 <code>answer[i]</code>：  <ul>
+<li>定義 <code>right_prod</code> 初始為 1（右邊沒有元素）。  </li>
+<li>從 i &#x3D; n-1 開始往左：先把 <code>answer[i]</code> 與當前 <code>right_prod</code> 相乘，得到「左側乘積 × 右側乘積」，即為忽略 <code>nums[i]</code> 的所有元素乘積。  </li>
+<li>然後更新 <code>right_prod *= nums[i]</code>，準備處理下一個 i-1。</li>
+</ul>
+</li>
+<li>最後 <code>answer</code> 陣列即為答案。這樣只需要兩次線性遍歷，均為 O(n)，且額外空間只用到 <code>answer</code> 及一個 <code>right_prod</code> 變數（如果把前綴乘積直接累到 <code>answer</code>，就不需要額外 <code>left_prod</code> 陣列）。</li>
+</ol>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">productExceptSelf</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">answer</span><span class="params">(n, <span class="number">1</span>)</span></span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 1. 計算前綴乘積，暫存到 answer</span></span><br><span class="line">        <span class="comment">//    answer[i] = nums[0] * nums[1] * ... * nums[i-1]</span></span><br><span class="line">        <span class="type">int</span> prefix = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            answer[i] = prefix;</span><br><span class="line">            prefix *= nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 2. 計算後綴乘積，並與 answer[i] 相乘</span></span><br><span class="line">        <span class="comment">//    right_prod 初始為 1，代表 i = n 時，右側沒有元素</span></span><br><span class="line">        <span class="type">int</span> right_prod = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            answer[i] *= right_prod;</span><br><span class="line">            right_prod *= nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(n)</p>
+<ul>
+<li>只需要兩次長度為 n 的線性掃描：一次從左往右累計前綴乘積，一次從右往左累計後綴乘積並乘到結果陣列。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(1)（不含輸出陣列）</p>
+<ul>
+<li>除了輸出陣列 answer 之外，只使用常數個額外變數 prefix、right_prod，不需要額外的長度為 n 的輔助陣列。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Min-Stack"><a href="#Min-Stack" class="headerlink" title="Min Stack"></a>Min Stack</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbWluLXN0YWNrLw==">題目連結</span><br><strong>標籤</strong>: Stack, Design<br><strong>語言</strong>: C++<br><strong>難度</strong>: Easy<br><strong>解題時間</strong>: 15 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>設計一個支援以下操作的堆疊 (stack) 結構：  </p>
+<ol>
+<li><code>push(x)</code> — 將元素 <code>x</code> 推入堆疊。  </li>
+<li><code>pop()</code>  — 删除堆疊頂端的元素。  </li>
+<li><code>top()</code>  — 獲取堆疊頂端的元素。  </li>
+<li><code>getMin()</code> — 獲取堆疊中的最小元素。</li>
+</ol>
+<p>所有操作的時間複雜度都必須為 O(1)。  </p>
+</blockquote>
+<p><strong>輸入／輸出 範例</strong></p>
+<blockquote>
+<p>注意：題目不需要你從標準輸入讀取資料，也不需要你將結果輸出到標準輸出，只需實作下面四個接口。   </p>
+<p>input：<br>[“MinStack”,”push”,”push”,”push”,”getMin”,”pop”,”top”,”getMin”]<br>[[],[-2],[0],[-3],[],[],[],[]]</p>
+<p>output：<br>[null,null,null,null,-3,null,0,-2] </p>
+</blockquote>
+<p><strong>說明</strong>：  </p>
+<blockquote>
+<ol>
+<li><code>MinStack minStack = new MinStack();</code> → 回傳 <code>null</code> （建構函式不回傳值）  </li>
+<li><code>minStack.push(-2);</code>         → 回傳 <code>null</code>  </li>
+<li><code>minStack.push(0);</code>          → 回傳 <code>null</code>  </li>
+<li><code>minStack.push(-3);</code>         → 回傳 <code>null</code>  </li>
+<li><code>minStack.getMin();</code>         → 回傳 <code>-3</code> （堆疊中的最小值）  </li>
+<li><code>minStack.pop();</code>            → 回傳 <code>null</code> （刪除頂端元素 <code>-3</code>）  </li>
+<li><code>minStack.top();</code>            → 回傳 <code>0</code>  （頂端元素為 <code>0</code>）  </li>
+<li><code>minStack.getMin();</code>         → 回傳 <code>-2</code> （剩下元素中最小值為 <code>-2</code>）</li>
+</ol>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>push</code>, <code>pop</code>, <code>top</code>, <code>getMin</code> 總共會被調用不超過 <code>3 × 10^4</code> 次。  </li>
+<li>在調用 <code>pop</code>, <code>top</code>, <code>getMin</code> 之前，保證堆疊中至少有一個元素。  </li>
+<li>元素值範圍在 <code>[-2^31, 2^31 - 1]</code> 之間。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>要在 O(1) 時間內同時維護堆疊和查詢最小值，我們可以採用「雙堆疊」的技巧：  </p>
+<ol>
+<li><code>dataStack</code>：正常存放所有推入的數值，用於 <code>push</code>、<code>pop</code>、<code>top</code> 操作。  </li>
+<li><code>minStack</code>：只存放當前堆疊對應位置的「最小值」。對於每一次 <code>push(x)</code>，我們先比較 <code>x</code> 與 <code>minStack.top()</code>，若 <code>minStack</code> 為空則直接把 <code>x</code> 推入；若不空，則推入 <code>min(x, minStack.top())</code>。這樣 <code>minStack.top()</code> 始終代表當前堆疊裏所有元素的最小值。</li>
+</ol>
+<ul>
+<li><code>push(x)</code>  <ol>
+<li>在 <code>dataStack</code> 推入 <code>x</code>。  </li>
+<li>若 <code>minStack</code> 為空，則 <code>minStack.push(x)</code>；否則 <code>minStack.push(min(x, minStack.top()))</code>。</li>
+</ol>
+</li>
+<li><code>pop()</code>  <ol>
+<li>在 <code>dataStack</code> 執行 <code>pop()</code>。  </li>
+<li>同時在 <code>minStack</code> 執行 <code>pop()</code>。</li>
+</ol>
+</li>
+<li><code>top()</code>  <ul>
+<li>直接返回 <code>dataStack.top()</code>。</li>
+</ul>
+</li>
+<li><code>getMin()</code>  <ul>
+<li>直接返回 <code>minStack.top()</code>。</li>
+</ul>
+</li>
+</ul>
+<p>由於每個操作只涉及常數次堆疊操作，時間複雜度均為 O(1)。空間上比單純的堆疊多了一個同大小的 <code>minStack</code>，因此是 O(n)。  </p>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MinStack</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; dataStack;  <span class="comment">// 存放所有數值</span></span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; minStack;   <span class="comment">// 存放對應位置的最小值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/** 初始化堆疊 */</span></span><br><span class="line">    <span class="built_in">MinStack</span>() &#123;</span><br><span class="line">        <span class="comment">// 建構時不需要額外處理</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** 將元素 x 推入堆疊 */</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        dataStack.<span class="built_in">push</span>(x);</span><br><span class="line">        <span class="keyword">if</span> (minStack.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            minStack.<span class="built_in">push</span>(x);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 保留當前堆疊中的最小值</span></span><br><span class="line">            <span class="type">int</span> currentMin = minStack.<span class="built_in">top</span>();</span><br><span class="line">            minStack.<span class="built_in">push</span>(<span class="built_in">min</span>(x, currentMin));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** 删除堆疊頂端的元素 */</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        dataStack.<span class="built_in">pop</span>();</span><br><span class="line">        minStack.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** 獲取堆疊頂端的元素 */</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> dataStack.<span class="built_in">top</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** 獲取堆疊中的最小元素 */</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getMin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> minStack.<span class="built_in">top</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(1)</p>
+<ul>
+<li>push, pop, top, getMin 均只做常數次堆疊操作。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(n)</p>
+<ul>
+<li>需要兩個大小為 n 的堆疊：一個 dataStack 存放原始數值，另一個 minStack 存放對應位置的最小值。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Validate-Binary-Search-Tree"><a href="#Validate-Binary-Search-Tree" class="headerlink" title="Validate Binary Search Tree"></a>Validate Binary Search Tree</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvdmFsaWRhdGUtYmluYXJ5LXNlYXJjaC10cmVlLw==">題目連結</span><br><strong>標籤</strong>: Tree, Depth-First Search (DFS), Recursion<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 15 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個二元樹的根節點 <code>root</code>，判斷其是否為一棵有效的二元搜尋樹（BST）。  </p>
+<p>有效的 BST 定義如下：  </p>
+<ol>
+<li>節點的左子樹所有節點的值都必須 <strong>小於</strong> 該節點的值。  </li>
+<li>節點的右子樹所有節點的值都必須 <strong>大於</strong> 該節點的值。  </li>
+<li>左右子樹自身也都必須是有效的 BST。</li>
+</ol>
+</blockquote>
+<p><strong>輸入／輸出 範例</strong></p>
+<blockquote>
+<p>注意：題目不需要你從標準輸入讀取資料，也不需要你將結果輸出到標準輸出，只需實作 <code>isValidBST</code> 介面。  </p>
+<p>Example 1:<br>input：root &#x3D; [2,1,3]<br>output：true </p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 2</span><br><span class="line"> / \</span><br><span class="line">1   3</span><br></pre></td></tr></table></figure>
+<p>Example 2:<br>input：root &#x3D; [5,1,4,null,null,3,6]<br>output：false<br>Explanation：<br>節點 4 的左子節點 3 小於 5 但該位置應該 &gt; 5，違反 BST 定義，所以返回 false。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  5</span><br><span class="line"> / \</span><br><span class="line">1   4</span><br><span class="line">   / \</span><br><span class="line">  3   6</span><br></pre></td></tr></table></figure></blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li>樹中節點數量 <code>n</code> 的範圍為 <code>[1, 10^4]</code>。  </li>
+<li>每個節點的值屬於 64 位整數範圍，但為方便轉換，可假設節點值在 32 位有號整數範圍內。  </li>
+<li>節點值可能有重複。若有重複值則不視為有效 BST （必須嚴格小於或大於）。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>要判斷一棵二元樹是否是有效的 BST，關鍵在於 <strong>每個節點的值都要在一個合法的上下界範圍內</strong>，而這個上下界會隨著遞歸往下修改：  </p>
+<ol>
+<li>從根節點開始，根節點的合法值範圍是 <code>(-∞, +∞)</code>。  </li>
+<li>當遞歸進入某個節點 <code>node</code>，我們知道它的值必須在 <code>(lower, upper)</code> 範圍內。如果 <code>node-&gt;val</code> 不在此區間就可以直接返回 <code>false</code>。  </li>
+<li>對於 <code>node-&gt;left</code>，它的合法範圍變成 <code>(lower, node-&gt;val)</code>。  </li>
+<li>對於 <code>node-&gt;right</code>，它的合法範圍變成 <code>(node-&gt;val, upper)</code>。  </li>
+<li>以此方式對整棵樹做 DFS，若所有節點都符合對應的上下界，即可返回 <code>true</code>，否則一旦發現不合法，就立刻返回 <code>false</code>。</li>
+</ol>
+<p>這種方法只需一次深度優先遍歷，時間複雜度為 O(n)。空間方面，遞歸棧高度最壞為樹高 O(n)，若是平衡樹則為 O(log n)。  </p>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;limits&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Definition for a binary tree node.</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">TreeNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode *left;</span><br><span class="line">    TreeNode *right;</span><br><span class="line">    <span class="built_in">TreeNode</span>(<span class="type">int</span> x) : <span class="built_in">val</span>(x), <span class="built_in">left</span>(<span class="literal">nullptr</span>), <span class="built_in">right</span>(<span class="literal">nullptr</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(root, std::numeric_limits&lt;<span class="type">long</span> <span class="type">long</span>&gt;::<span class="built_in">min</span>(), std::numeric_limits&lt;<span class="type">long</span> <span class="type">long</span>&gt;::<span class="built_in">max</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 檢查以 node 為根的子樹，所有節點值是否都在 (lower, upper) 範圍內</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">dfs</span><span class="params">(TreeNode* node, <span class="type">long</span> <span class="type">long</span> lower, <span class="type">long</span> <span class="type">long</span> upper)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!node) <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">// 空樹是有效 BST</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 當前節點值必須嚴格在 (lower, upper) 之間</span></span><br><span class="line">        <span class="keyword">if</span> (node-&gt;val &lt;= lower || node-&gt;val &gt;= upper) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左子樹所有節點必須小於 node-&gt;val</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">dfs</span>(node-&gt;left, lower, node-&gt;val)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 右子樹所有節點必須大於 node-&gt;val</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">dfs</span>(node-&gt;right, node-&gt;val, upper)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(n)</p>
+<ul>
+<li>對每個節點僅訪問一次，並做常數時間的上下界比較與遞歸呼叫。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(n)（最壞情況）</p>
+<ul>
+<li>遞歸棧深度最壞會到達樹的節點總數 n；若二元樹高度較平衡則約為 O(log n)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Number-of-Islands"><a href="#Number-of-Islands" class="headerlink" title="Number of Islands"></a>Number of Islands</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbnVtYmVyLW9mLWlzbGFuZHMv">題目連結</span><br><strong>標籤</strong>: DFS, BFS, Union Find（此處以 DFS 為主）<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個由 <code>&#39;1&#39;</code>（陸地）和 <code>&#39;0&#39;</code>（水域）組成的二維網格 <code>grid</code>，請計算網格中「島嶼」的數量。  </p>
+<p>一座「島嶼」被定義為連續相鄰的陸地塊集合，其中相鄰只考慮上下左右四個方向（水平方向或垂直方向）。你可以假設網格的四邊都被水域包圍。  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:<br>input：<br>grid &#x3D; [<br>  [‘1’,’1’,’0’,’0’,’0’],<br>  [‘1’,’1’,’0’,’0’,’0’],<br>  [‘0’,’0’,’1’,’0’,’0’],<br>  [‘0’,’0’,’0’,’1’,’1’]<br>]<br>output：3<br>Explanation：<br>第一個島嶼由左上角的 4 個 ‘1’ 組成；第二個島嶼由中間的單個 ‘1’ 組成；第三個島嶼由右下角的 2 個 ‘1’ 組成。  </p>
+</blockquote>
+<blockquote>
+<p>Example 2:<br>input：<br>grid &#x3D; [<br>  [‘1’,’1’,’1’,’1’,’0’],<br>  [‘1’,’1’,’0’,’1’,’0’],<br>  [‘1’,’1’,’0’,’0’,’0’],<br>  [‘0’,’0’,’0’,’0’,’0’]<br>]<br>output：1<br>Explanation：<br>整個左上區域連成一片，僅有一座島嶼。  </p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>m == grid.size()</code>，<code>n == grid[i].size()</code>。  </li>
+<li><code>1 &lt;= m, n &lt;= 300</code>。  </li>
+<li><code>grid[i][j]</code> 的值僅為 <code>&#39;0&#39;</code> 或 <code>&#39;1&#39;</code>。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>本題要計算連續相鄰的 <code>&#39;1&#39;</code> 群組個數，可以把每一個 <code>&#39;1&#39;</code> 視為尚未探索的陸地，遇到就啟動一次深度優先搜尋（DFS）或廣度優先搜尋（BFS），把整座島嶼上的所有相鄰 <code>&#39;1&#39;</code> 都標記為已訪問（或改成 <code>&#39;0&#39;</code>）。如此每次 DFS&#x2F;BFS 完成後，就代表找到了一座完整的島嶼，累計計數加一。  </p>
+<p>具體步驟：  </p>
+<ol>
+<li>遍歷二維網格的每個格子 <code>(i, j)</code>，若 <code>grid[i][j] == &#39;1&#39;</code>，表示發現一座新的島嶼。  </li>
+<li>計數器 <code>count++</code>，接著呼叫 <code>dfs(i, j)</code>（或 <code>bfs(i, j)</code>），將與 <code>(i,j)</code> 相連的所有 <code>&#39;1&#39;</code> 全部「淹沒」（例如把它們設為 <code>&#39;0&#39;</code>），避免重複計算。  </li>
+<li><code>dfs(i, j)</code> 函式內部：  <ul>
+<li>若 <code>i, j</code> 越界或 <code>grid[i][j] != &#39;1&#39;</code>，直接返回。  </li>
+<li>將 <code>grid[i][j]</code> 設為 <code>&#39;0&#39;</code>，然後對上下左右四個方向遞迴呼叫 <code>dfs</code>。</li>
+</ul>
+</li>
+<li>遍歷完整個網格後，<code>count</code> 即為島嶼的數量，回傳該值。</li>
+</ol>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numIslands</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = grid.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (m == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> n = grid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">                    <span class="comment">// 發現一座新的島嶼</span></span><br><span class="line">                    count++;</span><br><span class="line">                    <span class="built_in">dfs</span>(grid, i, j, m, n);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// 深度優先搜尋，將與 (i, j) 相連的所有 &#x27;1&#x27; 全部改成 &#x27;0&#x27;</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt;&amp; grid, <span class="type">int</span> i, <span class="type">int</span> j, <span class="type">int</span> m, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 邊界檢查 或 已經不是陸地，則返回</span></span><br><span class="line">        <span class="keyword">if</span> (i &lt; <span class="number">0</span> || i &gt;= m || j &lt; <span class="number">0</span> || j &gt;= n || grid[i][j] != <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 將當前格子「淹沒」為 &#x27;0&#x27;</span></span><br><span class="line">        grid[i][j] = <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 向四個方向遞迴</span></span><br><span class="line">        <span class="built_in">dfs</span>(grid, i - <span class="number">1</span>, j, m, n); <span class="comment">// 上</span></span><br><span class="line">        <span class="built_in">dfs</span>(grid, i + <span class="number">1</span>, j, m, n); <span class="comment">// 下</span></span><br><span class="line">        <span class="built_in">dfs</span>(grid, i, j - <span class="number">1</span>, m, n); <span class="comment">// 左</span></span><br><span class="line">        <span class="built_in">dfs</span>(grid, i, j + <span class="number">1</span>, m, n); <span class="comment">// 右</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(m × n)</p>
+<ul>
+<li>每個格子至多會被 dfs 訪問一次（變成 ‘0’ 之後就不再重複進入），並且每次訪問會檢查最多四個鄰居。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(m × n)（最壞情況遞迴棧空間）</p>
+<ul>
+<li>若整個網格幾乎全是 ‘1’，則第一座島嶼的遞迴深度可能達到 m×n；若島嶼分散則深度較淺，但最壞依然是 O(m × n)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Rotting-Oranges"><a href="#Rotting-Oranges" class="headerlink" title="Rotting Oranges"></a>Rotting Oranges</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvcm90dGluZy1vcmFuZ2VzLw==">題目連結</span><br><strong>標籤</strong>: BFS, Matrix<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個由三種值組成的二維網格 <code>grid</code>：  </p>
+<ul>
+<li><code>0</code> 代表空格子；  </li>
+<li><code>1</code> 代表新鮮橘子；  </li>
+<li><code>2</code> 代表腐爛橘子；</li>
+</ul>
+<p>每分鐘，任何與腐爛橘子相鄰（上下左右四個方向）的新鮮橘子都會立即被腐爛。返回將所有新鮮橘子腐爛所需的最少分鐘數。如果無法讓所有橘子都腐爛，則返回 <code>-1</code>。  </p>
+</blockquote>
+<p><strong>輸入／輸出 範例</strong></p>
+<blockquote>
+<p>注意：題目不需要從標準輸入讀取，也不需要輸出格式化結果，只需實作 <code>orangesRotting</code> 函式。  </p>
+<p>以下是常見的呼叫示範：  </p>
+<p>Example 1: </p>
+<p>input：<br>grid &#x3D; [<br>[2,1,1],<br>[1,1,0],<br>[0,1,1]<br>]<br>output：4<br>Explanation：  </p>
+<ul>
+<li>初始時只有 <code>(0,0)</code> 是腐爛：<br>[2,1,1]<br>[1,1,0]<br>[0,1,1]</li>
+<li>第 1 分鐘後，(0,1) 與 (1,0) 變腐爛：<br>[2,2,1]<br>[2,1,0]<br>[0,1,1]  </li>
+<li>第 2 分鐘後，(0,2)、(1,1)、(2,1) 變腐爛：<br>[2,2,2]<br>[2,2,0]<br>[0,2,1]  </li>
+<li>第 3 分鐘後，(2,2) 變腐爛：<br>[2,2,2]<br>[2,2,0]<br>[0,2,2]  </li>
+<li>第 4 分鐘後，所有新鮮橘子都已腐爛。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Example 2:<br>input：<br>grid &#x3D; [<br>[2,1,1],<br>[0,1,1],<br>[1,0,1]<br>]<br>output：-1<br>Explanation：<br>最右下角的 <code>(2,2)</code> 位置新鮮橘子永遠無法被腐爛，因為它與其餘腐爛源不連通。  </p>
+</blockquote>
+<blockquote>
+<p>Example 3:<br>input：<br>grid &#x3D; [<br>[0,2]<br>]<br>output：0<br>Explanation：<br>沒有新鮮橘子，故不需要花費任何時間，結果為 <code>0</code>。  </p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>m == grid.size()</code>，<code>n == grid[i].size()</code>。  </li>
+<li><code>1 &lt;= m, n &lt;= 10^2</code>。  </li>
+<li><code>grid[i][j]</code> 的值僅為 <code>0</code>、<code>1</code> 或 <code>2</code>。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>使用 BFS（廣度優先搜尋）模擬腐爛過程：  </p>
+<ol>
+<li>首先遍歷整個 <code>grid</code>，將所有初始腐爛橘子（值為 <code>2</code>）的位置加入一個隊列 <code>queue&lt;pair&lt;int,int&gt;&gt;</code>，同時計算新鮮橘子的總數 <code>freshCount</code>。  </li>
+<li>如果初始時 <code>freshCount == 0</code>，代表沒有新鮮橘子，直接返回 <code>0</code>。  </li>
+<li>以多源 BFS 開始：每輪代表「過一分鐘」，先記錄當前隊列長度 <code>sz = queue.size()</code>，然後處理 <code>sz</code> 個腐爛橘子：  <ul>
+<li>對於每個腐爛的位置 <code>(r,c)</code>，檢查其上下左右四個方向相鄰的格子 <code>(nr,nc)</code>。  </li>
+<li>如果 <code>(nr,nc)</code> 在範圍內且 <code>grid[nr][nc] == 1</code>（新鮮橘子），則將其設為腐爛 <code>grid[nr][nc] = 2</code>，<code>freshCount--</code>，並把 <code>(nr,nc)</code> 推入隊列，以便下一分鐘繼續擴散。</li>
+</ul>
+</li>
+<li>當一輪 BFS 處理完畢後，如果隊列不為空，代表仍有新腐爛橘子可繼續傳染，時間 <code>minutes++</code>。  </li>
+<li>重複上述步驟直到隊列為空：  <ul>
+<li>如果此時 <code>freshCount == 0</code>，代表所有橘子都腐爛，返回 <code>minutes</code>；  </li>
+<li>否則仍有新鮮橘子無法被染到，返回 <code>-1</code>。</li>
+</ul>
+</li>
+</ol>
+<p>由於每個格子最多只會入隊一次，並檢查四個方向，因此時間複雜度為 O(m × n)。  </p>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">orangesRotting</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = grid.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (m == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="type">int</span> n = grid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        queue&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="type">int</span> freshCount = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 1. 將所有初始腐爛橘子加入隊列，並計算新鮮橘子數量</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">2</span>) &#123;</span><br><span class="line">                    q.<span class="built_in">emplace</span>(i, j);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (grid[i][j] == <span class="number">1</span>) &#123;</span><br><span class="line">                    freshCount++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 如果沒有新鮮橘子，直接返回 0</span></span><br><span class="line">        <span class="keyword">if</span> (freshCount == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> minutes = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 方向向量：上、下、左、右</span></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; dr = &#123;<span class="number">-1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; dc = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">1</span>&#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 2. 多源 BFS，每分鐘腐爛一次</span></span><br><span class="line">        <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="type">bool</span> anyRottenThisRound = <span class="literal">false</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">0</span>; k &lt; sz; k++) &#123;</span><br><span class="line">                <span class="keyword">auto</span> [r, c] = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 檢查四個方向</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> d = <span class="number">0</span>; d &lt; <span class="number">4</span>; d++) &#123;</span><br><span class="line">                    <span class="type">int</span> nr = r + dr[d];</span><br><span class="line">                    <span class="type">int</span> nc = c + dc[d];</span><br><span class="line">                    <span class="comment">// 若在範圍內且是新鮮橘子，則變為腐爛</span></span><br><span class="line">                    <span class="keyword">if</span> (nr &gt;= <span class="number">0</span> &amp;&amp; nr &lt; m &amp;&amp; nc &gt;= <span class="number">0</span> &amp;&amp; nc &lt; n &amp;&amp; grid[nr][nc] == <span class="number">1</span>) &#123;</span><br><span class="line">                        grid[nr][nc] = <span class="number">2</span>;</span><br><span class="line">                        freshCount--;</span><br><span class="line">                        q.<span class="built_in">emplace</span>(nr, nc);</span><br><span class="line">                        anyRottenThisRound = <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 如果這一輪有新橘子被腐爛，則分鐘數加一</span></span><br><span class="line">            <span class="keyword">if</span> (anyRottenThisRound) &#123;</span><br><span class="line">                minutes++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 判斷是否所有橘子都已腐爛</span></span><br><span class="line">        <span class="keyword">return</span> (freshCount == <span class="number">0</span>) ? minutes : <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(m × n)</p>
+<ul>
+<li>每個格子至多只會入隊一次，並且每次出隊會檢查四個方向，整體為 O(mn)。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(m × n)</p>
+<ul>
+<li>最壞情況下，所有格子都是腐爛橘子，同時入隊，隊列大小可達 m×n；另外原地修改 grid，不使用額外矩陣。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Week-5-8-8"><a href="#Week-5-8-8" class="headerlink" title="Week 5 (8&#x2F;8)"></a>Week 5 (8&#x2F;8)</h2><h3 id="Search-in-Rotated-Sorted-Array"><a href="#Search-in-Rotated-Sorted-Array" class="headerlink" title="Search in Rotated Sorted Array"></a>Search in Rotated Sorted Array</h3>
   </div>
 
    <footer>
@@ -2267,7 +2799,7 @@ Hi~~ = Joseph's Blog</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">Edited on</span>
-    <time title="Modified: 2025-06-06 01:15:33" itemprop="dateModified" datetime="2025-06-06T01:15:33+08:00">2025-06-06</time>
+    <time title="Modified: 2025-06-07 03:55:56" itemprop="dateModified" datetime="2025-06-07T03:55:56+08:00">2025-06-07</time>
   </span>
 </div>
 
@@ -2306,7 +2838,7 @@ Hi~~ = Joseph's Blog</title>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="Contents">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Grind-75"><span class="toc-number">1.</span> <span class="toc-text">Grind 75</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-1-13-13"><span class="toc-number">1.1.</span> <span class="toc-text">Week 1 (13&#x2F;13)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Two-Sum"><span class="toc-number">1.1.1.</span> <span class="toc-text">Two Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Parentheses"><span class="toc-number">1.1.2.</span> <span class="toc-text">Valid Parentheses</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Two-Sorted-Lists"><span class="toc-number">1.1.3.</span> <span class="toc-text">Merge Two Sorted Lists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Best-Time-to-Buy-and-Sell-Stock"><span class="toc-number">1.1.4.</span> <span class="toc-text">Best Time to Buy and Sell Stock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Palindrome"><span class="toc-number">1.1.5.</span> <span class="toc-text">Valid Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invert-Binary-Tree"><span class="toc-number">1.1.6.</span> <span class="toc-text">Invert Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Anagram"><span class="toc-number">1.1.7.</span> <span class="toc-text">Valid Anagram</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Search"><span class="toc-number">1.1.8.</span> <span class="toc-text">Binary Search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flood-Fill"><span class="toc-number">1.1.9.</span> <span class="toc-text">Flood Fill</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Search-Tree"><span class="toc-number">1.1.10.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Balanced-Binary-Tree"><span class="toc-number">1.1.11.</span> <span class="toc-text">Balanced Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linked-List-Cycle"><span class="toc-number">1.1.12.</span> <span class="toc-text">Linked List Cycle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Queue-using-Stacks"><span class="toc-number">1.1.13.</span> <span class="toc-text">Implement Queue using Stacks</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-2-12-12"><span class="toc-number">1.2.</span> <span class="toc-text">Week 2 (12&#x2F;12)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#First-Bad-Version"><span class="toc-number">1.2.1.</span> <span class="toc-text">First Bad Version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ransom-Note"><span class="toc-number">1.2.2.</span> <span class="toc-text">Ransom Note</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Climbing-Stairs"><span class="toc-number">1.2.3.</span> <span class="toc-text">Climbing Stairs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Palindrome"><span class="toc-number">1.2.4.</span> <span class="toc-text">Longest Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-Linked-List"><span class="toc-number">1.2.5.</span> <span class="toc-text">Reverse Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Majority-Element"><span class="toc-number">1.2.6.</span> <span class="toc-text">Majority Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-Binary"><span class="toc-number">1.2.7.</span> <span class="toc-text">Add Binary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Diameter-of-Binary-Tree"><span class="toc-number">1.2.8.</span> <span class="toc-text">Diameter of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Middle-of-the-Linked-List"><span class="toc-number">1.2.9.</span> <span class="toc-text">Middle of the Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Depth-of-Binary-Tree"><span class="toc-number">1.2.10.</span> <span class="toc-text">Maximum Depth of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Contains-Duplicate"><span class="toc-number">1.2.11.</span> <span class="toc-text">Contains Duplicate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Subarray"><span class="toc-number">1.2.12.</span> <span class="toc-text">Maximum Subarray</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-3-8-8"><span class="toc-number">1.3.</span> <span class="toc-text">Week 3 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Insert-Interval"><span class="toc-number">1.3.1.</span> <span class="toc-text">Insert Interval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#01-Matrix"><span class="toc-number">1.3.2.</span> <span class="toc-text">01 Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-Closest-Points-to-Origin"><span class="toc-number">1.3.3.</span> <span class="toc-text">K Closest Points to Origin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Substring-Without-Repeating-Characters"><span class="toc-number">1.3.4.</span> <span class="toc-text">Longest Substring Without Repeating Characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3Sum"><span class="toc-number">1.3.5.</span> <span class="toc-text">3Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Tree-Level-Order-Traversal"><span class="toc-number">1.3.6.</span> <span class="toc-text">Binary Tree Level Order Traversal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Clone-Graph"><span class="toc-number">1.3.7.</span> <span class="toc-text">Clone Graph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Evaluate-Reverse-Polish-Notation"><span class="toc-number">1.3.8.</span> <span class="toc-text">Evaluate Reverse Polish Notation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-4-8-8"><span class="toc-number">1.4.</span> <span class="toc-text">Week 4 (8&#x2F;8)</span></a></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Grind-75"><span class="toc-number">1.</span> <span class="toc-text">Grind 75</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-1-13-13"><span class="toc-number">1.1.</span> <span class="toc-text">Week 1 (13&#x2F;13)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Two-Sum"><span class="toc-number">1.1.1.</span> <span class="toc-text">Two Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Parentheses"><span class="toc-number">1.1.2.</span> <span class="toc-text">Valid Parentheses</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Two-Sorted-Lists"><span class="toc-number">1.1.3.</span> <span class="toc-text">Merge Two Sorted Lists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Best-Time-to-Buy-and-Sell-Stock"><span class="toc-number">1.1.4.</span> <span class="toc-text">Best Time to Buy and Sell Stock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Palindrome"><span class="toc-number">1.1.5.</span> <span class="toc-text">Valid Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invert-Binary-Tree"><span class="toc-number">1.1.6.</span> <span class="toc-text">Invert Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Anagram"><span class="toc-number">1.1.7.</span> <span class="toc-text">Valid Anagram</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Search"><span class="toc-number">1.1.8.</span> <span class="toc-text">Binary Search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flood-Fill"><span class="toc-number">1.1.9.</span> <span class="toc-text">Flood Fill</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Search-Tree"><span class="toc-number">1.1.10.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Balanced-Binary-Tree"><span class="toc-number">1.1.11.</span> <span class="toc-text">Balanced Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linked-List-Cycle"><span class="toc-number">1.1.12.</span> <span class="toc-text">Linked List Cycle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Queue-using-Stacks"><span class="toc-number">1.1.13.</span> <span class="toc-text">Implement Queue using Stacks</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-2-12-12"><span class="toc-number">1.2.</span> <span class="toc-text">Week 2 (12&#x2F;12)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#First-Bad-Version"><span class="toc-number">1.2.1.</span> <span class="toc-text">First Bad Version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ransom-Note"><span class="toc-number">1.2.2.</span> <span class="toc-text">Ransom Note</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Climbing-Stairs"><span class="toc-number">1.2.3.</span> <span class="toc-text">Climbing Stairs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Palindrome"><span class="toc-number">1.2.4.</span> <span class="toc-text">Longest Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-Linked-List"><span class="toc-number">1.2.5.</span> <span class="toc-text">Reverse Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Majority-Element"><span class="toc-number">1.2.6.</span> <span class="toc-text">Majority Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-Binary"><span class="toc-number">1.2.7.</span> <span class="toc-text">Add Binary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Diameter-of-Binary-Tree"><span class="toc-number">1.2.8.</span> <span class="toc-text">Diameter of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Middle-of-the-Linked-List"><span class="toc-number">1.2.9.</span> <span class="toc-text">Middle of the Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Depth-of-Binary-Tree"><span class="toc-number">1.2.10.</span> <span class="toc-text">Maximum Depth of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Contains-Duplicate"><span class="toc-number">1.2.11.</span> <span class="toc-text">Contains Duplicate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Subarray"><span class="toc-number">1.2.12.</span> <span class="toc-text">Maximum Subarray</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-3-8-8"><span class="toc-number">1.3.</span> <span class="toc-text">Week 3 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Insert-Interval"><span class="toc-number">1.3.1.</span> <span class="toc-text">Insert Interval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#01-Matrix"><span class="toc-number">1.3.2.</span> <span class="toc-text">01 Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-Closest-Points-to-Origin"><span class="toc-number">1.3.3.</span> <span class="toc-text">K Closest Points to Origin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Substring-Without-Repeating-Characters"><span class="toc-number">1.3.4.</span> <span class="toc-text">Longest Substring Without Repeating Characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3Sum"><span class="toc-number">1.3.5.</span> <span class="toc-text">3Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Tree-Level-Order-Traversal"><span class="toc-number">1.3.6.</span> <span class="toc-text">Binary Tree Level Order Traversal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Clone-Graph"><span class="toc-number">1.3.7.</span> <span class="toc-text">Clone Graph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Evaluate-Reverse-Polish-Notation"><span class="toc-number">1.3.8.</span> <span class="toc-text">Evaluate Reverse Polish Notation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-4-8-8"><span class="toc-number">1.4.</span> <span class="toc-text">Week 4 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Course-Schedule"><span class="toc-number">1.4.1.</span> <span class="toc-text">Course Schedule</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Trie-Prefix-Tree"><span class="toc-number">1.4.2.</span> <span class="toc-text">Implement Trie (Prefix Tree)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Coin-Change"><span class="toc-number">1.4.3.</span> <span class="toc-text">Coin Change</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Product-of-Array-Except-Self"><span class="toc-number">1.4.4.</span> <span class="toc-text">Product of Array Except Self</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Min-Stack"><span class="toc-number">1.4.5.</span> <span class="toc-text">Min Stack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Validate-Binary-Search-Tree"><span class="toc-number">1.4.6.</span> <span class="toc-text">Validate Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-of-Islands"><span class="toc-number">1.4.7.</span> <span class="toc-text">Number of Islands</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rotting-Oranges"><span class="toc-number">1.4.8.</span> <span class="toc-text">Rotting Oranges</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-5-8-8"><span class="toc-number">1.5.</span> <span class="toc-text">Week 5 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Search-in-Rotated-Sorted-Array"><span class="toc-number">1.5.1.</span> <span class="toc-text">Search in Rotated Sorted Array</span></a></li></ol></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="Related">
       </div>
