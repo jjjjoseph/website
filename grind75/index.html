@@ -89,12 +89,12 @@ Hi~~ = Joseph's Blog</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciszlczyj20zk0m816d.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhtuo6nj20zk0m8ttm.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
         </ul>
       </div>
     </header>
@@ -2788,7 +2788,533 @@ Hi~~ = Joseph's Blog</title>
 </ul>
 </li>
 </ul>
-<h2 id="Week-5-8-8"><a href="#Week-5-8-8" class="headerlink" title="Week 5 (8&#x2F;8)"></a>Week 5 (8&#x2F;8)</h2><h3 id="Search-in-Rotated-Sorted-Array"><a href="#Search-in-Rotated-Sorted-Array" class="headerlink" title="Search in Rotated Sorted Array"></a>Search in Rotated Sorted Array</h3>
+<h2 id="Week-5-8-8"><a href="#Week-5-8-8" class="headerlink" title="Week 5 (8&#x2F;8)"></a>Week 5 (8&#x2F;8)</h2><h3 id="Search-in-Rotated-Sorted-Array"><a href="#Search-in-Rotated-Sorted-Array" class="headerlink" title="Search in Rotated Sorted Array"></a>Search in Rotated Sorted Array</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvc2VhcmNoLWluLXJvdGF0ZWQtc29ydGVkLWFycmF5Lw==">題目連結</span><br><strong>標籤</strong>: Array, Binary Search<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個已經 <strong>按升序排序</strong> 且 <strong>旋轉</strong> 過的整數陣列 <code>nums</code>（旋轉前陣列中所有元素互不相同），以及一個目標值 <code>target</code>，請在陣列中搜尋目標值，若存在則返回其索引，否則返回 <code>-1</code>。  </p>
+<p>旋轉的方式是將陣列中某個位置前後的元素交換到兩端，例如原陣列 <code>[0,1,2,4,5,6,7]</code> 經過旋轉後可能變為 <code>[4,5,6,7,0,1,2]</code>。  </p>
+</blockquote>
+<blockquote>
+<p>需要寫一個時間複雜度在 O log(n) 的解法。</p>
+</blockquote>
+<p><strong>輸入／輸出 範例</strong></p>
+<blockquote>
+<p>注意：題目不需要從標準輸入讀取資料，也不需要輸出格式化結果，只需實作 <code>search</code> 函式。  </p>
+<p>Example 1:</p>
+<p>   input：nums &#x3D; [4,5,6,7,0,1,2], target &#x3D; 0<br>   output：4<br>   Explanation：陣列中 nums[4] &#x3D;&#x3D; 0。  </p>
+</blockquote>
+<blockquote>
+<p>Example 2:  </p>
+<p>   input：nums &#x3D; [4,5,6,7,0,1,2], target &#x3D; 3<br>   output：-1<br>   Explanation：陣列中沒有值為 3 的元素。  </p>
+</blockquote>
+<blockquote>
+<p>Example 3:  </p>
+<p>   input：nums &#x3D; [1], target &#x3D; 0<br>   output：-1  </p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 10^4</code>  </li>
+<li><code>-10^4 &lt;= nums[i] &lt;= 10^4</code>  </li>
+<li>陣列中所有元素 <strong>互不相同</strong>  </li>
+<li>旋轉前陣列為升序排序  </li>
+<li><code>-10^4 &lt;= target &lt;= 10^4</code></li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>由於陣列被旋轉過，但仍可分為「有序段 + 有序段」，可以在 O(log n) 時間內搜索。常見方法是改良版二分搜尋：  </p>
+<ol>
+<li>設 <code>left=0</code>, <code>right=n-1</code>，進入迴圈 <code>while (left &lt;= right)</code>：  </li>
+<li>計算中點 <code>mid = (left + right) / 2</code>。  </li>
+<li>若 <code>nums[mid] == target</code>，直接返回 <code>mid</code>。  </li>
+<li>判斷哪一半是有序的：  <ul>
+<li>如果 <code>nums[left] &lt;= nums[mid]</code>，表示左半段 <code>[left..mid]</code> 為<strong>升序</strong>。  <ul>
+<li>若 <code>target</code> 在這個區間內（<code>nums[left] &lt;= target &lt; nums[mid]</code>），則 <code>right = mid - 1</code>；否則 <code>left = mid + 1</code>。</li>
+</ul>
+</li>
+<li>否則右半段 <code>[mid..right]</code> 為<strong>升序</strong>。  <ul>
+<li>若 <code>target</code> 在這個區間內（<code>nums[mid] &lt; target &lt;= nums[right]</code>），則 <code>left = mid + 1</code>；否則 <code>right = mid - 1</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>迴圈結束仍未找到，即返回 <code>-1</code>。</li>
+</ol>
+<p>每次都能排除一半範圍，時間複雜度 O(log n)，額外空間 O(1)。  </p>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">            <span class="type">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] == target) &#123;</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 判斷左半段是否有序</span></span><br><span class="line">            <span class="keyword">if</span> (nums[left] &lt;= nums[mid]) &#123;</span><br><span class="line">                <span class="comment">// target 在左半段範圍內</span></span><br><span class="line">                <span class="keyword">if</span> (nums[left] &lt;= target &amp;&amp; target &lt; nums[mid]) &#123;</span><br><span class="line">                    right = mid - <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    left = mid + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 否則右半段必然有序</span></span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// target 在右半段範圍內</span></span><br><span class="line">                <span class="keyword">if</span> (nums[mid] &lt; target &amp;&amp; target &lt;= nums[right]) &#123;</span><br><span class="line">                    left = mid + <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    right = mid - <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;  <span class="comment">// 未找到</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(log n)</p>
+<ul>
+<li>每次迴圈都能將搜尋範圍減半。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(1)</p>
+<ul>
+<li>只使用常數個指標變數。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Combination-Sum"><a href="#Combination-Sum" class="headerlink" title="Combination Sum"></a>Combination Sum</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvY29tYmluYXRpb24tc3VtLw==">題目連結</span><br><strong>標籤</strong>: Backtracking, Array, DFS<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 25 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一組 <strong>互不相同</strong> 的正整數 <code>candidates</code> 和一個目標整數 <code>target</code>，請找出 <code>candidates</code> 中所有可以使數字和為 <code>target</code> 的<strong>組合</strong>。  </p>
+<p>同一個數字可以在組合中被選擇 <strong>無限次</strong>。  </p>
+<p>解集不能包含重複的組合。你可以按任意順序返回這些組合。  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:  </p>
+<p>input：candidates &#x3D; [2,3,6,7], target &#x3D; 7<br>output：[[7],[2,2,3]]<br>Explanation：  </p>
+<ul>
+<li>7 &#x3D; 7  </li>
+<li>2 + 2 + 3 &#x3D; 7</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Example 2:  </p>
+<p>input：candidates &#x3D; [2,3,5], target &#x3D; 8<br>output：[[2,2,2,2],[2,3,3],[3,5]]  </p>
+</blockquote>
+<blockquote>
+<p>Example 3:  </p>
+<p>input：candidates &#x3D; [2], target &#x3D; 1<br>output：[]  </p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>1 &lt;= candidates.length &lt;= 30</code>  </li>
+<li><code>1 &lt;= candidates[i] &lt;= 200</code>  </li>
+<li><code>candidates</code> 中所有元素 <strong>互不相同</strong>  </li>
+<li><code>1 &lt;= target &lt;= 500</code></li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>本題可用回溯（Backtracking）或深度優先搜尋（DFS）枚舉所有組合：  </p>
+<ol>
+<li>先對 <code>candidates</code> 排序（可選），以便後續剪枝。  </li>
+<li>定義遞歸函式 <code>dfs(start, sum)</code>：  <ul>
+<li><code>start</code> 表示當前可選擇的起始索引，避免重複組合；  </li>
+<li><code>sum</code> 表示當前累計的總和。</li>
+</ul>
+</li>
+<li>當 <code>sum == target</code> 時，將當前路徑 <code>path</code> 加入結果集；  </li>
+<li>當 <code>sum &gt; target</code> 時，剪枝返回；  </li>
+<li>否則從 <code>i = start</code> 開始遍歷每個候選數 <code>candidates[i]</code>：  <ul>
+<li>將 <code>candidates[i]</code> 加入 <code>path</code>，呼叫 <code>dfs(i, sum + candidates[i])</code>（同一索引可重複使用）；  </li>
+<li>回溯時將剛才加入的元素從 <code>path</code> 中移除。</li>
+</ul>
+</li>
+<li>完成遍歷後即得所有可能組合。</li>
+</ol>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">combinationSum</span>(vector&lt;<span class="type">int</span>&gt;&amp; candidates, <span class="type">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">sort</span>(candidates.<span class="built_in">begin</span>(), candidates.<span class="built_in">end</span>());  <span class="comment">// 可選：排序以便剪枝</span></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; result;</span><br><span class="line">        <span class="built_in">dfs</span>(candidates, target, <span class="number">0</span>, <span class="number">0</span>, path, result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; cand, <span class="type">int</span> target, <span class="type">int</span> start,</span></span></span><br><span class="line"><span class="params"><span class="function">             <span class="type">int</span> sum, vector&lt;<span class="type">int</span>&gt;&amp; path, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; res)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (sum == target) &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (sum &gt; target) &#123;</span><br><span class="line">            <span class="keyword">return</span>;  <span class="comment">// 剪枝</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = start; i &lt; cand.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="type">int</span> x = cand[i];</span><br><span class="line">            <span class="comment">// sum + x &gt; target 時可以提前退出（因為已排序）</span></span><br><span class="line">            <span class="keyword">if</span> (sum + x &gt; target) <span class="keyword">break</span>;</span><br><span class="line">            path.<span class="built_in">push_back</span>(x);</span><br><span class="line">            <span class="built_in">dfs</span>(cand, target, i, sum + x, path, res);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();  <span class="comment">// 回溯</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：與所有可行組合數目相關，最壞情況約為 O(k × N^(target&#x2F;min(candidates)))（k 為解的平均長度），但實際受限於 target 和 candidates 數值範圍。</p>
+</li>
+<li><p>空間複雜度：O(target &#x2F; min(candidates)) 深度的遞歸棧空間，以及結果集所需的額外空間。</p>
+</li>
+</ul>
+<h3 id="Permutations"><a href="#Permutations" class="headerlink" title="Permutations"></a>Permutations</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvcGVybXV0YXRpb25zLw==">題目連結</span><br><strong>標籤</strong>: Backtracking, Array, DFS<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個 <strong>無重複</strong> 整數陣列 <code>nums</code>，請返回該陣列所有可能的全排列。可以按任意順序返回答案。  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:  </p>
+<p>輸入：nums &#x3D; [1,2,3]<br>輸出：<br>[<br>  [1,2,3],<br>  [1,3,2],<br>  [2,1,3],<br>  [2,3,1],<br>  [3,1,2],<br>  [3,2,1]<br>]</p>
+</blockquote>
+<blockquote>
+<p>Example 2:  </p>
+<p>輸入：nums &#x3D; [0,1]<br>輸出：<br>[<br>  [0,1],<br>  [1,0]<br>]  </p>
+</blockquote>
+<blockquote>
+<p>Example 3:  </p>
+<p>輸入：nums &#x3D; [1]<br>輸出：<br>[[1]]  </p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 6</code>  </li>
+<li><code>-10 &lt;= nums[i] &lt;= 10</code>  </li>
+<li><code>nums</code> 中的所有元素 <strong>互不相同</strong></li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>本題典型的回溯（Backtracking）問題。思路為：  </p>
+<ol>
+<li>用一個布林陣列 <code>used</code> 記錄 <code>nums</code> 中每個元素是否已經被選過；  </li>
+<li>用一個臨時向量 <code>path</code> 保存當前排列；  </li>
+<li>遞迴函式 <code>dfs()</code>：  <ul>
+<li>若 <code>path.size() == nums.size()</code>，表示已選滿所有元素，將 <code>path</code> 加入結果集；  </li>
+<li>否則從 <code>i = 0</code> 到 <code>nums.size()-1</code> 遍歷，每遇到 <code>used[i] == false</code>：  <ol>
+<li>標記 <code>used[i] = true</code>，將 <code>nums[i]</code> 推入 <code>path</code>；  </li>
+<li>遞迴呼叫 <code>dfs()</code>；  </li>
+<li>回溯時 <code>path.pop_back()</code>，並重置 <code>used[i] = false</code>。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>最終結果即為所有全排列。</li>
+</ol>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permute</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">used</span><span class="params">(n, <span class="literal">false</span>)</span></span>;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; result;</span><br><span class="line">        <span class="built_in">dfs</span>(nums, used, path, result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; nums, vector&lt;<span class="type">bool</span>&gt;&amp; used,</span></span></span><br><span class="line"><span class="params"><span class="function">             vector&lt;<span class="type">int</span>&gt;&amp; path, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; result)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (path.<span class="built_in">size</span>() == nums.<span class="built_in">size</span>()) &#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (used[i]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="comment">// 選擇 nums[i]</span></span><br><span class="line">            used[i] = <span class="literal">true</span>;</span><br><span class="line">            path.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">            <span class="built_in">dfs</span>(nums, used, path, result);</span><br><span class="line">            <span class="comment">// 回溯</span></span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">            used[i] = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(n! × n)</p>
+<ul>
+<li>共生成 n! 種排列，每種排列的複製到結果集需 O(n) 時間。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(n)（遞迴棧深度 + 臨時路徑）</p>
+<ul>
+<li>除了輸出結果外，遞迴深度最深為 n，used、path 各需 O(n)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Merge-Intervals"><a href="#Merge-Intervals" class="headerlink" title="Merge Intervals"></a>Merge Intervals</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbWVyZ2UtaW50ZXJ2YWxzLw==">題目連結</span><br><strong>標籤</strong>: Array, Sorting<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一組由「閉區間」表示的區間列表 <code>intervals</code>，請將所有重疊的區間合併，並返回合併後的區間列表。  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:  </p>
+<p>input：intervals &#x3D; [[1,3],[2,6],[8,10],[15,18]]<br>output：[[1,6],[8,10],[15,18]]<br>Explanation：  </p>
+<ul>
+<li>區間 [1,3] 和 [2,6] 重疊，合併為 [1,6]；  </li>
+<li>其餘區間互不重疊。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Example 2:  </p>
+<p>input：intervals &#x3D; [[1,4],[4,5]]<br>output：[[1,5]]<br>Explanation：<br>由於 [1,4] 和 [4,5] 在端點 4 處接觸，也視為重疊，可合併為 [1,5]。  </p>
+</blockquote>
+<blockquote>
+<p>Example 3:  </p>
+<p>input：intervals &#x3D; []<br>output：[]</p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>0 &lt;= intervals.length &lt;= 10^4</code>  </li>
+<li><code>intervals[i].length == 2</code>  </li>
+<li><code>0 &lt;= start_i &lt;= end_i &lt;= 10^5</code></li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<ol>
+<li>若 <code>intervals</code> 為空，直接返回空列表。  </li>
+<li>先依各區間的起點 <code>start</code> 進行排序。  </li>
+<li>建立結果向量 <code>merged</code>，將排序後的第一個區間壓入。  </li>
+<li>遍歷剩餘每個區間 <code>cur = [s,e]</code>：  <ul>
+<li>取 <code>last = merged.back()</code> 為結果中最後一個區間；  </li>
+<li>若 <code>cur.start &lt;= last.end</code>，表示重疊，則更新 <code>last.end = max(last.end, cur.end)</code>；  </li>
+<li>否則不重疊，將 <code>cur</code> 直接壓入 <code>merged</code>。</li>
+</ul>
+</li>
+<li>遍歷結束後，<code>merged</code> 即為合併完成的區間列表。</li>
+</ol>
+<p>排序耗時 O(n log n)，遍歷合併 O(n)，總時間複雜度 O(n log n)；額外空間 O(n)。  </p>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">merge</span>(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; intervals) &#123;</span><br><span class="line">        <span class="keyword">if</span> (intervals.<span class="built_in">empty</span>()) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        <span class="comment">// 依起點排序</span></span><br><span class="line">        <span class="built_in">sort</span>(intervals.<span class="built_in">begin</span>(), intervals.<span class="built_in">end</span>(),</span><br><span class="line">             [](<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; a, <span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; b) &#123;</span><br><span class="line">                 <span class="keyword">return</span> a[<span class="number">0</span>] &lt; b[<span class="number">0</span>];</span><br><span class="line">             &#125;);</span><br><span class="line">        </span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; merged;</span><br><span class="line">        merged.<span class="built_in">push_back</span>(intervals[<span class="number">0</span>]);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; intervals.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">auto</span>&amp; last = merged.<span class="built_in">back</span>();</span><br><span class="line">            <span class="type">int</span> curStart = intervals[i][<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> curEnd   = intervals[i][<span class="number">1</span>];</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (curStart &lt;= last[<span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="comment">// 有重疊，合併區間</span></span><br><span class="line">                last[<span class="number">1</span>] = <span class="built_in">max</span>(last[<span class="number">1</span>], curEnd);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 無重疊，直接新增</span></span><br><span class="line">                merged.<span class="built_in">push_back</span>(intervals[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> merged;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(n log n)</p>
+<ul>
+<li>排序 O(n log n) + 一次線性掃描 O(n)。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(n)</p>
+<ul>
+<li>排序可能需要 O(log n) 的遞迴棧，結果向量最壞大小為原輸入的 n。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Lowest-Common-Ancestor-of-a-Binary-Tree"><a href="#Lowest-Common-Ancestor-of-a-Binary-Tree" class="headerlink" title="Lowest Common Ancestor of a Binary Tree"></a>Lowest Common Ancestor of a Binary Tree</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbG93ZXN0LWNvbW1vbi1hbmNlc3Rvci1vZi1hLWJpbmFyeS10cmVlLw==">題目連結</span><br><strong>標籤</strong>: Tree, Recursion, DFS<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一棵二元樹的根節點 <code>root</code>，以及樹中兩個不同節點 <code>p</code> 和 <code>q</code>，請找出它們的最近公共祖先（LCA）。  </p>
+<p>最近公共祖先的定義為：對於節點 <code>p</code> 和 <code>q</code>，在所有同時是它們祖先的節點中，<strong>最深</strong>（距離它們最近）的一個節點。  </p>
+<p>例如，節點 <code>u</code> 是節點 <code>v</code> 的祖先當且僅當存在一條從根到 <code>v</code> 的路徑包含 <code>u</code>。根自身也可以是它自己的祖先。  </p>
+</blockquote>
+<p><strong>輸入／輸出 範例</strong></p>
+<blockquote>
+<p>注意：題目不需要從標準輸入讀取資料，也不需要輸出格式化結果，只需實作 <code>lowestCommonAncestor</code> 介面。  </p>
+<p>Example 1:  </p>
+<p>input：<br>root &#x3D; [3,5,1,6,2,0,8,null,null,7,4]<br>p &#x3D; 5, q &#x3D; 1<br>output：3<br>Explanation：節點 5 與 1 的最近公共祖先是 3（根節點）。</p>
+</blockquote>
+<blockquote>
+<p>Example 2:  </p>
+<p>input：<br>root &#x3D; [3,5,1,6,2,0,8,null,null,7,4]<br>p &#x3D; 5, q &#x3D; 4<br>output：5<br>Explanation：節點 5 與 4 的最近公共祖先是 5（5 自身是 4 的祖先）。    </p>
+</blockquote>
+<blockquote>
+<p>Example 3:  </p>
+<p>input：<br>root &#x3D; [1,2]<br>p &#x3D; 1, q &#x3D; 2<br>   output：1</p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li>樹中節點數量在 <code>[2, 10^5]</code>。  </li>
+<li>節點值 <strong>互不相同</strong>。  </li>
+<li><code>p</code> 和 <code>q</code> 均存在於給定的二元樹中。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>本題可以用遞迴的深度優先搜尋 (DFS) 找 LCA：  </p>
+<ol>
+<li>若當前節點 <code>root</code> 為 <code>nullptr</code>、或等於 <code>p</code>、或等於 <code>q</code>，則直接返回 <code>root</code>；  </li>
+<li>遞迴搜尋左子樹：<code>left = dfs(root-&gt;left, p, q)</code>；  </li>
+<li>遞迴搜尋右子樹：<code>right = dfs(root-&gt;right, p, q)</code>；  </li>
+<li>若 <code>left</code> 與 <code>right</code> 均非空，代表 <code>p</code>、<code>q</code> 分別位於當前節點的左右子樹，則當前節點即為最近公共祖先；  </li>
+<li>否則，若 <code>left</code> 非空（<code>right</code> 為空），則 LCA 在左子樹，返回 <code>left</code>；反之返回 <code>right</code>。</li>
+</ol>
+<p>此方法只需一次遍歷，時間複雜度 O(n)，遞迴棧深度最壞 O(n)。  </p>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Definition for a binary tree node.</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">TreeNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode *left;</span><br><span class="line">    TreeNode *right;</span><br><span class="line">    <span class="built_in">TreeNode</span>(<span class="type">int</span> x) : <span class="built_in">val</span>(x), <span class="built_in">left</span>(<span class="literal">nullptr</span>), <span class="built_in">right</span>(<span class="literal">nullptr</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode* root, TreeNode* p, TreeNode* q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root || root == p || root == q) &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode* left  = <span class="built_in">lowestCommonAncestor</span>(root-&gt;left, p, q);</span><br><span class="line">        TreeNode* right = <span class="built_in">lowestCommonAncestor</span>(root-&gt;right, p, q);</span><br><span class="line">        <span class="keyword">if</span> (left &amp;&amp; right) &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left ? left : right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(n)</p>
+<ul>
+<li>每個節點最多被訪問一次。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(n)（最壞情況）</p>
+<ul>
+<li>遞迴棧深度最壞為樹的節點數；若樹高度平衡則為 O(log n)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Time-Based-Key-Value-Store"><a href="#Time-Based-Key-Value-Store" class="headerlink" title="Time Based Key-Value Store"></a>Time Based Key-Value Store</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvdGltZS1iYXNlZC1rZXktdmFsdWUtc3RvcmUv">題目連結</span><br><strong>標籤</strong>: Design, Hash Table, Binary Search<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>實作一個 <strong>時序鍵值儲存</strong> 結構 <code>TimeMap</code>，支援以下操作：  </p>
+<ol>
+<li><code>void set(string key, string value, int timestamp)</code>  <ul>
+<li>將鍵 <code>key</code> 的值設定為 <code>value</code>，時間戳為 <code>timestamp</code>。</li>
+</ul>
+</li>
+<li><code>string get(string key, int timestamp)</code>  <ul>
+<li>返回 <strong>不大於</strong> <code>timestamp</code> 的最新一次對 <code>key</code> 的設定值；  </li>
+<li>如果不存在這樣的設定，返回空字串 <code>&quot;&quot;</code>。</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p><strong>輸入／輸出 範例</strong></p>
+<blockquote>
+<p>注意：題目並不需要從標準輸入讀取，也不需要格式化輸出，只需實作 <code>TimeMap</code> 類別。  </p>
+<p>Example：<br>input：<br>[“TimeMap”,”set”,”get”,”get”,”set”,”get”,”get”]<br>[[],[“foo”,”bar”,1],[“foo”,1],[“foo”,3],[“foo”,”bar2”,4],[“foo”,4],[“foo”,5]]</p>
+<p>output：<br>[null,null,”bar”,”bar”,null,”bar2”,”bar2”]</p>
+</blockquote>
+<blockquote>
+<p>Explanation：  </p>
+<ol>
+<li><code>TimeMap tm = new TimeMap();</code>      → 回傳 <code>null</code>（建構函式）  </li>
+<li><code>tm.set(&quot;foo&quot;,&quot;bar&quot;,1);</code>          → 回傳 <code>null</code>  </li>
+<li><code>tm.get(&quot;foo&quot;,1);</code>               → 回傳 <code>&quot;bar&quot;</code> （timestamp &#x3D;&#x3D; 1 時為 <code>&quot;bar&quot;</code>）  </li>
+<li><code>tm.get(&quot;foo&quot;,3);</code>               → 回傳 <code>&quot;bar&quot;</code> （timestamp 3 查不到新設定，回傳最近的 <code>&quot;bar&quot;</code>）  </li>
+<li><code>tm.set(&quot;foo&quot;,&quot;bar2&quot;,4);</code>        → 回傳 <code>null</code>  </li>
+<li><code>tm.get(&quot;foo&quot;,4);</code>               → 回傳 <code>&quot;bar2&quot;</code>  </li>
+<li><code>tm.get(&quot;foo&quot;,5);</code>               → 回傳 <code>&quot;bar2&quot;</code></li>
+</ol>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li>所有 <code>timestamp</code> 嚴格遞增：同一個 <code>key</code> 的後續 <code>set</code> 操作，其 <code>timestamp</code> 保證大於前一次。  </li>
+<li>調用 <code>set</code> 和 <code>get</code> 的總次數不超過 <code>10^5</code>。  </li>
+<li><code>1 &lt;= timestamp &lt;= 10^7</code>。  </li>
+<li>關鍵字和數值長度均在 <code>[1, 100]</code> 之間，只包含可列印 ASCII 字符。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<ul>
+<li>使用哈希表 <code>unordered_map&lt;string, vector&lt;pair&lt;int,string&gt;&gt;&gt;</code>：  <ul>
+<li>鍵為 <code>key</code>，值為該鍵所有 <code>(timestamp, value)</code> 的有序列表（按 <code>timestamp</code> 升序儲存）。</li>
+</ul>
+</li>
+<li><code>set(key, value, timestamp)</code>：  <ul>
+<li>直接將 <code>(timestamp, value)</code> push_back 到對應 <code>vector</code>（因為 timestamp 嚴格遞增，維持有序性）。</li>
+</ul>
+</li>
+<li><code>get(key, timestamp)</code>：  <ul>
+<li>在對應 <code>vector</code> 上進行二分搜尋（<code>upper_bound</code>）：找到第一個 <code>pair.first &gt; timestamp</code> 的位置，然後取其前一個位置的 <code>value</code>；  </li>
+<li>如果插入點為 <code>begin()</code>，代表所有已有 timestamp 都大於目標，回傳 <code>&quot;&quot;</code>；否則回傳前一個元素的 <code>second</code>。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TimeMap</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// key -&gt; list of (timestamp, value)，按 timestamp 升序</span></span><br><span class="line">    unordered_map&lt;string, vector&lt;pair&lt;<span class="type">int</span>,string&gt;&gt;&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/** 初始化 TimeMap 物件 */</span></span><br><span class="line">    <span class="built_in">TimeMap</span>() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** 儲存 key 對應的 value，時間戳為 timestamp */</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">set</span><span class="params">(<span class="type">const</span> string&amp; key, <span class="type">const</span> string&amp; value, <span class="type">int</span> timestamp)</span> </span>&#123;</span><br><span class="line">        mp[key].<span class="built_in">emplace_back</span>(timestamp, value);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 獲取 key 在不大於 timestamp 時刻的最新 value，若不存在則返回 &quot;&quot;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">string <span class="title">get</span><span class="params">(<span class="type">const</span> string&amp; key, <span class="type">int</span> timestamp)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!mp.<span class="built_in">count</span>(key)) <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">auto</span>&amp; vec = mp[key];</span><br><span class="line">        <span class="comment">// 二分搜尋第一個 timestamp &gt; target</span></span><br><span class="line">        <span class="keyword">auto</span> it = <span class="built_in">upper_bound</span>(vec.<span class="built_in">begin</span>(), vec.<span class="built_in">end</span>(), </span><br><span class="line">                              <span class="built_in">make_pair</span>(timestamp, <span class="built_in">string</span>()),</span><br><span class="line">                              [](<span class="type">const</span> pair&lt;<span class="type">int</span>,string&gt;&amp; a, <span class="type">const</span> pair&lt;<span class="type">int</span>,string&gt;&amp; b) &#123;</span><br><span class="line">                                  <span class="keyword">return</span> a.first &lt; b.first;</span><br><span class="line">                              &#125;);</span><br><span class="line">        <span class="keyword">if</span> (it == vec.<span class="built_in">begin</span>()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">prev</span>(it)-&gt;second;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：</p>
+<ul>
+<li><p>set：O(1) 均攤（vector::emplace_back）；</p>
+</li>
+<li><p>get：O(log k)（在長度為 k 的列表中二分搜尋）。</p>
+</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(N)</p>
+<ul>
+<li>需要儲存所有 set 操作的鍵值對，總數為 N 次調用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Accounts-Merge"><a href="#Accounts-Merge" class="headerlink" title="Accounts Merge"></a>Accounts Merge</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvYWNjb3VudHMtbWVyZ2Uv">題目連結</span><br><strong>標籤</strong>: Union Find (或 DFS + 哈希), String, Hash Table<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 25 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個帳戶列表 <code>accounts</code>，每個帳戶是一個字串列表，其中第一個字串是帳戶持有者的姓名，之後的字串都是該持有者的電子郵件地址。  </p>
+<p>現在有多個帳戶，可能同一個人在不同帳戶中使用了部分相同的郵件地址，請將這些屬於同一人的帳戶合併。  </p>
+<p>合併規則：  </p>
+<ul>
+<li>只要任意兩個帳戶有 <strong>至少一</strong> 個共同的郵箱地址，就認定屬於同一人；  </li>
+<li>合併後帳戶內所有郵件地址需去重並按字母順序排序；  </li>
+<li>輸出格式同輸入：列表中每個元素是一個帳戶，第一個元素是這個人姓名，後面是排序後的所有郵件地址。</li>
+</ul>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:  </p>
+<p>input：<br>accounts &#x3D; [<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjeDZmOyYjMTA0OyYjeDZlOyYjeDczOyYjMTA5OyYjeDY5OyYjeDc0OyYjeDY4OyYjeDQwOyYjeDZkOyYjeDYxOyYjMTA1OyYjeDZjOyYjNDY7JiN4NjM7JiN4NmY7JiN4NmQ7">johnsmith@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjeDY4OyYjeDZlOyYjeDVmOyYjMTEwOyYjeDY1OyYjMTE5OyYjMTIxOyYjeDZmOyYjMTE0OyYjMTA3OyYjeDQwOyYjeDZkOyYjOTc7JiN4Njk7JiN4NmM7JiM0NjsmIzk5OyYjeDZmOyYjMTA5Ow==">john_newyork@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjeDY4OyYjMTEwOyYjeDczOyYjeDZkOyYjeDY5OyYjeDc0OyYjeDY4OyYjNjQ7JiMxMDk7JiN4NjE7JiN4Njk7JiN4NmM7JiN4MmU7JiN4NjM7JiN4NmY7JiN4NmQ7">johnsmith@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjeDY4OyYjMTEwOyYjeDMwOyYjNDg7JiN4NDA7JiN4NmQ7JiN4NjE7JiMxMDU7JiN4NmM7JiN4MmU7JiN4NjM7JiN4NmY7JiMxMDk7">john00@mail.com</span>“],<br>  [“Mary”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA5OyYjeDYxOyYjeDcyOyYjMTIxOyYjeDQwOyYjeDZkOyYjeDYxOyYjeDY5OyYjMTA4OyYjeDJlOyYjOTk7JiMxMTE7JiN4NmQ7">mary@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjMTExOyYjeDY4OyYjMTEwOyYjeDZlOyYjMTIxOyYjOTg7JiMxMTQ7JiN4NjE7JiN4NzY7JiMxMTE7JiN4NDA7JiMxMDk7JiN4NjE7JiMxMDU7JiMxMDg7JiM0NjsmI3g2MzsmIzExMTsmI3g2ZDs=">johnnybravo@mail.com</span>“]<br>]<br>output：<br>[<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjeDZmOyYjMTA0OyYjMTEwOyYjeDMwOyYjNDg7JiN4NDA7JiMxMDk7JiM5NzsmI3g2OTsmIzEwODsmIzQ2OyYjOTk7JiN4NmY7JiN4NmQ7">john00@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjeDY4OyYjMTEwOyYjeDVmOyYjeDZlOyYjMTAxOyYjeDc3OyYjeDc5OyYjeDZmOyYjeDcyOyYjMTA3OyYjNjQ7JiN4NmQ7JiN4NjE7JiMxMDU7JiN4NmM7JiN4MmU7JiN4NjM7JiMxMTE7JiN4NmQ7">john_newyork@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjeDY4OyYjMTEwOyYjeDczOyYjMTA5OyYjeDY5OyYjMTE2OyYjeDY4OyYjeDQwOyYjeDZkOyYjeDYxOyYjeDY5OyYjeDZjOyYjNDY7JiN4NjM7JiMxMTE7JiMxMDk7">johnsmith@mail.com</span>“],<br>  [“Mary”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA5OyYjeDYxOyYjMTE0OyYjeDc5OyYjeDQwOyYjMTA5OyYjeDYxOyYjeDY5OyYjeDZjOyYjNDY7JiN4NjM7JiN4NmY7JiN4NmQ7">mary@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjMTA0OyYjMTEwOyYjMTEwOyYjeDc5OyYjOTg7JiN4NzI7JiM5NzsmIzExODsmIzExMTsmI3g0MDsmI3g2ZDsmIzk3OyYjeDY5OyYjMTA4OyYjeDJlOyYjeDYzOyYjeDZmOyYjMTA5Ow==">johnnybravo@mail.com</span>“]<br>]</p>
+<p>Explanation：  </p>
+<ul>
+<li>第一、二 個帳戶都包含 <code>johnsmith@mail.com</code>，合併後郵箱為三個去重且排序後的地址；  </li>
+<li>第三個和第四個帳戶沒有與其他重疊，保持原樣。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Example 2:  </p>
+<p>input：<br>accounts &#x3D; [<br>  [“Gabe”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjOTc7JiM5ODsmIzEwMTsmI3gzMDsmIzY0OyYjeDZkOyYjeDJlOyYjOTk7JiN4NmY7">Gabe0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjeDYxOyYjeDYyOyYjeDY1OyYjeDMzOyYjeDQwOyYjMTA5OyYjNDY7JiM5OTsmI3g2Zjs=">Gabe3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiM5NzsmI3g2MjsmI3g2NTsmIzQ5OyYjNjQ7JiN4NmQ7JiN4MmU7JiM5OTsmI3g2Zjs=">Gabe1@m.co</span>“],<br>  [“Kevin”,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiN4NjU7JiMxMTg7JiN4Njk7JiMxMTA7JiM1MTsmI3g0MDsmI3g2ZDsmIzQ2OyYjOTk7JiN4NmY7">Kevin3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjMTAxOyYjMTE4OyYjMTA1OyYjMTEwOyYjeDM1OyYjNjQ7JiN4NmQ7JiM0NjsmIzk5OyYjMTExOw==">Kevin5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjeDY1OyYjMTE4OyYjeDY5OyYjMTEwOyYjNDg7JiN4NDA7JiN4NmQ7JiN4MmU7JiM5OTsmI3g2Zjs=">Kevin0@m.co</span>“],<br>  [“Ethan”,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiMxMTY7JiN4Njg7JiM5NzsmIzExMDsmI3gzNTsmIzY0OyYjeDZkOyYjNDY7JiN4NjM7JiN4NmY7">Ethan5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiN4NzQ7JiMxMDQ7JiM5NzsmIzExMDsmI3gzNDsmIzY0OyYjMTA5OyYjNDY7JiN4NjM7JiN4NmY7">Ethan4@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiMxMTY7JiN4Njg7JiM5NzsmIzExMDsmIzQ4OyYjeDQwOyYjMTA5OyYjeDJlOyYjeDYzOyYjMTExOw==">Ethan0@m.co</span>“],<br>  [“Hanzo”,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiM5NzsmI3g2ZTsmIzEyMjsmIzExMTsmI3gzMzsmI3g0MDsmIzEwOTsmI3gyZTsmI3g2MzsmI3g2Zjs=">Hanzo3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiN4NjE7JiN4NmU7JiN4N2E7JiN4NmY7JiM0OTsmI3g0MDsmIzEwOTsmI3gyZTsmI3g2MzsmIzExMTs=">Hanzo1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjOTc7JiN4NmU7JiN4N2E7JiMxMTE7JiM0ODsmI3g0MDsmI3g2ZDsmI3gyZTsmI3g2MzsmI3g2Zjs=">Hanzo0@m.co</span>“],<br>  [“Fern”,”<span class="exturl" data-url="bWFpbHRvOiYjNzA7JiN4NjU7JiMxMTQ7JiN4NmU7JiM1MzsmIzY0OyYjMTA5OyYjeDJlOyYjOTk7JiMxMTE7">Fern5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjMTAxOyYjeDcyOyYjeDZlOyYjNDk7JiN4NDA7JiMxMDk7JiM0NjsmI3g2MzsmIzExMTs=">Fern1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjeDY1OyYjeDcyOyYjMTEwOyYjNDg7JiN4NDA7JiMxMDk7JiM0NjsmI3g2MzsmIzExMTs=">Fern0@m.co</span>“]<br>]<br>output：<br>[<br>  [“Ethan”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjeDc0OyYjeDY4OyYjOTc7JiN4NmU7JiN4MzA7JiM2NDsmI3g2ZDsmIzQ2OyYjeDYzOyYjeDZmOw==">Ethan0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjMTE2OyYjMTA0OyYjeDYxOyYjMTEwOyYjeDM0OyYjeDQwOyYjeDZkOyYjeDJlOyYjeDYzOyYjeDZmOw==">Ethan4@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiN4NzQ7JiMxMDQ7JiN4NjE7JiMxMTA7JiN4MzU7JiN4NDA7JiN4NmQ7JiM0NjsmIzk5OyYjeDZmOw==">Ethan5@m.co</span>“],<br>  [“Gabe”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjeDYxOyYjeDYyOyYjeDY1OyYjNDg7JiM2NDsmI3g2ZDsmI3gyZTsmI3g2MzsmIzExMTs=">Gabe0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiN4NjE7JiN4NjI7JiMxMDE7JiN4MzE7JiM2NDsmIzEwOTsmIzQ2OyYjOTk7JiMxMTE7">Gabe1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjeDYxOyYjeDYyOyYjMTAxOyYjNTE7JiM2NDsmI3g2ZDsmI3gyZTsmI3g2MzsmIzExMTs=">Gabe3@m.co</span>“],<br>  [“Hanzo”,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiM5NzsmIzExMDsmIzEyMjsmIzExMTsmI3gzMDsmIzY0OyYjMTA5OyYjNDY7JiN4NjM7JiMxMTE7">Hanzo0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjOTc7JiN4NmU7JiMxMjI7JiMxMTE7JiN4MzE7JiM2NDsmI3g2ZDsmIzQ2OyYjOTk7JiN4NmY7">Hanzo1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjeDYxOyYjMTEwOyYjeDdhOyYjeDZmOyYjeDMzOyYjeDQwOyYjeDZkOyYjeDJlOyYjOTk7JiN4NmY7">Hanzo3@m.co</span>“],<br>  [“Kevin”,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiMxMDE7JiMxMTg7JiMxMDU7JiMxMTA7JiN4MzA7JiM2NDsmIzEwOTsmI3gyZTsmI3g2MzsmI3g2Zjs=">Kevin0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjeDY1OyYjeDc2OyYjMTA1OyYjMTEwOyYjNTE7JiN4NDA7JiN4NmQ7JiN4MmU7JiM5OTsmI3g2Zjs=">Kevin3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjMTAxOyYjMTE4OyYjeDY5OyYjMTEwOyYjNTM7JiM2NDsmI3g2ZDsmIzQ2OyYjOTk7JiMxMTE7">Kevin5@m.co</span>“],<br>  [“Fern”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjMTAxOyYjeDcyOyYjMTEwOyYjNDg7JiN4NDA7JiMxMDk7JiM0NjsmIzk5OyYjeDZmOw==">Fern0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzA7JiN4NjU7JiN4NzI7JiMxMTA7JiN4MzE7JiM2NDsmIzEwOTsmIzQ2OyYjeDYzOyYjeDZmOw==">Fern1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjMTAxOyYjMTE0OyYjeDZlOyYjeDM1OyYjNjQ7JiMxMDk7JiM0NjsmIzk5OyYjMTExOw==">Fern5@m.co</span>“]<br>]</p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>1 &lt;= accounts.length &lt;= 1000</code>  </li>
+<li><code>2 &lt;= accounts[i].length &lt;= 10</code>  </li>
+<li><code>1 &lt;= accounts[i][j].length &lt;= 30</code>  </li>
+<li><code>accounts[i][0]</code>（姓名）只包含英文字母。  </li>
+<li><code>accounts[i][j]</code>（郵件地址）是合法的 ASCII 字符串。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>可以使用 <strong>並查集 (Union-Find)</strong> 來合併擁有共同郵箱的帳戶：  </p>
+<ol>
+<li>為每個郵箱分配一個唯一 ID，並初始化並查集結構；  </li>
+<li>遍歷每個帳戶內的郵箱列表，將這個帳戶中出現的所有郵箱 ID 依次 union 起來，保證同一帳戶內的所有郵箱在同一集合；  </li>
+<li>再次遍歷所有郵箱，對每個郵箱查找其根 ID，將郵箱聚集到 <code>root_id -&gt; list&lt;email&gt;</code> 的哈希表中；  </li>
+<li>最後對每個集合中的郵箱列表去重、排序，並在最前面插入對應的用戶姓名（可從最初映射 <code>email -&gt; name</code> 中獲取）；  </li>
+<li>收集所有合併後的帳戶列表即可。</li>
+</ol>
+<p>時間複雜度：O(N α(N) + M log M)，其中 N 為所有郵箱總數，α 為阿克曼函數，M 為每個集合中排序成本之和。  </p>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UnionFind</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">UnionFind</span>(<span class="type">int</span> n): <span class="built_in">parent</span>(n) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (parent[x] != x) parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">unite</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> rx = <span class="built_in">find</span>(x), ry = <span class="built_in">find</span>(y);</span><br><span class="line">        <span class="keyword">if</span> (rx != ry) parent[ry] = rx;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;string&gt;&gt; <span class="built_in">accountsMerge</span>(vector&lt;vector&lt;string&gt;&gt;&amp; accounts) &#123;</span><br><span class="line">        unordered_map&lt;string,<span class="type">int</span>&gt; email_to_id;</span><br><span class="line">        unordered_map&lt;string,string&gt; email_to_name;</span><br><span class="line">        <span class="type">int</span> id = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 1. 給每個 email 分配 ID，記錄 email-&gt;name</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; acc : accounts) &#123;</span><br><span class="line">            <span class="type">const</span> string&amp; name = acc[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; acc.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">                <span class="type">const</span> string&amp; email = acc[i];</span><br><span class="line">                <span class="keyword">if</span> (!email_to_id.<span class="built_in">count</span>(email)) &#123;</span><br><span class="line">                    email_to_id[email] = id++;</span><br><span class="line">                    email_to_name[email] = name;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 2. 初始化並查集</span></span><br><span class="line">        <span class="function">UnionFind <span class="title">uf</span><span class="params">(id)</span></span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 3. 在每個帳戶中 union 該帳戶的所有 email</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; acc : accounts) &#123;</span><br><span class="line">            <span class="type">int</span> first_id = email_to_id[acc[<span class="number">1</span>]];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt; acc.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">                uf.<span class="built_in">unite</span>(first_id, email_to_id[acc[i]]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 4. 按 root 收集每個 email</span></span><br><span class="line">        unordered_map&lt;<span class="type">int</span>, vector&lt;string&gt;&gt; groups;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; [email, eid] : email_to_id) &#123;</span><br><span class="line">            <span class="type">int</span> root = uf.<span class="built_in">find</span>(eid);</span><br><span class="line">            groups[root].<span class="built_in">push_back</span>(email);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 5. 構造結果：姓名 + 排序後的 email 列表</span></span><br><span class="line">        vector&lt;vector&lt;string&gt;&gt; result;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; [root, emails] : groups) &#123;</span><br><span class="line">            <span class="built_in">sort</span>(emails.<span class="built_in">begin</span>(), emails.<span class="built_in">end</span>());</span><br><span class="line">            vector&lt;string&gt; account;</span><br><span class="line">            account.<span class="built_in">push_back</span>(email_to_name[emails[<span class="number">0</span>]]);</span><br><span class="line">            account.<span class="built_in">insert</span>(account.<span class="built_in">end</span>(), emails.<span class="built_in">begin</span>(), emails.<span class="built_in">end</span>());</span><br><span class="line">            result.<span class="built_in">push_back</span>(<span class="built_in">move</span>(account));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(N α(N) + M log M)</p>
+<ul>
+<li>N 為所有郵箱數量：分配 ID、並查集操作共 O(N α(N))；對每個集合排序共計 O(M log M)。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(N)</p>
+<ul>
+<li>需要存儲映射與並查集父陣列等結構。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Sort-Colors"><a href="#Sort-Colors" class="headerlink" title="Sort Colors"></a>Sort Colors</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvc29ydC1jb2xvcnMv">題目連結</span><br><strong>標籤</strong>: Array, Two Pointers<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 15 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個包含紅色、白色和藍色三種顏色的 <code>nums</code> 陣列，請原地對陣列進行排序，使相同顏色的元素相鄰，並且按紅、白、藍的順序排列。  </p>
+<p>我們使用整數 <code>0</code>、<code>1</code> 和 <code>2</code> 分別表示紅色、白色和藍色。必須在不使用庫函式排序的情況下，一趟掃描完成排序。  </p>
+</blockquote>
+<p><strong>輸入／輸出 範例</strong></p>
+<blockquote>
+<p>注意：題目不需要從標準輸入讀取，也不需要將結果輸出到標準輸出，只需實作 <code>sortColors</code> 函式。  </p>
+<p>Example 1  </p>
+<p>input：nums &#x3D; [2,0,2,1,1,0]<br>執行後 nums 變為 [0,0,1,1,2,2]  </p>
+</blockquote>
+<blockquote>
+<p>Example 2  </p>
+<p>input：nums &#x3D; [2,0,1]<br>執行後 nums 變為 [0,1,2]</p>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>本題常用「Dutch National Flag」三指標法，一趟掃描完成：  </p>
+<ul>
+<li><code>p0</code> 指向下個要放 <code>0</code>（紅色） 的位置；  </li>
+<li><code>p2</code> 指向下個要放 <code>2</code>（藍色） 的位置；  </li>
+<li><code>i</code> 為當前掃描指標。</li>
+</ul>
+<p>演算法：  </p>
+<ol>
+<li>初始化 <code>p0 = 0</code>, <code>p2 = n-1</code>, <code>i = 0</code>；  </li>
+<li>當 <code>i &lt;= p2</code> 時：  <ul>
+<li>若 <code>nums[i] == 0</code>：交換 <code>nums[i]</code> 和 <code>nums[p0]</code>，<code>p0++</code>, <code>i++</code>；  </li>
+<li>否則若 <code>nums[i] == 2</code>：交換 <code>nums[i]</code> 和 <code>nums[p2]</code>，<code>p2--</code>，<strong>不</strong> <code>i++</code>（新的 <code>nums[i]</code> 需重新檢查）；  </li>
+<li>否則 (<code>nums[i] == 1</code>)：<code>i++</code>；</li>
+</ul>
+</li>
+<li>結束後，所有 <code>0</code> 都被移到左側，所有 <code>2</code> 都被移到右側，剩下的都是 <code>1</code>（白色）。</li>
+</ol>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">sortColors</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> p0 = <span class="number">0</span>, p2 = n - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt;= p2) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="built_in">swap</span>(nums[i], nums[p0]);</span><br><span class="line">                p0++;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (nums[i] == <span class="number">2</span>) &#123;</span><br><span class="line">                <span class="built_in">swap</span>(nums[i], nums[p2]);</span><br><span class="line">                p2--;</span><br><span class="line">                <span class="comment">// 注意：此處不 i++，因為交換後的 nums[i] 需重新判斷</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123; <span class="comment">// nums[i] == 1</span></span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(n)</p>
+<ul>
+<li>單次線性掃描，i 最多移動 n 次，p2 最多移動 n 次。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(1)</p>
+<ul>
+<li>原地交換，僅使用常數額外變數。</li>
+</ul>
+</li>
+</ul>
+
   </div>
 
    <footer>
@@ -2799,7 +3325,7 @@ Hi~~ = Joseph's Blog</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">Edited on</span>
-    <time title="Modified: 2025-06-07 03:55:56" itemprop="dateModified" datetime="2025-06-07T03:55:56+08:00">2025-06-07</time>
+    <time title="Modified: 2025-06-08 23:06:32" itemprop="dateModified" datetime="2025-06-08T23:06:32+08:00">2025-06-08</time>
   </span>
 </div>
 
@@ -2838,7 +3364,7 @@ Hi~~ = Joseph's Blog</title>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="Contents">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Grind-75"><span class="toc-number">1.</span> <span class="toc-text">Grind 75</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-1-13-13"><span class="toc-number">1.1.</span> <span class="toc-text">Week 1 (13&#x2F;13)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Two-Sum"><span class="toc-number">1.1.1.</span> <span class="toc-text">Two Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Parentheses"><span class="toc-number">1.1.2.</span> <span class="toc-text">Valid Parentheses</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Two-Sorted-Lists"><span class="toc-number">1.1.3.</span> <span class="toc-text">Merge Two Sorted Lists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Best-Time-to-Buy-and-Sell-Stock"><span class="toc-number">1.1.4.</span> <span class="toc-text">Best Time to Buy and Sell Stock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Palindrome"><span class="toc-number">1.1.5.</span> <span class="toc-text">Valid Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invert-Binary-Tree"><span class="toc-number">1.1.6.</span> <span class="toc-text">Invert Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Anagram"><span class="toc-number">1.1.7.</span> <span class="toc-text">Valid Anagram</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Search"><span class="toc-number">1.1.8.</span> <span class="toc-text">Binary Search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flood-Fill"><span class="toc-number">1.1.9.</span> <span class="toc-text">Flood Fill</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Search-Tree"><span class="toc-number">1.1.10.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Balanced-Binary-Tree"><span class="toc-number">1.1.11.</span> <span class="toc-text">Balanced Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linked-List-Cycle"><span class="toc-number">1.1.12.</span> <span class="toc-text">Linked List Cycle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Queue-using-Stacks"><span class="toc-number">1.1.13.</span> <span class="toc-text">Implement Queue using Stacks</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-2-12-12"><span class="toc-number">1.2.</span> <span class="toc-text">Week 2 (12&#x2F;12)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#First-Bad-Version"><span class="toc-number">1.2.1.</span> <span class="toc-text">First Bad Version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ransom-Note"><span class="toc-number">1.2.2.</span> <span class="toc-text">Ransom Note</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Climbing-Stairs"><span class="toc-number">1.2.3.</span> <span class="toc-text">Climbing Stairs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Palindrome"><span class="toc-number">1.2.4.</span> <span class="toc-text">Longest Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-Linked-List"><span class="toc-number">1.2.5.</span> <span class="toc-text">Reverse Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Majority-Element"><span class="toc-number">1.2.6.</span> <span class="toc-text">Majority Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-Binary"><span class="toc-number">1.2.7.</span> <span class="toc-text">Add Binary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Diameter-of-Binary-Tree"><span class="toc-number">1.2.8.</span> <span class="toc-text">Diameter of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Middle-of-the-Linked-List"><span class="toc-number">1.2.9.</span> <span class="toc-text">Middle of the Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Depth-of-Binary-Tree"><span class="toc-number">1.2.10.</span> <span class="toc-text">Maximum Depth of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Contains-Duplicate"><span class="toc-number">1.2.11.</span> <span class="toc-text">Contains Duplicate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Subarray"><span class="toc-number">1.2.12.</span> <span class="toc-text">Maximum Subarray</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-3-8-8"><span class="toc-number">1.3.</span> <span class="toc-text">Week 3 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Insert-Interval"><span class="toc-number">1.3.1.</span> <span class="toc-text">Insert Interval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#01-Matrix"><span class="toc-number">1.3.2.</span> <span class="toc-text">01 Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-Closest-Points-to-Origin"><span class="toc-number">1.3.3.</span> <span class="toc-text">K Closest Points to Origin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Substring-Without-Repeating-Characters"><span class="toc-number">1.3.4.</span> <span class="toc-text">Longest Substring Without Repeating Characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3Sum"><span class="toc-number">1.3.5.</span> <span class="toc-text">3Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Tree-Level-Order-Traversal"><span class="toc-number">1.3.6.</span> <span class="toc-text">Binary Tree Level Order Traversal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Clone-Graph"><span class="toc-number">1.3.7.</span> <span class="toc-text">Clone Graph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Evaluate-Reverse-Polish-Notation"><span class="toc-number">1.3.8.</span> <span class="toc-text">Evaluate Reverse Polish Notation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-4-8-8"><span class="toc-number">1.4.</span> <span class="toc-text">Week 4 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Course-Schedule"><span class="toc-number">1.4.1.</span> <span class="toc-text">Course Schedule</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Trie-Prefix-Tree"><span class="toc-number">1.4.2.</span> <span class="toc-text">Implement Trie (Prefix Tree)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Coin-Change"><span class="toc-number">1.4.3.</span> <span class="toc-text">Coin Change</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Product-of-Array-Except-Self"><span class="toc-number">1.4.4.</span> <span class="toc-text">Product of Array Except Self</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Min-Stack"><span class="toc-number">1.4.5.</span> <span class="toc-text">Min Stack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Validate-Binary-Search-Tree"><span class="toc-number">1.4.6.</span> <span class="toc-text">Validate Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-of-Islands"><span class="toc-number">1.4.7.</span> <span class="toc-text">Number of Islands</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rotting-Oranges"><span class="toc-number">1.4.8.</span> <span class="toc-text">Rotting Oranges</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-5-8-8"><span class="toc-number">1.5.</span> <span class="toc-text">Week 5 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Search-in-Rotated-Sorted-Array"><span class="toc-number">1.5.1.</span> <span class="toc-text">Search in Rotated Sorted Array</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Grind-75"><span class="toc-number">1.</span> <span class="toc-text">Grind 75</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-1-13-13"><span class="toc-number">1.1.</span> <span class="toc-text">Week 1 (13&#x2F;13)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Two-Sum"><span class="toc-number">1.1.1.</span> <span class="toc-text">Two Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Parentheses"><span class="toc-number">1.1.2.</span> <span class="toc-text">Valid Parentheses</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Two-Sorted-Lists"><span class="toc-number">1.1.3.</span> <span class="toc-text">Merge Two Sorted Lists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Best-Time-to-Buy-and-Sell-Stock"><span class="toc-number">1.1.4.</span> <span class="toc-text">Best Time to Buy and Sell Stock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Palindrome"><span class="toc-number">1.1.5.</span> <span class="toc-text">Valid Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invert-Binary-Tree"><span class="toc-number">1.1.6.</span> <span class="toc-text">Invert Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Anagram"><span class="toc-number">1.1.7.</span> <span class="toc-text">Valid Anagram</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Search"><span class="toc-number">1.1.8.</span> <span class="toc-text">Binary Search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flood-Fill"><span class="toc-number">1.1.9.</span> <span class="toc-text">Flood Fill</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Search-Tree"><span class="toc-number">1.1.10.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Balanced-Binary-Tree"><span class="toc-number">1.1.11.</span> <span class="toc-text">Balanced Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linked-List-Cycle"><span class="toc-number">1.1.12.</span> <span class="toc-text">Linked List Cycle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Queue-using-Stacks"><span class="toc-number">1.1.13.</span> <span class="toc-text">Implement Queue using Stacks</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-2-12-12"><span class="toc-number">1.2.</span> <span class="toc-text">Week 2 (12&#x2F;12)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#First-Bad-Version"><span class="toc-number">1.2.1.</span> <span class="toc-text">First Bad Version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ransom-Note"><span class="toc-number">1.2.2.</span> <span class="toc-text">Ransom Note</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Climbing-Stairs"><span class="toc-number">1.2.3.</span> <span class="toc-text">Climbing Stairs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Palindrome"><span class="toc-number">1.2.4.</span> <span class="toc-text">Longest Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-Linked-List"><span class="toc-number">1.2.5.</span> <span class="toc-text">Reverse Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Majority-Element"><span class="toc-number">1.2.6.</span> <span class="toc-text">Majority Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-Binary"><span class="toc-number">1.2.7.</span> <span class="toc-text">Add Binary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Diameter-of-Binary-Tree"><span class="toc-number">1.2.8.</span> <span class="toc-text">Diameter of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Middle-of-the-Linked-List"><span class="toc-number">1.2.9.</span> <span class="toc-text">Middle of the Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Depth-of-Binary-Tree"><span class="toc-number">1.2.10.</span> <span class="toc-text">Maximum Depth of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Contains-Duplicate"><span class="toc-number">1.2.11.</span> <span class="toc-text">Contains Duplicate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Subarray"><span class="toc-number">1.2.12.</span> <span class="toc-text">Maximum Subarray</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-3-8-8"><span class="toc-number">1.3.</span> <span class="toc-text">Week 3 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Insert-Interval"><span class="toc-number">1.3.1.</span> <span class="toc-text">Insert Interval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#01-Matrix"><span class="toc-number">1.3.2.</span> <span class="toc-text">01 Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-Closest-Points-to-Origin"><span class="toc-number">1.3.3.</span> <span class="toc-text">K Closest Points to Origin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Substring-Without-Repeating-Characters"><span class="toc-number">1.3.4.</span> <span class="toc-text">Longest Substring Without Repeating Characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3Sum"><span class="toc-number">1.3.5.</span> <span class="toc-text">3Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Tree-Level-Order-Traversal"><span class="toc-number">1.3.6.</span> <span class="toc-text">Binary Tree Level Order Traversal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Clone-Graph"><span class="toc-number">1.3.7.</span> <span class="toc-text">Clone Graph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Evaluate-Reverse-Polish-Notation"><span class="toc-number">1.3.8.</span> <span class="toc-text">Evaluate Reverse Polish Notation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-4-8-8"><span class="toc-number">1.4.</span> <span class="toc-text">Week 4 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Course-Schedule"><span class="toc-number">1.4.1.</span> <span class="toc-text">Course Schedule</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Trie-Prefix-Tree"><span class="toc-number">1.4.2.</span> <span class="toc-text">Implement Trie (Prefix Tree)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Coin-Change"><span class="toc-number">1.4.3.</span> <span class="toc-text">Coin Change</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Product-of-Array-Except-Self"><span class="toc-number">1.4.4.</span> <span class="toc-text">Product of Array Except Self</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Min-Stack"><span class="toc-number">1.4.5.</span> <span class="toc-text">Min Stack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Validate-Binary-Search-Tree"><span class="toc-number">1.4.6.</span> <span class="toc-text">Validate Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-of-Islands"><span class="toc-number">1.4.7.</span> <span class="toc-text">Number of Islands</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rotting-Oranges"><span class="toc-number">1.4.8.</span> <span class="toc-text">Rotting Oranges</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-5-8-8"><span class="toc-number">1.5.</span> <span class="toc-text">Week 5 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Search-in-Rotated-Sorted-Array"><span class="toc-number">1.5.1.</span> <span class="toc-text">Search in Rotated Sorted Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Combination-Sum"><span class="toc-number">1.5.2.</span> <span class="toc-text">Combination Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Permutations"><span class="toc-number">1.5.3.</span> <span class="toc-text">Permutations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Intervals"><span class="toc-number">1.5.4.</span> <span class="toc-text">Merge Intervals</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Tree"><span class="toc-number">1.5.5.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Based-Key-Value-Store"><span class="toc-number">1.5.6.</span> <span class="toc-text">Time Based Key-Value Store</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Accounts-Merge"><span class="toc-number">1.5.7.</span> <span class="toc-text">Accounts Merge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sort-Colors"><span class="toc-number">1.5.8.</span> <span class="toc-text">Sort Colors</span></a></li></ol></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="Related">
       </div>
