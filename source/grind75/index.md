@@ -3331,3 +3331,1859 @@ public:
      - 最壞情況下（所有元素都是數字），棧中最多會存 n 個數字，所以需要 O(n) 的額外空間。
 
 ## Week 4 (8/8)
+
+
+
+### Course Schedule
+
+> [題目連結](https://leetcode.com/problems/course-schedule/)  
+> **標籤**: Graph, Topological Sort, DFS  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 你需要修 `numCourses` 門課程，編號從 `0` 到 `numCourses - 1`。有一個列表 `prerequisites`，其中的每一對 `[a, b]` 表示要修課程 `a` 必須先修過課程 `b`。  
+>  
+> 請判斷是否存在一種選課順序，使你能修完所有課程。如果可以，返回 `true`；否則，返回 `false`。  
+
+**範例**
+
+> Example 1:  
+> Input: `numCourses = 2, prerequisites = [[1,0]]`  
+> Output: `true`  
+> Explanation: 學生先修課程 `0`，接著修課程 `1`。  
+
+> Example 2:  
+> Input: `numCourses = 2, prerequisites = [[1,0],[0,1]]`  
+> Output: `false`  
+> Explanation: 存在循環依賴，無法完成所有課程。  
+
+**限制**
+
+> - `1 <= numCourses <= 10^5`  
+> - `0 <= prerequisites.length <= 5000`  
+> - `prerequisites[i].length == 2`  
+> - `0 <= ai, bi < numCourses`  
+> - 所有 `prerequisites[i]` 互不相同  
+
+**思路**
+
+> 本題實質是在判斷有向圖中是否存在拓撲排序（即是否能夠將有向圖排成無環序列）。如果圖中沒有環，則存在拓撲排序，代表可以依照該順序修完所有課程。  
+>  
+> 常見的做法有兩種：  
+> 1. **入度 (Kahn’s Algorithm) + BFS**  
+>    - 構建鄰接表與入度數組：對於每個先修關係 `[a, b]`，在鄰接表中記錄邊 `b → a`，並將 `a` 的入度 `in[a]++`。  
+>    - 將所有入度為 `0` 的節點（即沒有先修課的課程）都加入隊列。  
+>    - 不斷從隊列中彈出節點 `u`，將 `u` 的鄰接節點 `v` 的入度減 `1`，若此時 `in[v]` 變為 `0`，則將 `v` 推入隊列。  
+>    - 同時計算已處理的節點個數 `count`。遍歷完隊列後，如果 `count == numCourses`，表示所有課程都能被加入拓撲序列，返回 `true`；否則存在環，返回 `false`。  
+>  
+> 2. **DFS 判斷有向圖是否存在環**  
+>    - 使用深度優先搜尋 (DFS)，同時維護一個狀態數組 `state[i]`，`0` 表示未訪問，`1` 表示訪問中（在遞歸棧上），`2` 表示已完成訪問。  
+>    - 對於每個尚未訪問的節點 `u` 執行 DFS：  
+>      1. 將 `state[u] = 1`，遍歷所有鄰接節點 `v`，若 `state[v] == 0`，則遞歸 DFS(v)；若 `state[v] == 1`，表示發現環，直接返回 `true`。  
+>      2. 完成對 `u` 的所有鄰接節點訪問後，將 `state[u] = 2`。  
+>    - 若整個過程中都沒有發現「回到訪問中節點」的情況，則圖中無環，返回 `true`。否則，返回 `false`。  
+>  
+> 下面以 **Kahn’s Algorithm (BFS)** 方法實現。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <queue>
+using namespace std;
+
+class Solution {
+public:
+    bool canFinish(int numCourses, const vector<vector<int>>& prerequisites) {
+        // 1. 建立鄰接表與入度數組
+        vector<vector<int>> adj(numCourses);
+        vector<int> inDegree(numCourses, 0);
+        for (const auto& pre : prerequisites) {
+            int course = pre[0];
+            int prereq = pre[1];
+            adj[prereq].push_back(course);
+            inDegree[course]++;
+        }
+
+        // 2. 將所有入度為 0 的節點加入佇列
+        queue<int> q;
+        for (int i = 0; i < numCourses; i++) {
+            if (inDegree[i] == 0) {
+                q.push(i);
+            }
+        }
+
+        // 3. BFS 拓撲排序
+        int visitedCount = 0;
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            visitedCount++;
+
+            // 將 u 的所有鄰接節點入度減 1，若變為 0，則加入佇列
+            for (int v : adj[u]) {
+                inDegree[v]--;
+                if (inDegree[v] == 0) {
+                    q.push(v);
+                }
+            }
+        }
+
+        // 4. 如果處理過的節點數等於 numCourses，表示所有課程都能完成
+        return visitedCount == numCourses;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(N + E)
+     - N 為課程數（numCourses），E 為先修關係數（prerequisites.size()）。
+
+     - 建立圖與計算入度需要 O(E)；BFS 遍歷所有節點和邊也需要 O(N + E)。
+
+ - 空間複雜度：O(N + E)
+     - 需要存儲鄰接表（共 E 條邊）和入度數組（大小為 N），以及 BFS 佇列在最壞情況下可裝 N 個節點。
+
+### Implement Trie (Prefix Tree)
+
+> [題目連結](https://leetcode.com/problems/implement-trie-prefix-tree/)  
+> **標籤**: Design, Trie  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 實作一個 Trie（又稱 Prefix Tree），包含以下操作：  
+> 1. `Trie()`：初始化 Trie 物件。  
+> 2. `void insert(String word)`：將字串 `word` 插入 Trie。  
+> 3. `boolean search(String word)`：如果字串 `word` 存在於 Trie 中（作為完整的字串），則返回 `true`；否則返回 `false`。  
+> 4. `boolean startsWith(String prefix)`：如果 Trie 中存在以字串 `prefix` 為開頭的任何單詞，則返回 `true`；否則返回 `false`。  
+
+**輸入／輸出 範例**
+
+> 注意：題目不需要你從標準輸入讀取任何資料，也不需要你輸出格式化結果到標準輸出，僅需實作上述四個函式接口。  
+>  
+> 下面給出一個模擬呼叫過程的範例，展示「操作序列」對應的回傳結果：  
+>  
+> input：
+> ["Trie","insert","search","search","startsWith","insert","search"]
+> [[],["apple"],["apple"],["app"],["app"],["app"],["app"]]
+> 
+> output：
+> [null,null,true,false,true,null,true]
+>  
+> **說明**：  
+> 1. `Trie trie = new Trie();`  → 回傳 `null` （初始化）  
+> 2. `trie.insert("apple");`   → 回傳 `null` （插入不回傳結果）  
+> 3. `trie.search("apple");`   → 回傳 `true` （字串 "apple" 存在）  
+> 4. `trie.search("app");`     → 回傳 `false`（字串 "app" 不是完整儲存的單詞）  
+> 5. `trie.startsWith("app");`→ 回傳 `true` （有單詞以 "app" 為前綴）  
+> 6. `trie.insert("app");`     → 回傳 `null` （插入 "app"）  
+> 7. `trie.search("app");`     → 回傳 `true` （"app" 現在已經被插入）  
+
+**限制**
+
+> - 所有字串僅包含小寫英文字母 `a` 到 `z`。  
+> - `1 <= word.length, prefix.length <= 2000`。  
+> - 最多執行 `insert`, `search`, `startsWith` 操作共 `10^4` 次。  
+
+**思路**
+
+> - 使用 Trie 結構：以節點（Node）為單位，每個節點持有 26 個子指標（對應 a–z）與一個布林標記 `isEnd` 表示該節點是否為某字串的結尾。  
+> - 插入（`insert`）時，從根節點出發，沿著 `word` 中每個字符依次檢查子指標是否為 `nullptr`。若為空便建立新節點；最後將當前節點的 `isEnd` 設為 `true`。  
+> - 搜尋完整字串（`search`）時，沿 `word` 所有字符往下遍歷。如果某一步子指標為 `nullptr`，直接返回 `false`；遍歷完成後，檢查當前節點的 `isEnd`。若為 `true`，代表整個 `word` 存在於 Trie 中，返回 `true`，否則返回 `false`。  
+> - 搜尋前綴（`startsWith`）時，類似 `search`，但到遍歷結束即可返回 `true`，不需檢查 `isEnd`。  
+
+**程式碼**
+
+```cpp
+#include <array>
+#include <string>
+using namespace std;
+
+class Trie {
+private:
+    // 定義 Trie 節點
+    struct TrieNode {
+        bool isEnd;                         // 標記是否為字串結尾
+        array<TrieNode*, 26> children;      // 26 個子指標對應 a–z
+        
+        TrieNode() : isEnd(false) {
+            children.fill(nullptr);
+        }
+    };
+    
+    TrieNode* root;  // 根節點
+
+public:
+    /** 初始化 Trie 物件 */
+    Trie() {
+        root = new TrieNode();
+    }
+    
+    /** 將字串 word 插入 Trie */
+    void insert(const string& word) {
+        TrieNode* node = root;
+        for (char c : word) {
+            int idx = c - 'a';
+            if (node->children[idx] == nullptr) {
+                node->children[idx] = new TrieNode();
+            }
+            node = node->children[idx];
+        }
+        node->isEnd = true;  // 標記字串結尾
+    }
+    
+    /** 搜尋完整字串 word 是否存在於 Trie */
+    bool search(const string& word) {
+        TrieNode* node = root;
+        for (char c : word) {
+            int idx = c - 'a';
+            if (node->children[idx] == nullptr) {
+                return false;   // 過程中若無對應節點，代表字串不存在
+            }
+            node = node->children[idx];
+        }
+        return node->isEnd;     // 需確保該節點是完整單詞的結尾
+    }
+    
+    /** 判斷是否存在以 prefix 為開頭的任何字串 */
+    bool startsWith(const string& prefix) {
+        TrieNode* node = root;
+        for (char c : prefix) {
+            int idx = c - 'a';
+            if (node->children[idx] == nullptr) {
+                return false;   // 若某步驟找不到節點，代表無此前綴
+            }
+            node = node->children[idx];
+        }
+        return true;            // 遍歷完前綴就代表存在
+    }
+    
+    ~Trie() {
+        // 清除所分配的記憶體
+        clearTrie(root);
+    }
+    
+private:
+    /** 遞迴釋放節點 */
+    void clearTrie(TrieNode* node) {
+        if (!node) return;
+        for (int i = 0; i < 26; i++) {
+            if (node->children[i]) {
+                clearTrie(node->children[i]);
+            }
+        }
+        delete node;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度
+     - insert(word): O(m)，其中 m 為要插入字串的長度。
+     - search(word): O(m)，其中 m 為要搜尋字串的長度。
+     - startsWith(prefix): O(m)，其中 m 為前綴字串的長度。
+
+ - 空間複雜度
+     - 最壞情況下，Trie 中節點數量等於所有插入字串長度的總和。若插入 k 個字串，總長度為 S，則空間複雜度為 O(S)。
+
+### Coin Change
+
+> [題目連結](https://leetcode.com/problems/coin-change/)  
+> **標籤**: Dynamic Programming, BFS（也可用 BFS 解法）  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一組不同面額的硬幣 `coins` 與一個總金額 `amount`，請找出可以湊出該金額的最少硬幣數量。
+> 如果無法湊出該金額，則返回 `-1`。
+> 你可以假設每種面額的硬幣數量無限多個。
+
+**範例**
+
+> Example 1:  
+> Input: `coins = [1, 2, 5], amount = 11`  
+> Output: `3`  
+> Explanation: 11 = 5 + 5 + 1  
+
+> Example 2:  
+> Input: `coins = [2], amount = 3`  
+> Output: `-1`  
+> Explanation: 無法湊出 3  
+
+> Example 3:  
+> Input: `coins = [1], amount = 0`  
+> Output: `0`  
+> Explanation: 不需要任何硬幣即可湊出 0  
+
+**限制**
+
+> - `1 <= coins.length <= 12`  
+> - `1 <= coins[i] <= 2^31 - 1`  
+> - `0 <= amount <= 10^4`  
+> - 面額資料均為正整數，且最多只有 12 種硬幣  
+
+**思路**
+
+> 本題關鍵在於動態規劃（DP）。我們想求出「湊出金額 `j` 所需的最少硬幣數量」，設 `dp[j]` 為湊出金額 `j` 所需最少硬幣數。  
+>  
+> - 初始條件：  
+>   - `dp[0] = 0` （湊出 0，需要 0 個硬幣）。  
+>   - 對於 `j > 0`，先將 `dp[j]` 初始化為一個很大的數（例如 `amount + 1`，代表無法湊出）。  
+>  
+> - 狀態轉移：  
+>   - 對於每個面額 `coin`，如果當前目標金額為 `j`，且 `j - coin >= 0`，則可以由 `dp[j - coin]` 轉移得到：  
+>     ```
+>     dp[j] = min(dp[j], dp[j - coin] + 1)
+>     ```  
+>   - 以上含義為：若我們已知湊出 `j - coin` 需要的最少硬幣數為 `dp[j - coin]`，那麼再加上一個面額為 `coin` 的硬幣，總共就能湊出 `j`，所需硬幣數為 `dp[j - coin] + 1`。對於所有面額都嘗試一次，就能得到最少硬幣數。  
+>  
+> - 最終答案：如果 `dp[amount]` 還保持初始的「無窮」值（大於 `amount`），說明無法湊出，回傳 `-1`；否則回傳 `dp[amount]`。  
+>  
+> 由於 `amount` 最大為 10^4，`coins.length` 最多 12，雙重迴圈 O(amount × coins.length) 約為 10^5，到底可以接受。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int coinChange(const vector<int>& coins, int amount) {
+        // 如果金額為 0，直接返回 0
+        if (amount == 0) return 0;
+        
+        // 初始化 dp 陣列，大小為 amount + 1，初始都設為 amount+1（代表無法湊出）
+        vector<int> dp(amount + 1, amount + 1);
+        dp[0] = 0;  // 湊出 0 元需要 0 枚硬幣
+        
+        // 對於每個金額 j，嘗試所有硬幣面額做轉移
+        for (int j = 1; j <= amount; j++) {
+            for (int coin : coins) {
+                if (j - coin >= 0) {
+                    dp[j] = min(dp[j], dp[j - coin] + 1);
+                }
+            }
+        }
+        
+        // 若最終 dp[amount] 還是初始的「amount+1」，表示無法湊出
+        return dp[amount] > amount ? -1 : dp[amount];
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(amount × n)，其中 amount 為目標金額大小，n = coins.length 為硬幣種類數。
+     - 外層迴圈從 1 到 amount，內層迴圈遍歷每種硬幣，總共約 amount × n 次操作。
+
+ - 空間複雜度：O(amount)，需要額外一個大小為 amount + 1 的 dp 陣列。
+
+### Product of Array Except Self
+
+> [題目連結](https://leetcode.com/problems/product-of-array-except-self/)  
+> **標籤**: Array, Prefix Sum (或 前綴/後綴乘積)  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個整數陣列 `nums`，長度為 `n`，請返回一個陣列 `answer`，其中 `answer[i]` 等於 `nums` 中除了自身 `nums[i]` 之外所有元素的乘積。  
+>  
+> 請注意，要求在不使用除法且在 O(n) 時間內完成此操作。保證運算結果符合 32 位有號整數範圍。  
+
+**範例**
+
+> Example 1:  
+> Input: `nums = [1,2,3,4]`  
+> Output: `[24,12,8,6]`  
+> Explanation：  
+> - 對於 i = 0，answer[0] = 2 * 3 * 4 = 24  
+> - 對於 i = 1，answer[1] = 1 * 3 * 4 = 12  
+> - 對於 i = 2，answer[2] = 1 * 2 * 4 = 8  
+> - 對於 i = 3，answer[3] = 1 * 2 * 3 = 6  
+
+> Example 2:  
+> Input: `nums = [-1,1,0,-3,3]`  
+> Output: `[0,0,9,0,0]`  
+> Explanation：  
+> - 有一個元素為 0，因此只要計算除該 0 之外其他數字的乘積：(-1)*1*(-3)*3 = 9  
+> - 其他位置因為包含自身為 0 或者遇到陣列中有 0，也會使對應位置結果為 0。  
+
+**限制**
+
+> - `n == nums.length`  
+> - `2 <= n <= 10^5`  
+> - `-30 <= nums[i] <= 30`  
+> - 保證任意前綴與後綴的乘積結果均符合 32 位有號整數範圍（即 `-2^31` 到 `2^31 - 1`）。  
+
+**思路**
+
+> 本題要求在 O(n) 時間內計算每個位置 i 的「除自身之外所有元素乘積」，且不能使用除法。常見技巧是利用「前綴乘積」與「後綴乘積」。  
+>  
+> 步驟如下：  
+> 1. 建立長度為 n 的結果陣列 `answer`，用來暫存最終答案。  
+> 2. 首先從左到右計算「前綴乘積」（Prefix Product）：  
+>    - 定義 `left_prod[i]` 為陣列 `nums` 中索引小於 i 的所有元素乘積。例如 `left_prod[0] = 1`（因為左側沒有元素），`left_prod[1] = nums[0]`，`left_prod[2] = nums[0]*nums[1]`，以此類推。  
+>    - 可以直接把 `left_prod` 存到 `answer` 中，令 `answer[i] = left_prod[i]`。  
+> 3. 接著從右到左計算「後綴乘積」（Right Product），並且同時把它乘到 `answer[i]`：  
+>    - 定義 `right_prod` 初始為 1（右邊沒有元素）。  
+>    - 從 i = n-1 開始往左：先把 `answer[i]` 與當前 `right_prod` 相乘，得到「左側乘積 × 右側乘積」，即為忽略 `nums[i]` 的所有元素乘積。  
+>    - 然後更新 `right_prod *= nums[i]`，準備處理下一個 i-1。  
+> 4. 最後 `answer` 陣列即為答案。這樣只需要兩次線性遍歷，均為 O(n)，且額外空間只用到 `answer` 及一個 `right_prod` 變數（如果把前綴乘積直接累到 `answer`，就不需要額外 `left_prod` 陣列）。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> productExceptSelf(const vector<int>& nums) {
+        int n = nums.size();
+        vector<int> answer(n, 1);
+        
+        // 1. 計算前綴乘積，暫存到 answer
+        //    answer[i] = nums[0] * nums[1] * ... * nums[i-1]
+        int prefix = 1;
+        for (int i = 0; i < n; i++) {
+            answer[i] = prefix;
+            prefix *= nums[i];
+        }
+        
+        // 2. 計算後綴乘積，並與 answer[i] 相乘
+        //    right_prod 初始為 1，代表 i = n 時，右側沒有元素
+        int right_prod = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            answer[i] *= right_prod;
+            right_prod *= nums[i];
+        }
+        
+        return answer;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 只需要兩次長度為 n 的線性掃描：一次從左往右累計前綴乘積，一次從右往左累計後綴乘積並乘到結果陣列。
+
+ - 空間複雜度：O(1)（不含輸出陣列）
+
+     - 除了輸出陣列 answer 之外，只使用常數個額外變數 prefix、right_prod，不需要額外的長度為 n 的輔助陣列。
+
+### Min Stack
+
+> [題目連結](https://leetcode.com/problems/min-stack/)  
+> **標籤**: Stack, Design  
+> **語言**: C++  
+> **難度**: Easy  
+> **解題時間**: 15 分鐘  
+
+**題目描述**
+
+> 設計一個支援以下操作的堆疊 (stack) 結構：  
+> 1. `push(x)` — 將元素 `x` 推入堆疊。  
+> 2. `pop()`  — 删除堆疊頂端的元素。  
+> 3. `top()`  — 獲取堆疊頂端的元素。  
+> 4. `getMin()` — 獲取堆疊中的最小元素。  
+>  
+> 所有操作的時間複雜度都必須為 O(1)。  
+
+**輸入／輸出 範例**
+
+> 注意：題目不需要你從標準輸入讀取資料，也不需要你將結果輸出到標準輸出，只需實作下面四個接口。   
+>  
+> input：
+> ["MinStack","push","push","push","getMin","pop","top","getMin"]
+> [[],[-2],[0],[-3],[],[],[],[]]
+> 
+> output：
+> [null,null,null,null,-3,null,0,-2] 
+
+**說明**：  
+> 1. `MinStack minStack = new MinStack();` → 回傳 `null` （建構函式不回傳值）  
+> 2. `minStack.push(-2);`         → 回傳 `null`  
+> 3. `minStack.push(0);`          → 回傳 `null`  
+> 4. `minStack.push(-3);`         → 回傳 `null`  
+> 5. `minStack.getMin();`         → 回傳 `-3` （堆疊中的最小值）  
+> 6. `minStack.pop();`            → 回傳 `null` （刪除頂端元素 `-3`）  
+> 7. `minStack.top();`            → 回傳 `0`  （頂端元素為 `0`）  
+> 8. `minStack.getMin();`         → 回傳 `-2` （剩下元素中最小值為 `-2`）  
+
+**限制**
+
+> - `push`, `pop`, `top`, `getMin` 總共會被調用不超過 `3 × 10^4` 次。  
+> - 在調用 `pop`, `top`, `getMin` 之前，保證堆疊中至少有一個元素。  
+> - 元素值範圍在 `[-2^31, 2^31 - 1]` 之間。  
+
+**思路**
+
+> 要在 O(1) 時間內同時維護堆疊和查詢最小值，我們可以採用「雙堆疊」的技巧：  
+> 1. `dataStack`：正常存放所有推入的數值，用於 `push`、`pop`、`top` 操作。  
+> 2. `minStack`：只存放當前堆疊對應位置的「最小值」。對於每一次 `push(x)`，我們先比較 `x` 與 `minStack.top()`，若 `minStack` 為空則直接把 `x` 推入；若不空，則推入 `min(x, minStack.top())`。這樣 `minStack.top()` 始終代表當前堆疊裏所有元素的最小值。  
+>  
+> - `push(x)`  
+>   1. 在 `dataStack` 推入 `x`。  
+>   2. 若 `minStack` 為空，則 `minStack.push(x)`；否則 `minStack.push(min(x, minStack.top()))`。  
+> - `pop()`  
+>   1. 在 `dataStack` 執行 `pop()`。  
+>   2. 同時在 `minStack` 執行 `pop()`。  
+> - `top()`  
+>   - 直接返回 `dataStack.top()`。  
+> - `getMin()`  
+>   - 直接返回 `minStack.top()`。  
+>  
+> 由於每個操作只涉及常數次堆疊操作，時間複雜度均為 O(1)。空間上比單純的堆疊多了一個同大小的 `minStack`，因此是 O(n)。  
+
+**程式碼**
+
+```cpp
+#include <stack>
+#include <algorithm>
+using namespace std;
+
+class MinStack {
+private:
+    stack<int> dataStack;  // 存放所有數值
+    stack<int> minStack;   // 存放對應位置的最小值
+
+public:
+    /** 初始化堆疊 */
+    MinStack() {
+        // 建構時不需要額外處理
+    }
+    
+    /** 將元素 x 推入堆疊 */
+    void push(int x) {
+        dataStack.push(x);
+        if (minStack.empty()) {
+            minStack.push(x);
+        } else {
+            // 保留當前堆疊中的最小值
+            int currentMin = minStack.top();
+            minStack.push(min(x, currentMin));
+        }
+    }
+    
+    /** 删除堆疊頂端的元素 */
+    void pop() {
+        dataStack.pop();
+        minStack.pop();
+    }
+    
+    /** 獲取堆疊頂端的元素 */
+    int top() {
+        return dataStack.top();
+    }
+    
+    /** 獲取堆疊中的最小元素 */
+    int getMin() {
+        return minStack.top();
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(1)
+     - push, pop, top, getMin 均只做常數次堆疊操作。
+
+ - 空間複雜度：O(n)
+     - 需要兩個大小為 n 的堆疊：一個 dataStack 存放原始數值，另一個 minStack 存放對應位置的最小值。
+
+### Validate Binary Search Tree
+
+> [題目連結](https://leetcode.com/problems/validate-binary-search-tree/)  
+> **標籤**: Tree, Depth-First Search (DFS), Recursion  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 15 分鐘  
+
+**題目描述**
+
+> 給定一個二元樹的根節點 `root`，判斷其是否為一棵有效的二元搜尋樹（BST）。  
+>  
+> 有效的 BST 定義如下：  
+> 1. 節點的左子樹所有節點的值都必須 **小於** 該節點的值。  
+> 2. 節點的右子樹所有節點的值都必須 **大於** 該節點的值。  
+> 3. 左右子樹自身也都必須是有效的 BST。  
+
+**輸入／輸出 範例**
+
+> 注意：題目不需要你從標準輸入讀取資料，也不需要你將結果輸出到標準輸出，只需實作 `isValidBST` 介面。  
+>  
+> Example 1:  
+> input：root = [2,1,3]
+> output：true 
+> ```text
+>       2
+>       / \
+>      1   3
+> ```
+> Example 2:
+> input：root = [5,1,4,null,null,3,6]
+> output：false  
+> Explanation：
+> 節點 4 的左子節點 3 小於 5 但該位置應該 > 5，違反 BST 定義，所以返回 false。
+> ```text
+>     5
+>    / \
+>   1   4
+>      / \
+>     3   6
+> ```
+
+**限制**
+
+> - 樹中節點數量 `n` 的範圍為 `[1, 10^4]`。  
+> - 每個節點的值屬於 64 位整數範圍，但為方便轉換，可假設節點值在 32 位有號整數範圍內。  
+> - 節點值可能有重複。若有重複值則不視為有效 BST （必須嚴格小於或大於）。  
+
+**思路**
+
+> 要判斷一棵二元樹是否是有效的 BST，關鍵在於 **每個節點的值都要在一個合法的上下界範圍內**，而這個上下界會隨著遞歸往下修改：  
+>  
+> 1. 從根節點開始，根節點的合法值範圍是 `(-∞, +∞)`。  
+> 2. 當遞歸進入某個節點 `node`，我們知道它的值必須在 `(lower, upper)` 範圍內。如果 `node->val` 不在此區間就可以直接返回 `false`。  
+> 3. 對於 `node->left`，它的合法範圍變成 `(lower, node->val)`。  
+> 4. 對於 `node->right`，它的合法範圍變成 `(node->val, upper)`。  
+> 5. 以此方式對整棵樹做 DFS，若所有節點都符合對應的上下界，即可返回 `true`，否則一旦發現不合法，就立刻返回 `false`。  
+>  
+> 這種方法只需一次深度優先遍歷，時間複雜度為 O(n)。空間方面，遞歸棧高度最壞為樹高 O(n)，若是平衡樹則為 O(log n)。  
+
+**程式碼**
+
+```cpp
+#include <limits>
+using namespace std;
+
+// Definition for a binary tree node.
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        return dfs(root, std::numeric_limits<long long>::min(), std::numeric_limits<long long>::max());
+    }
+
+private:
+    /**
+     * 檢查以 node 為根的子樹，所有節點值是否都在 (lower, upper) 範圍內
+     */
+    bool dfs(TreeNode* node, long long lower, long long upper) {
+        if (!node) return true; // 空樹是有效 BST
+
+        // 當前節點值必須嚴格在 (lower, upper) 之間
+        if (node->val <= lower || node->val >= upper) {
+            return false;
+        }
+
+        // 左子樹所有節點必須小於 node->val
+        if (!dfs(node->left, lower, node->val)) {
+            return false;
+        }
+
+        // 右子樹所有節點必須大於 node->val
+        if (!dfs(node->right, node->val, upper)) {
+            return false;
+        }
+
+        return true;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 對每個節點僅訪問一次，並做常數時間的上下界比較與遞歸呼叫。
+
+ - 空間複雜度：O(n)（最壞情況）
+     - 遞歸棧深度最壞會到達樹的節點總數 n；若二元樹高度較平衡則約為 O(log n)。
+
+
+### Number of Islands
+
+> [題目連結](https://leetcode.com/problems/number-of-islands/)  
+> **標籤**: DFS, BFS, Union Find（此處以 DFS 為主）  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個由 `'1'`（陸地）和 `'0'`（水域）組成的二維網格 `grid`，請計算網格中「島嶼」的數量。  
+>  
+> 一座「島嶼」被定義為連續相鄰的陸地塊集合，其中相鄰只考慮上下左右四個方向（水平方向或垂直方向）。你可以假設網格的四邊都被水域包圍。  
+
+**範例**
+
+> Example 1:  
+> input：
+> grid = [
+>   ['1','1','0','0','0'],
+>   ['1','1','0','0','0'],
+>   ['0','0','1','0','0'],
+>   ['0','0','0','1','1']
+> ]
+> output：3  
+> Explanation：  
+> 第一個島嶼由左上角的 4 個 '1' 組成；第二個島嶼由中間的單個 '1' 組成；第三個島嶼由右下角的 2 個 '1' 組成。  
+
+> Example 2:  
+> input：
+> grid = [
+>   ['1','1','1','1','0'],
+>   ['1','1','0','1','0'],
+>   ['1','1','0','0','0'],
+>   ['0','0','0','0','0']
+> ]
+> output：1  
+> Explanation：  
+> 整個左上區域連成一片，僅有一座島嶼。  
+
+**限制**
+
+> - `m == grid.size()`，`n == grid[i].size()`。  
+> - `1 <= m, n <= 300`。  
+> - `grid[i][j]` 的值僅為 `'0'` 或 `'1'`。  
+
+**思路**
+
+> 本題要計算連續相鄰的 `'1'` 群組個數，可以把每一個 `'1'` 視為尚未探索的陸地，遇到就啟動一次深度優先搜尋（DFS）或廣度優先搜尋（BFS），把整座島嶼上的所有相鄰 `'1'` 都標記為已訪問（或改成 `'0'`）。如此每次 DFS/BFS 完成後，就代表找到了一座完整的島嶼，累計計數加一。  
+>  
+> 具體步驟：  
+> 1. 遍歷二維網格的每個格子 `(i, j)`，若 `grid[i][j] == '1'`，表示發現一座新的島嶼。  
+> 2. 計數器 `count++`，接著呼叫 `dfs(i, j)`（或 `bfs(i, j)`），將與 `(i,j)` 相連的所有 `'1'` 全部「淹沒」（例如把它們設為 `'0'`），避免重複計算。  
+> 3. `dfs(i, j)` 函式內部：  
+>    - 若 `i, j` 越界或 `grid[i][j] != '1'`，直接返回。  
+>    - 將 `grid[i][j]` 設為 `'0'`，然後對上下左右四個方向遞迴呼叫 `dfs`。  
+> 4. 遍歷完整個網格後，`count` 即為島嶼的數量，回傳該值。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size();
+        if (m == 0) return 0;
+        int n = grid[0].size();
+        
+        int count = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    // 發現一座新的島嶼
+                    count++;
+                    dfs(grid, i, j, m, n);
+                }
+            }
+        }
+        return count;
+    }
+
+private:
+    // 深度優先搜尋，將與 (i, j) 相連的所有 '1' 全部改成 '0'
+    void dfs(vector<vector<char>>& grid, int i, int j, int m, int n) {
+        // 邊界檢查 或 已經不是陸地，則返回
+        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] != '1') {
+            return;
+        }
+        
+        // 將當前格子「淹沒」為 '0'
+        grid[i][j] = '0';
+        
+        // 向四個方向遞迴
+        dfs(grid, i - 1, j, m, n); // 上
+        dfs(grid, i + 1, j, m, n); // 下
+        dfs(grid, i, j - 1, m, n); // 左
+        dfs(grid, i, j + 1, m, n); // 右
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(m × n)
+     - 每個格子至多會被 dfs 訪問一次（變成 '0' 之後就不再重複進入），並且每次訪問會檢查最多四個鄰居。
+
+ - 空間複雜度：O(m × n)（最壞情況遞迴棧空間）
+     - 若整個網格幾乎全是 '1'，則第一座島嶼的遞迴深度可能達到 m×n；若島嶼分散則深度較淺，但最壞依然是 O(m × n)。
+
+### Rotting Oranges
+
+> [題目連結](https://leetcode.com/problems/rotting-oranges/)  
+> **標籤**: BFS, Matrix  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個由三種值組成的二維網格 `grid`：  
+> - `0` 代表空格子；  
+> - `1` 代表新鮮橘子；  
+> - `2` 代表腐爛橘子；  
+>  
+> 每分鐘，任何與腐爛橘子相鄰（上下左右四個方向）的新鮮橘子都會立即被腐爛。返回將所有新鮮橘子腐爛所需的最少分鐘數。如果無法讓所有橘子都腐爛，則返回 `-1`。  
+
+**輸入／輸出 範例**
+
+> 注意：題目不需要從標準輸入讀取，也不需要輸出格式化結果，只需實作 `orangesRotting` 函式。  
+>  
+> 以下是常見的呼叫示範：  
+>  
+> Example 1: 
+>   
+> input：
+> grid = [
+> [2,1,1],
+> [1,1,0],
+> [0,1,1]
+> ]
+> output：4
+> Explanation：  
+> - 初始時只有 `(0,0)` 是腐爛：  
+> [2,1,1]
+> [1,1,0]
+> [0,1,1]
+> - 第 1 分鐘後，(0,1) 與 (1,0) 變腐爛：  
+> [2,2,1]
+> [2,1,0]
+> [0,1,1]  
+> - 第 2 分鐘後，(0,2)、(1,1)、(2,1) 變腐爛：  
+> [2,2,2]
+> [2,2,0]
+> [0,2,1]  
+> - 第 3 分鐘後，(2,2) 變腐爛：  
+> [2,2,2]
+> [2,2,0]
+> [0,2,2]  
+> - 第 4 分鐘後，所有新鮮橘子都已腐爛。  
+
+> Example 2: 
+> input：
+> grid = [
+> [2,1,1],
+> [0,1,1],
+> [1,0,1]
+> ]
+> output：-1
+> Explanation：  
+> 最右下角的 `(2,2)` 位置新鮮橘子永遠無法被腐爛，因為它與其餘腐爛源不連通。  
+
+> Example 3:
+> input：
+> grid = [
+> [0,2]
+> ]
+> output：0
+> Explanation：  
+> 沒有新鮮橘子，故不需要花費任何時間，結果為 `0`。  
+
+**限制**
+
+> - `m == grid.size()`，`n == grid[i].size()`。  
+> - `1 <= m, n <= 10^2`。  
+> - `grid[i][j]` 的值僅為 `0`、`1` 或 `2`。  
+
+**思路**
+
+> 使用 BFS（廣度優先搜尋）模擬腐爛過程：  
+>  
+> 1. 首先遍歷整個 `grid`，將所有初始腐爛橘子（值為 `2`）的位置加入一個隊列 `queue<pair<int,int>>`，同時計算新鮮橘子的總數 `freshCount`。  
+> 2. 如果初始時 `freshCount == 0`，代表沒有新鮮橘子，直接返回 `0`。  
+> 3. 以多源 BFS 開始：每輪代表「過一分鐘」，先記錄當前隊列長度 `sz = queue.size()`，然後處理 `sz` 個腐爛橘子：  
+>    - 對於每個腐爛的位置 `(r,c)`，檢查其上下左右四個方向相鄰的格子 `(nr,nc)`。  
+>    - 如果 `(nr,nc)` 在範圍內且 `grid[nr][nc] == 1`（新鮮橘子），則將其設為腐爛 `grid[nr][nc] = 2`，`freshCount--`，並把 `(nr,nc)` 推入隊列，以便下一分鐘繼續擴散。  
+> 4. 當一輪 BFS 處理完畢後，如果隊列不為空，代表仍有新腐爛橘子可繼續傳染，時間 `minutes++`。  
+> 5. 重複上述步驟直到隊列為空：  
+>    - 如果此時 `freshCount == 0`，代表所有橘子都腐爛，返回 `minutes`；  
+>    - 否則仍有新鮮橘子無法被染到，返回 `-1`。  
+>  
+> 由於每個格子最多只會入隊一次，並檢查四個方向，因此時間複雜度為 O(m × n)。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <queue>
+using namespace std;
+
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int m = grid.size();
+        if (m == 0) return -1;
+        int n = grid[0].size();
+
+        queue<pair<int,int>> q;
+        int freshCount = 0;
+        
+        // 1. 將所有初始腐爛橘子加入隊列，並計算新鮮橘子數量
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 2) {
+                    q.emplace(i, j);
+                } else if (grid[i][j] == 1) {
+                    freshCount++;
+                }
+            }
+        }
+        
+        // 如果沒有新鮮橘子，直接返回 0
+        if (freshCount == 0) return 0;
+        
+        int minutes = 0;
+        // 方向向量：上、下、左、右
+        vector<int> dr = {-1, 1, 0, 0};
+        vector<int> dc = {0, 0, -1, 1};
+        
+        // 2. 多源 BFS，每分鐘腐爛一次
+        while (!q.empty()) {
+            int sz = q.size();
+            bool anyRottenThisRound = false;
+            
+            for (int k = 0; k < sz; k++) {
+                auto [r, c] = q.front();
+                q.pop();
+                
+                // 檢查四個方向
+                for (int d = 0; d < 4; d++) {
+                    int nr = r + dr[d];
+                    int nc = c + dc[d];
+                    // 若在範圍內且是新鮮橘子，則變為腐爛
+                    if (nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == 1) {
+                        grid[nr][nc] = 2;
+                        freshCount--;
+                        q.emplace(nr, nc);
+                        anyRottenThisRound = true;
+                    }
+                }
+            }
+            
+            // 如果這一輪有新橘子被腐爛，則分鐘數加一
+            if (anyRottenThisRound) {
+                minutes++;
+            }
+        }
+        
+        // 判斷是否所有橘子都已腐爛
+        return (freshCount == 0) ? minutes : -1;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(m × n)
+     - 每個格子至多只會入隊一次，並且每次出隊會檢查四個方向，整體為 O(mn)。
+
+ - 空間複雜度：O(m × n)
+     - 最壞情況下，所有格子都是腐爛橘子，同時入隊，隊列大小可達 m×n；另外原地修改 grid，不使用額外矩陣。
+
+## Week 5 (8/8)
+
+### Search in Rotated Sorted Array
+
+> [題目連結](https://leetcode.com/problems/search-in-rotated-sorted-array/)  
+> **標籤**: Array, Binary Search  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個已經 **按升序排序** 且 **旋轉** 過的整數陣列 `nums`（旋轉前陣列中所有元素互不相同），以及一個目標值 `target`，請在陣列中搜尋目標值，若存在則返回其索引，否則返回 `-1`。  
+>  
+> 旋轉的方式是將陣列中某個位置前後的元素交換到兩端，例如原陣列 `[0,1,2,4,5,6,7]` 經過旋轉後可能變為 `[4,5,6,7,0,1,2]`。  
+
+> 需要寫一個時間複雜度在 O log(n) 的解法。
+
+**輸入／輸出 範例**
+
+> 注意：題目不需要從標準輸入讀取資料，也不需要輸出格式化結果，只需實作 `search` 函式。  
+>  
+> Example 1:
+>    
+>    input：nums = [4,5,6,7,0,1,2], target = 0  
+>    output：4  
+>    Explanation：陣列中 nums[4] == 0。  
+
+> Example 2:  
+>    
+>    input：nums = [4,5,6,7,0,1,2], target = 3  
+>    output：-1  
+>    Explanation：陣列中沒有值為 3 的元素。  
+
+> Example 3:  
+>    
+>    input：nums = [1], target = 0  
+>    output：-1  
+
+**限制**
+
+> - `1 <= nums.length <= 10^4`  
+> - `-10^4 <= nums[i] <= 10^4`  
+> - 陣列中所有元素 **互不相同**  
+> - 旋轉前陣列為升序排序  
+> - `-10^4 <= target <= 10^4`  
+
+**思路**
+
+> 由於陣列被旋轉過，但仍可分為「有序段 + 有序段」，可以在 O(log n) 時間內搜索。常見方法是改良版二分搜尋：  
+>  
+> 1. 設 `left=0`, `right=n-1`，進入迴圈 `while (left <= right)`：  
+> 2. 計算中點 `mid = (left + right) / 2`。  
+> 3. 若 `nums[mid] == target`，直接返回 `mid`。  
+> 4. 判斷哪一半是有序的：  
+>    - 如果 `nums[left] <= nums[mid]`，表示左半段 `[left..mid]` 為**升序**。  
+>      - 若 `target` 在這個區間內（`nums[left] <= target < nums[mid]`），則 `right = mid - 1`；否則 `left = mid + 1`。  
+>    - 否則右半段 `[mid..right]` 為**升序**。  
+>      - 若 `target` 在這個區間內（`nums[mid] < target <= nums[right]`），則 `left = mid + 1`；否則 `right = mid - 1`。  
+> 5. 迴圈結束仍未找到，即返回 `-1`。  
+>  
+> 每次都能排除一半範圍，時間複雜度 O(log n)，額外空間 O(1)。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int search(const vector<int>& nums, int target) {
+        int n = nums.size();
+        int left = 0, right = n - 1;
+        
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            }
+            
+            // 判斷左半段是否有序
+            if (nums[left] <= nums[mid]) {
+                // target 在左半段範圍內
+                if (nums[left] <= target && target < nums[mid]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            // 否則右半段必然有序
+            else {
+                // target 在右半段範圍內
+                if (nums[mid] < target && target <= nums[right]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+        }
+        
+        return -1;  // 未找到
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(log n)
+     - 每次迴圈都能將搜尋範圍減半。
+
+ - 空間複雜度：O(1)
+     - 只使用常數個指標變數。
+
+### Combination Sum
+
+> [題目連結](https://leetcode.com/problems/combination-sum/)  
+> **標籤**: Backtracking, Array, DFS  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 給定一組 **互不相同** 的正整數 `candidates` 和一個目標整數 `target`，請找出 `candidates` 中所有可以使數字和為 `target` 的**組合**。  
+>  
+> 同一個數字可以在組合中被選擇 **無限次**。  
+>  
+> 解集不能包含重複的組合。你可以按任意順序返回這些組合。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：candidates = [2,3,6,7], target = 7  
+> output：[[7],[2,2,3]]  
+> Explanation：  
+> - 7 = 7  
+> - 2 + 2 + 3 = 7  
+
+> Example 2:  
+> 
+> input：candidates = [2,3,5], target = 8  
+> output：[[2,2,2,2],[2,3,3],[3,5]]  
+
+> Example 3:  
+> 
+> input：candidates = [2], target = 1  
+> output：[]  
+
+**限制**
+
+> - `1 <= candidates.length <= 30`  
+> - `1 <= candidates[i] <= 200`  
+> - `candidates` 中所有元素 **互不相同**  
+> - `1 <= target <= 500`  
+
+**思路**
+
+> 本題可用回溯（Backtracking）或深度優先搜尋（DFS）枚舉所有組合：  
+> 1. 先對 `candidates` 排序（可選），以便後續剪枝。  
+> 2. 定義遞歸函式 `dfs(start, sum)`：  
+>    - `start` 表示當前可選擇的起始索引，避免重複組合；  
+>    - `sum` 表示當前累計的總和。  
+> 3. 當 `sum == target` 時，將當前路徑 `path` 加入結果集；  
+> 4. 當 `sum > target` 時，剪枝返回；  
+> 5. 否則從 `i = start` 開始遍歷每個候選數 `candidates[i]`：  
+>    - 將 `candidates[i]` 加入 `path`，呼叫 `dfs(i, sum + candidates[i])`（同一索引可重複使用）；  
+>    - 回溯時將剛才加入的元素從 `path` 中移除。  
+> 6. 完成遍歷後即得所有可能組合。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());  // 可選：排序以便剪枝
+        vector<int> path;
+        vector<vector<int>> result;
+        dfs(candidates, target, 0, 0, path, result);
+        return result;
+    }
+
+private:
+    void dfs(const vector<int>& cand, int target, int start,
+             int sum, vector<int>& path, vector<vector<int>>& res) {
+        if (sum == target) {
+            res.push_back(path);
+            return;
+        }
+        if (sum > target) {
+            return;  // 剪枝
+        }
+        for (int i = start; i < cand.size(); i++) {
+            int x = cand[i];
+            // sum + x > target 時可以提前退出（因為已排序）
+            if (sum + x > target) break;
+            path.push_back(x);
+            dfs(cand, target, i, sum + x, path, res);
+            path.pop_back();  // 回溯
+        }
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：與所有可行組合數目相關，最壞情況約為 O(k × N^(target/min(candidates)))（k 為解的平均長度），但實際受限於 target 和 candidates 數值範圍。
+
+ - 空間複雜度：O(target / min(candidates)) 深度的遞歸棧空間，以及結果集所需的額外空間。
+
+### Permutations
+
+> [題目連結](https://leetcode.com/problems/permutations/)  
+> **標籤**: Backtracking, Array, DFS  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個 **無重複** 整數陣列 `nums`，請返回該陣列所有可能的全排列。可以按任意順序返回答案。  
+
+**範例**
+
+> Example 1:  
+>
+> 輸入：nums = [1,2,3]  
+> 輸出：  
+> [
+>   [1,2,3],
+>   [1,3,2],
+>   [2,1,3],
+>   [2,3,1],
+>   [3,1,2],
+>   [3,2,1]
+> ]
+
+> Example 2:  
+> 
+> 輸入：nums = [0,1]  
+> 輸出：  
+> [
+>   [0,1],
+>   [1,0]
+> ]  
+
+> Example 3:  
+> 
+> 輸入：nums = [1]  
+> 輸出：  
+> [[1]]  
+
+**限制**
+
+> - `1 <= nums.length <= 6`  
+> - `-10 <= nums[i] <= 10`  
+> - `nums` 中的所有元素 **互不相同**  
+
+**思路**
+
+> 本題典型的回溯（Backtracking）問題。思路為：  
+> 1. 用一個布林陣列 `used` 記錄 `nums` 中每個元素是否已經被選過；  
+> 2. 用一個臨時向量 `path` 保存當前排列；  
+> 3. 遞迴函式 `dfs()`：  
+>    - 若 `path.size() == nums.size()`，表示已選滿所有元素，將 `path` 加入結果集；  
+>    - 否則從 `i = 0` 到 `nums.size()-1` 遍歷，每遇到 `used[i] == false`：  
+>      1. 標記 `used[i] = true`，將 `nums[i]` 推入 `path`；  
+>      2. 遞迴呼叫 `dfs()`；  
+>      3. 回溯時 `path.pop_back()`，並重置 `used[i] = false`。  
+> 4. 最終結果即為所有全排列。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        int n = nums.size();
+        vector<bool> used(n, false);
+        vector<int> path;
+        vector<vector<int>> result;
+        dfs(nums, used, path, result);
+        return result;
+    }
+
+private:
+    void dfs(const vector<int>& nums, vector<bool>& used,
+             vector<int>& path, vector<vector<int>>& result) {
+        if (path.size() == nums.size()) {
+            result.push_back(path);
+            return;
+        }
+        for (int i = 0; i < nums.size(); i++) {
+            if (used[i]) continue;
+            // 選擇 nums[i]
+            used[i] = true;
+            path.push_back(nums[i]);
+            dfs(nums, used, path, result);
+            // 回溯
+            path.pop_back();
+            used[i] = false;
+        }
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n! × n)
+
+     - 共生成 n! 種排列，每種排列的複製到結果集需 O(n) 時間。
+
+ - 空間複雜度：O(n)（遞迴棧深度 + 臨時路徑）
+
+     - 除了輸出結果外，遞迴深度最深為 n，used、path 各需 O(n)。
+
+### Merge Intervals
+
+> [題目連結](https://leetcode.com/problems/merge-intervals/)  
+> **標籤**: Array, Sorting  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一組由「閉區間」表示的區間列表 `intervals`，請將所有重疊的區間合併，並返回合併後的區間列表。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：intervals = [[1,3],[2,6],[8,10],[15,18]]
+> output：[[1,6],[8,10],[15,18]]
+> Explanation：  
+> - 區間 [1,3] 和 [2,6] 重疊，合併為 [1,6]；  
+> - 其餘區間互不重疊。  
+
+> Example 2:  
+> 
+> input：intervals = [[1,4],[4,5]]
+> output：[[1,5]]
+> Explanation：  
+> 由於 [1,4] 和 [4,5] 在端點 4 處接觸，也視為重疊，可合併為 [1,5]。  
+
+> Example 3:  
+> 
+> input：intervals = []
+> output：[]
+
+**限制**
+
+> - `0 <= intervals.length <= 10^4`  
+> - `intervals[i].length == 2`  
+> - `0 <= start_i <= end_i <= 10^5`  
+
+**思路**
+
+> 1. 若 `intervals` 為空，直接返回空列表。  
+> 2. 先依各區間的起點 `start` 進行排序。  
+> 3. 建立結果向量 `merged`，將排序後的第一個區間壓入。  
+> 4. 遍歷剩餘每個區間 `cur = [s,e]`：  
+>    - 取 `last = merged.back()` 為結果中最後一個區間；  
+>    - 若 `cur.start <= last.end`，表示重疊，則更新 `last.end = max(last.end, cur.end)`；  
+>    - 否則不重疊，將 `cur` 直接壓入 `merged`。  
+> 5. 遍歷結束後，`merged` 即為合併完成的區間列表。  
+>  
+> 排序耗時 O(n log n)，遍歷合併 O(n)，總時間複雜度 O(n log n)；額外空間 O(n)。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        if (intervals.empty()) return {};
+        // 依起點排序
+        sort(intervals.begin(), intervals.end(),
+             [](const vector<int>& a, const vector<int>& b) {
+                 return a[0] < b[0];
+             });
+        
+        vector<vector<int>> merged;
+        merged.push_back(intervals[0]);
+        
+        for (int i = 1; i < intervals.size(); i++) {
+            auto& last = merged.back();
+            int curStart = intervals[i][0];
+            int curEnd   = intervals[i][1];
+            
+            if (curStart <= last[1]) {
+                // 有重疊，合併區間
+                last[1] = max(last[1], curEnd);
+            } else {
+                // 無重疊，直接新增
+                merged.push_back(intervals[i]);
+            }
+        }
+        
+        return merged;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n log n)
+     - 排序 O(n log n) + 一次線性掃描 O(n)。
+
+ - 空間複雜度：O(n)
+     - 排序可能需要 O(log n) 的遞迴棧，結果向量最壞大小為原輸入的 n。
+
+### Lowest Common Ancestor of a Binary Tree
+
+> [題目連結](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)  
+> **標籤**: Tree, Recursion, DFS  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一棵二元樹的根節點 `root`，以及樹中兩個不同節點 `p` 和 `q`，請找出它們的最近公共祖先（LCA）。  
+>  
+> 最近公共祖先的定義為：對於節點 `p` 和 `q`，在所有同時是它們祖先的節點中，**最深**（距離它們最近）的一個節點。  
+>  
+> 例如，節點 `u` 是節點 `v` 的祖先當且僅當存在一條從根到 `v` 的路徑包含 `u`。根自身也可以是它自己的祖先。  
+
+**輸入／輸出 範例**
+
+> 注意：題目不需要從標準輸入讀取資料，也不需要輸出格式化結果，只需實作 `lowestCommonAncestor` 介面。  
+>  
+> Example 1:  
+>    
+> input：
+> root = [3,5,1,6,2,0,8,null,null,7,4]
+> p = 5, q = 1
+> output：3
+> Explanation：節點 5 與 1 的最近公共祖先是 3（根節點）。
+
+> Example 2:  
+> 
+> input：
+> root = [3,5,1,6,2,0,8,null,null,7,4]
+> p = 5, q = 4
+> output：5
+> Explanation：節點 5 與 4 的最近公共祖先是 5（5 自身是 4 的祖先）。    
+
+> Example 3:  
+>
+> input：
+> root = [1,2]
+> p = 1, q = 2
+>    output：1
+
+**限制**
+
+> - 樹中節點數量在 `[2, 10^5]`。  
+> - 節點值 **互不相同**。  
+> - `p` 和 `q` 均存在於給定的二元樹中。  
+
+**思路**
+
+> 本題可以用遞迴的深度優先搜尋 (DFS) 找 LCA：  
+>  
+> 1. 若當前節點 `root` 為 `nullptr`、或等於 `p`、或等於 `q`，則直接返回 `root`；  
+> 2. 遞迴搜尋左子樹：`left = dfs(root->left, p, q)`；  
+> 3. 遞迴搜尋右子樹：`right = dfs(root->right, p, q)`；  
+> 4. 若 `left` 與 `right` 均非空，代表 `p`、`q` 分別位於當前節點的左右子樹，則當前節點即為最近公共祖先；  
+> 5. 否則，若 `left` 非空（`right` 為空），則 LCA 在左子樹，返回 `left`；反之返回 `right`。  
+>  
+> 此方法只需一次遍歷，時間複雜度 O(n)，遞迴棧深度最壞 O(n)。  
+
+**程式碼**
+
+```cpp
+// Definition for a binary tree node.
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (!root || root == p || root == q) {
+            return root;
+        }
+        TreeNode* left  = lowestCommonAncestor(root->left, p, q);
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
+        if (left && right) {
+            return root;
+        }
+        return left ? left : right;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 每個節點最多被訪問一次。
+
+ - 空間複雜度：O(n)（最壞情況）
+     - 遞迴棧深度最壞為樹的節點數；若樹高度平衡則為 O(log n)。
+
+### Time Based Key-Value Store
+
+> [題目連結](https://leetcode.com/problems/time-based-key-value-store/)  
+> **標籤**: Design, Hash Table, Binary Search  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 實作一個 **時序鍵值儲存** 結構 `TimeMap`，支援以下操作：  
+> 1. `void set(string key, string value, int timestamp)`  
+>    - 將鍵 `key` 的值設定為 `value`，時間戳為 `timestamp`。  
+> 2. `string get(string key, int timestamp)`  
+>    - 返回 **不大於** `timestamp` 的最新一次對 `key` 的設定值；  
+>    - 如果不存在這樣的設定，返回空字串 `""`。  
+
+**輸入／輸出 範例**
+
+> 注意：題目並不需要從標準輸入讀取，也不需要格式化輸出，只需實作 `TimeMap` 類別。  
+>  
+> Example：  
+> input：
+> ["TimeMap","set","get","get","set","get","get"]
+> [[],["foo","bar",1],["foo",1],["foo",3],["foo","bar2",4],["foo",4],["foo",5]]
+> 
+> output：
+> [null,null,"bar","bar",null,"bar2","bar2"]
+
+> Explanation：  
+> 1. `TimeMap tm = new TimeMap();`      → 回傳 `null`（建構函式）  
+> 2. `tm.set("foo","bar",1);`          → 回傳 `null`  
+> 3. `tm.get("foo",1);`               → 回傳 `"bar"` （timestamp == 1 時為 `"bar"`）  
+> 4. `tm.get("foo",3);`               → 回傳 `"bar"` （timestamp 3 查不到新設定，回傳最近的 `"bar"`）  
+> 5. `tm.set("foo","bar2",4);`        → 回傳 `null`  
+> 6. `tm.get("foo",4);`               → 回傳 `"bar2"`  
+> 7. `tm.get("foo",5);`               → 回傳 `"bar2"`  
+
+**限制**
+
+> - 所有 `timestamp` 嚴格遞增：同一個 `key` 的後續 `set` 操作，其 `timestamp` 保證大於前一次。  
+> - 調用 `set` 和 `get` 的總次數不超過 `10^5`。  
+> - `1 <= timestamp <= 10^7`。  
+> - 關鍵字和數值長度均在 `[1, 100]` 之間，只包含可列印 ASCII 字符。  
+
+**思路**
+
+> - 使用哈希表 `unordered_map<string, vector<pair<int,string>>>`：  
+>   - 鍵為 `key`，值為該鍵所有 `(timestamp, value)` 的有序列表（按 `timestamp` 升序儲存）。  
+> - `set(key, value, timestamp)`：  
+>   - 直接將 `(timestamp, value)` push_back 到對應 `vector`（因為 timestamp 嚴格遞增，維持有序性）。  
+> - `get(key, timestamp)`：  
+>   - 在對應 `vector` 上進行二分搜尋（`upper_bound`）：找到第一個 `pair.first > timestamp` 的位置，然後取其前一個位置的 `value`；  
+>   - 如果插入點為 `begin()`，代表所有已有 timestamp 都大於目標，回傳 `""`；否則回傳前一個元素的 `second`。  
+
+**程式碼**
+
+```cpp
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+using namespace std;
+
+class TimeMap {
+private:
+    // key -> list of (timestamp, value)，按 timestamp 升序
+    unordered_map<string, vector<pair<int,string>>> mp;
+
+public:
+    /** 初始化 TimeMap 物件 */
+    TimeMap() {
+    }
+    
+    /** 儲存 key 對應的 value，時間戳為 timestamp */
+    void set(const string& key, const string& value, int timestamp) {
+        mp[key].emplace_back(timestamp, value);
+    }
+    
+    /** 
+     * 獲取 key 在不大於 timestamp 時刻的最新 value，若不存在則返回 ""
+     */
+    string get(const string& key, int timestamp) {
+        if (!mp.count(key)) return "";
+        auto& vec = mp[key];
+        // 二分搜尋第一個 timestamp > target
+        auto it = upper_bound(vec.begin(), vec.end(), 
+                              make_pair(timestamp, string()),
+                              [](const pair<int,string>& a, const pair<int,string>& b) {
+                                  return a.first < b.first;
+                              });
+        if (it == vec.begin()) {
+            return "";
+        }
+        return prev(it)->second;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：
+
+     - set：O(1) 均攤（vector::emplace_back）；
+
+     - get：O(log k)（在長度為 k 的列表中二分搜尋）。
+
+ - 空間複雜度：O(N)
+     - 需要儲存所有 set 操作的鍵值對，總數為 N 次調用。
+
+### Accounts Merge
+
+> [題目連結](https://leetcode.com/problems/accounts-merge/)  
+> **標籤**: Union Find (或 DFS + 哈希), String, Hash Table  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 給定一個帳戶列表 `accounts`，每個帳戶是一個字串列表，其中第一個字串是帳戶持有者的姓名，之後的字串都是該持有者的電子郵件地址。  
+>  
+> 現在有多個帳戶，可能同一個人在不同帳戶中使用了部分相同的郵件地址，請將這些屬於同一人的帳戶合併。  
+>  
+> 合併規則：  
+> - 只要任意兩個帳戶有 **至少一** 個共同的郵箱地址，就認定屬於同一人；  
+> - 合併後帳戶內所有郵件地址需去重並按字母順序排序；  
+> - 輸出格式同輸入：列表中每個元素是一個帳戶，第一個元素是這個人姓名，後面是排序後的所有郵件地址。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：
+> accounts = [
+>   ["John","johnsmith@mail.com","john_newyork@mail.com"],
+>   ["John","johnsmith@mail.com","john00@mail.com"],
+>   ["Mary","mary@mail.com"],
+>   ["John","johnnybravo@mail.com"]
+> ]
+> output：
+> [
+>   ["John","john00@mail.com","john_newyork@mail.com","johnsmith@mail.com"],
+>   ["Mary","mary@mail.com"],
+>   ["John","johnnybravo@mail.com"]
+> ]
+> 
+> Explanation：  
+> - 第一、二 個帳戶都包含 `johnsmith@mail.com`，合併後郵箱為三個去重且排序後的地址；  
+> - 第三個和第四個帳戶沒有與其他重疊，保持原樣。  
+
+> Example 2:  
+> 
+> input：
+> accounts = [
+>   ["Gabe","Gabe0@m.co","Gabe3@m.co","Gabe1@m.co"],
+>   ["Kevin","Kevin3@m.co","Kevin5@m.co","Kevin0@m.co"],
+>   ["Ethan","Ethan5@m.co","Ethan4@m.co","Ethan0@m.co"],
+>   ["Hanzo","Hanzo3@m.co","Hanzo1@m.co","Hanzo0@m.co"],
+>   ["Fern","Fern5@m.co","Fern1@m.co","Fern0@m.co"]
+> ]
+> output：
+> [
+>   ["Ethan","Ethan0@m.co","Ethan4@m.co","Ethan5@m.co"],
+>   ["Gabe","Gabe0@m.co","Gabe1@m.co","Gabe3@m.co"],
+>   ["Hanzo","Hanzo0@m.co","Hanzo1@m.co","Hanzo3@m.co"],
+>   ["Kevin","Kevin0@m.co","Kevin3@m.co","Kevin5@m.co"],
+>   ["Fern","Fern0@m.co","Fern1@m.co","Fern5@m.co"]
+> ]
+
+**限制**
+
+> - `1 <= accounts.length <= 1000`  
+> - `2 <= accounts[i].length <= 10`  
+> - `1 <= accounts[i][j].length <= 30`  
+> - `accounts[i][0]`（姓名）只包含英文字母。  
+> - `accounts[i][j]`（郵件地址）是合法的 ASCII 字符串。  
+
+**思路**
+
+> 可以使用 **並查集 (Union-Find)** 來合併擁有共同郵箱的帳戶：  
+>  
+> 1. 為每個郵箱分配一個唯一 ID，並初始化並查集結構；  
+> 2. 遍歷每個帳戶內的郵箱列表，將這個帳戶中出現的所有郵箱 ID 依次 union 起來，保證同一帳戶內的所有郵箱在同一集合；  
+> 3. 再次遍歷所有郵箱，對每個郵箱查找其根 ID，將郵箱聚集到 `root_id -> list<email>` 的哈希表中；  
+> 4. 最後對每個集合中的郵箱列表去重、排序，並在最前面插入對應的用戶姓名（可從最初映射 `email -> name` 中獲取）；  
+> 5. 收集所有合併後的帳戶列表即可。  
+>  
+> 時間複雜度：O(N α(N) + M log M)，其中 N 為所有郵箱總數，α 為阿克曼函數，M 為每個集合中排序成本之和。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <string>
+#include <unordered_map>
+#include <map>
+#include <algorithm>
+using namespace std;
+
+class UnionFind {
+public:
+    UnionFind(int n): parent(n) {
+        for (int i = 0; i < n; ++i) parent[i] = i;
+    }
+    int find(int x) {
+        if (parent[x] != x) parent[x] = find(parent[x]);
+        return parent[x];
+    }
+    void unite(int x, int y) {
+        int rx = find(x), ry = find(y);
+        if (rx != ry) parent[ry] = rx;
+    }
+private:
+    vector<int> parent;
+};
+
+class Solution {
+public:
+    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+        unordered_map<string,int> email_to_id;
+        unordered_map<string,string> email_to_name;
+        int id = 0;
+        
+        // 1. 給每個 email 分配 ID，記錄 email->name
+        for (auto& acc : accounts) {
+            const string& name = acc[0];
+            for (int i = 1; i < acc.size(); ++i) {
+                const string& email = acc[i];
+                if (!email_to_id.count(email)) {
+                    email_to_id[email] = id++;
+                    email_to_name[email] = name;
+                }
+            }
+        }
+        
+        // 2. 初始化並查集
+        UnionFind uf(id);
+        
+        // 3. 在每個帳戶中 union 該帳戶的所有 email
+        for (auto& acc : accounts) {
+            int first_id = email_to_id[acc[1]];
+            for (int i = 2; i < acc.size(); ++i) {
+                uf.unite(first_id, email_to_id[acc[i]]);
+            }
+        }
+        
+        // 4. 按 root 收集每個 email
+        unordered_map<int, vector<string>> groups;
+        for (auto& [email, eid] : email_to_id) {
+            int root = uf.find(eid);
+            groups[root].push_back(email);
+        }
+        
+        // 5. 構造結果：姓名 + 排序後的 email 列表
+        vector<vector<string>> result;
+        for (auto& [root, emails] : groups) {
+            sort(emails.begin(), emails.end());
+            vector<string> account;
+            account.push_back(email_to_name[emails[0]]);
+            account.insert(account.end(), emails.begin(), emails.end());
+            result.push_back(move(account));
+        }
+        
+        return result;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(N α(N) + M log M)
+
+     - N 為所有郵箱數量：分配 ID、並查集操作共 O(N α(N))；對每個集合排序共計 O(M log M)。
+
+ - 空間複雜度：O(N)
+
+     - 需要存儲映射與並查集父陣列等結構。
+
+### Sort Colors
+
+> [題目連結](https://leetcode.com/problems/sort-colors/)  
+> **標籤**: Array, Two Pointers  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 15 分鐘  
+
+**題目描述**
+
+> 給定一個包含紅色、白色和藍色三種顏色的 `nums` 陣列，請原地對陣列進行排序，使相同顏色的元素相鄰，並且按紅、白、藍的順序排列。  
+>  
+> 我們使用整數 `0`、`1` 和 `2` 分別表示紅色、白色和藍色。必須在不使用庫函式排序的情況下，一趟掃描完成排序。  
+
+**輸入／輸出 範例**
+
+> 注意：題目不需要從標準輸入讀取，也不需要將結果輸出到標準輸出，只需實作 `sortColors` 函式。  
+>  
+> Example 1  
+>    
+> input：nums = [2,0,2,1,1,0]  
+> 執行後 nums 變為 [0,0,1,1,2,2]  
+
+> Example 2  
+>
+> input：nums = [2,0,1]  
+> 執行後 nums 變為 [0,1,2]
+
+**思路**
+
+> 本題常用「Dutch National Flag」三指標法，一趟掃描完成：  
+> - `p0` 指向下個要放 `0`（紅色） 的位置；  
+> - `p2` 指向下個要放 `2`（藍色） 的位置；  
+> - `i` 為當前掃描指標。  
+>  
+> 演算法：  
+> 1. 初始化 `p0 = 0`, `p2 = n-1`, `i = 0`；  
+> 2. 當 `i <= p2` 時：  
+>    - 若 `nums[i] == 0`：交換 `nums[i]` 和 `nums[p0]`，`p0++`, `i++`；  
+>    - 否則若 `nums[i] == 2`：交換 `nums[i]` 和 `nums[p2]`，`p2--`，**不** `i++`（新的 `nums[i]` 需重新檢查）；  
+>    - 否則 (`nums[i] == 1`)：`i++`；  
+> 3. 結束後，所有 `0` 都被移到左側，所有 `2` 都被移到右側，剩下的都是 `1`（白色）。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int n = nums.size();
+        int p0 = 0, p2 = n - 1;
+        int i = 0;
+        while (i <= p2) {
+            if (nums[i] == 0) {
+                swap(nums[i], nums[p0]);
+                p0++;
+                i++;
+            }
+            else if (nums[i] == 2) {
+                swap(nums[i], nums[p2]);
+                p2--;
+                // 注意：此處不 i++，因為交換後的 nums[i] 需重新判斷
+            }
+            else { // nums[i] == 1
+                i++;
+            }
+        }
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 單次線性掃描，i 最多移動 n 次，p2 最多移動 n 次。
+
+ - 空間複雜度：O(1)
+     - 原地交換，僅使用常數額外變數。
