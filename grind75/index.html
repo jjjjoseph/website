@@ -23,6 +23,12 @@
 
 <link rel="stylesheet" href="/website/css/app.css?v=0.2.5">
 
+<!-- MathJax v3 for LaTeX 渲染 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
   
 
 <link rel="canonical" href="http://localhost:4000/grind75/">
@@ -66,7 +72,7 @@ Hi~~ = Joseph's Blog</title>
         <nav id="nav">
   <div class="inner">
     <div class="toggle">
-      <div class="lines" aria-label="Toggle navigation bar">
+      <div class="lines" aria-label="ナビゲーションバーの切り替え">
         <span class="line"></span>
         <span class="line"></span>
         <span class="line"></span>
@@ -89,12 +95,12 @@ Hi~~ = Joseph's Blog</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhtuo6nj20zk0m8ttm.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipesx5fdwj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicliierfjj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexe4oykj20zk0m87ji.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclize41wj20zk0m87gk.jpg"></li>
         </ul>
       </div>
     </header>
@@ -132,7 +138,7 @@ Hi~~ = Joseph's Blog</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <h1 id="Grind-75"><a href="#Grind-75" class="headerlink" title="Grind 75"></a>Grind 75</h1><blockquote>
+    <link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css"><h1 id="Grind-75"><a href="#Grind-75" class="headerlink" title="Grind 75"></a>Grind 75</h1><blockquote>
 <p>Grind 75 是 Leetcode 推出的刷題路線，適合給準備面試的同學。</p>
 </blockquote>
 <h2 id="Week-1-13-13"><a href="#Week-1-13-13" class="headerlink" title="Week 1 (13&#x2F;13)"></a>Week 1 (13&#x2F;13)</h2><h3 id="Two-Sum"><a href="#Two-Sum" class="headerlink" title="Two Sum"></a>Two Sum</h3><blockquote>
@@ -3211,7 +3217,7 @@ Hi~~ = Joseph's Blog</title>
 <p><strong>範例</strong></p>
 <blockquote>
 <p>Example 1:  </p>
-<p>input：<br>accounts &#x3D; [<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjeDZmOyYjMTA0OyYjeDZlOyYjeDczOyYjMTA5OyYjeDY5OyYjeDc0OyYjeDY4OyYjeDQwOyYjeDZkOyYjeDYxOyYjMTA1OyYjeDZjOyYjNDY7JiN4NjM7JiN4NmY7JiN4NmQ7">johnsmith@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjeDY4OyYjeDZlOyYjeDVmOyYjMTEwOyYjeDY1OyYjMTE5OyYjMTIxOyYjeDZmOyYjMTE0OyYjMTA3OyYjeDQwOyYjeDZkOyYjOTc7JiN4Njk7JiN4NmM7JiM0NjsmIzk5OyYjeDZmOyYjMTA5Ow==">john_newyork@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjeDY4OyYjMTEwOyYjeDczOyYjeDZkOyYjeDY5OyYjeDc0OyYjeDY4OyYjNjQ7JiMxMDk7JiN4NjE7JiN4Njk7JiN4NmM7JiN4MmU7JiN4NjM7JiN4NmY7JiN4NmQ7">johnsmith@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjeDY4OyYjMTEwOyYjeDMwOyYjNDg7JiN4NDA7JiN4NmQ7JiN4NjE7JiMxMDU7JiN4NmM7JiN4MmU7JiN4NjM7JiN4NmY7JiMxMDk7">john00@mail.com</span>“],<br>  [“Mary”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA5OyYjeDYxOyYjeDcyOyYjMTIxOyYjeDQwOyYjeDZkOyYjeDYxOyYjeDY5OyYjMTA4OyYjeDJlOyYjOTk7JiMxMTE7JiN4NmQ7">mary@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjMTExOyYjeDY4OyYjMTEwOyYjeDZlOyYjMTIxOyYjOTg7JiMxMTQ7JiN4NjE7JiN4NzY7JiMxMTE7JiN4NDA7JiMxMDk7JiN4NjE7JiMxMDU7JiMxMDg7JiM0NjsmI3g2MzsmIzExMTsmI3g2ZDs=">johnnybravo@mail.com</span>“]<br>]<br>output：<br>[<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjeDZmOyYjMTA0OyYjMTEwOyYjeDMwOyYjNDg7JiN4NDA7JiMxMDk7JiM5NzsmI3g2OTsmIzEwODsmIzQ2OyYjOTk7JiN4NmY7JiN4NmQ7">john00@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjeDY4OyYjMTEwOyYjeDVmOyYjeDZlOyYjMTAxOyYjeDc3OyYjeDc5OyYjeDZmOyYjeDcyOyYjMTA3OyYjNjQ7JiN4NmQ7JiN4NjE7JiMxMDU7JiN4NmM7JiN4MmU7JiN4NjM7JiMxMTE7JiN4NmQ7">john_newyork@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjeDY4OyYjMTEwOyYjeDczOyYjMTA5OyYjeDY5OyYjMTE2OyYjeDY4OyYjeDQwOyYjeDZkOyYjeDYxOyYjeDY5OyYjeDZjOyYjNDY7JiN4NjM7JiMxMTE7JiMxMDk7">johnsmith@mail.com</span>“],<br>  [“Mary”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA5OyYjeDYxOyYjMTE0OyYjeDc5OyYjeDQwOyYjMTA5OyYjeDYxOyYjeDY5OyYjeDZjOyYjNDY7JiN4NjM7JiN4NmY7JiN4NmQ7">mary@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjMTA0OyYjMTEwOyYjMTEwOyYjeDc5OyYjOTg7JiN4NzI7JiM5NzsmIzExODsmIzExMTsmI3g0MDsmI3g2ZDsmIzk3OyYjeDY5OyYjMTA4OyYjeDJlOyYjeDYzOyYjeDZmOyYjMTA5Ow==">johnnybravo@mail.com</span>“]<br>]</p>
+<p>input：<br>accounts &#x3D; [<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjMTA0OyYjeDZlOyYjMTE1OyYjMTA5OyYjMTA1OyYjMTE2OyYjeDY4OyYjNjQ7JiMxMDk7JiM5NzsmI3g2OTsmI3g2YzsmI3gyZTsmIzk5OyYjeDZmOyYjMTA5Ow==">johnsmith@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjeDZmOyYjeDY4OyYjeDZlOyYjOTU7JiMxMTA7JiMxMDE7JiMxMTk7JiN4Nzk7JiN4NmY7JiN4NzI7JiN4NmI7JiN4NDA7JiN4NmQ7JiN4NjE7JiN4Njk7JiN4NmM7JiN4MmU7JiN4NjM7JiN4NmY7JiMxMDk7">john_newyork@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjMTA0OyYjeDZlOyYjMTE1OyYjMTA5OyYjeDY5OyYjMTE2OyYjMTA0OyYjNjQ7JiN4NmQ7JiM5NzsmIzEwNTsmIzEwODsmIzQ2OyYjOTk7JiMxMTE7JiMxMDk7">johnsmith@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjeDY4OyYjMTEwOyYjNDg7JiM0ODsmIzY0OyYjeDZkOyYjeDYxOyYjMTA1OyYjMTA4OyYjeDJlOyYjOTk7JiMxMTE7JiMxMDk7">john00@mail.com</span>“],<br>  [“Mary”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZkOyYjeDYxOyYjMTE0OyYjMTIxOyYjNjQ7JiN4NmQ7JiN4NjE7JiN4Njk7JiN4NmM7JiN4MmU7JiN4NjM7JiMxMTE7JiN4NmQ7">mary@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjeDY4OyYjeDZlOyYjeDZlOyYjeDc5OyYjOTg7JiN4NzI7JiN4NjE7JiN4NzY7JiN4NmY7JiM2NDsmI3g2ZDsmIzk3OyYjMTA1OyYjMTA4OyYjNDY7JiN4NjM7JiN4NmY7JiN4NmQ7">johnnybravo@mail.com</span>“]<br>]<br>output：<br>[<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjMTA0OyYjeDZlOyYjNDg7JiM0ODsmI3g0MDsmIzEwOTsmI3g2MTsmIzEwNTsmI3g2YzsmI3gyZTsmIzk5OyYjMTExOyYjMTA5Ow==">john00@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjeDY4OyYjeDZlOyYjOTU7JiN4NmU7JiMxMDE7JiN4Nzc7JiN4Nzk7JiMxMTE7JiN4NzI7JiMxMDc7JiM2NDsmIzEwOTsmI3g2MTsmI3g2OTsmI3g2YzsmIzQ2OyYjOTk7JiN4NmY7JiN4NmQ7">john_newyork@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjMTA0OyYjeDZlOyYjMTE1OyYjMTA5OyYjMTA1OyYjeDc0OyYjMTA0OyYjNjQ7JiMxMDk7JiM5NzsmI3g2OTsmI3g2YzsmIzQ2OyYjOTk7JiMxMTE7JiMxMDk7">johnsmith@mail.com</span>“],<br>  [“Mary”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA5OyYjeDYxOyYjMTE0OyYjMTIxOyYjeDQwOyYjMTA5OyYjeDYxOyYjeDY5OyYjeDZjOyYjeDJlOyYjOTk7JiN4NmY7JiN4NmQ7">mary@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjeDZmOyYjeDY4OyYjMTEwOyYjeDZlOyYjeDc5OyYjeDYyOyYjMTE0OyYjeDYxOyYjMTE4OyYjMTExOyYjeDQwOyYjMTA5OyYjOTc7JiMxMDU7JiN4NmM7JiN4MmU7JiN4NjM7JiMxMTE7JiMxMDk7">johnnybravo@mail.com</span>“]<br>]</p>
 <p>Explanation：  </p>
 <ul>
 <li>第一、二 個帳戶都包含 <code>johnsmith@mail.com</code>，合併後郵箱為三個去重且排序後的地址；  </li>
@@ -3220,7 +3226,7 @@ Hi~~ = Joseph's Blog</title>
 </blockquote>
 <blockquote>
 <p>Example 2:  </p>
-<p>input：<br>accounts &#x3D; [<br>  [“Gabe”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjOTc7JiM5ODsmIzEwMTsmI3gzMDsmIzY0OyYjeDZkOyYjeDJlOyYjOTk7JiN4NmY7">Gabe0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjeDYxOyYjeDYyOyYjeDY1OyYjeDMzOyYjeDQwOyYjMTA5OyYjNDY7JiM5OTsmI3g2Zjs=">Gabe3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiM5NzsmI3g2MjsmI3g2NTsmIzQ5OyYjNjQ7JiN4NmQ7JiN4MmU7JiM5OTsmI3g2Zjs=">Gabe1@m.co</span>“],<br>  [“Kevin”,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiN4NjU7JiMxMTg7JiN4Njk7JiMxMTA7JiM1MTsmI3g0MDsmI3g2ZDsmIzQ2OyYjOTk7JiN4NmY7">Kevin3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjMTAxOyYjMTE4OyYjMTA1OyYjMTEwOyYjeDM1OyYjNjQ7JiN4NmQ7JiM0NjsmIzk5OyYjMTExOw==">Kevin5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjeDY1OyYjMTE4OyYjeDY5OyYjMTEwOyYjNDg7JiN4NDA7JiN4NmQ7JiN4MmU7JiM5OTsmI3g2Zjs=">Kevin0@m.co</span>“],<br>  [“Ethan”,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiMxMTY7JiN4Njg7JiM5NzsmIzExMDsmI3gzNTsmIzY0OyYjeDZkOyYjNDY7JiN4NjM7JiN4NmY7">Ethan5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiN4NzQ7JiMxMDQ7JiM5NzsmIzExMDsmI3gzNDsmIzY0OyYjMTA5OyYjNDY7JiN4NjM7JiN4NmY7">Ethan4@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiMxMTY7JiN4Njg7JiM5NzsmIzExMDsmIzQ4OyYjeDQwOyYjMTA5OyYjeDJlOyYjeDYzOyYjMTExOw==">Ethan0@m.co</span>“],<br>  [“Hanzo”,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiM5NzsmI3g2ZTsmIzEyMjsmIzExMTsmI3gzMzsmI3g0MDsmIzEwOTsmI3gyZTsmI3g2MzsmI3g2Zjs=">Hanzo3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiN4NjE7JiN4NmU7JiN4N2E7JiN4NmY7JiM0OTsmI3g0MDsmIzEwOTsmI3gyZTsmI3g2MzsmIzExMTs=">Hanzo1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjOTc7JiN4NmU7JiN4N2E7JiMxMTE7JiM0ODsmI3g0MDsmI3g2ZDsmI3gyZTsmI3g2MzsmI3g2Zjs=">Hanzo0@m.co</span>“],<br>  [“Fern”,”<span class="exturl" data-url="bWFpbHRvOiYjNzA7JiN4NjU7JiMxMTQ7JiN4NmU7JiM1MzsmIzY0OyYjMTA5OyYjeDJlOyYjOTk7JiMxMTE7">Fern5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjMTAxOyYjeDcyOyYjeDZlOyYjNDk7JiN4NDA7JiMxMDk7JiM0NjsmI3g2MzsmIzExMTs=">Fern1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjeDY1OyYjeDcyOyYjMTEwOyYjNDg7JiN4NDA7JiMxMDk7JiM0NjsmI3g2MzsmIzExMTs=">Fern0@m.co</span>“]<br>]<br>output：<br>[<br>  [“Ethan”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjeDc0OyYjeDY4OyYjOTc7JiN4NmU7JiN4MzA7JiM2NDsmI3g2ZDsmIzQ2OyYjeDYzOyYjeDZmOw==">Ethan0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjMTE2OyYjMTA0OyYjeDYxOyYjMTEwOyYjeDM0OyYjeDQwOyYjeDZkOyYjeDJlOyYjeDYzOyYjeDZmOw==">Ethan4@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiN4NzQ7JiMxMDQ7JiN4NjE7JiMxMTA7JiN4MzU7JiN4NDA7JiN4NmQ7JiM0NjsmIzk5OyYjeDZmOw==">Ethan5@m.co</span>“],<br>  [“Gabe”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjeDYxOyYjeDYyOyYjeDY1OyYjNDg7JiM2NDsmI3g2ZDsmI3gyZTsmI3g2MzsmIzExMTs=">Gabe0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiN4NjE7JiN4NjI7JiMxMDE7JiN4MzE7JiM2NDsmIzEwOTsmIzQ2OyYjOTk7JiMxMTE7">Gabe1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjeDYxOyYjeDYyOyYjMTAxOyYjNTE7JiM2NDsmI3g2ZDsmI3gyZTsmI3g2MzsmIzExMTs=">Gabe3@m.co</span>“],<br>  [“Hanzo”,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiM5NzsmIzExMDsmIzEyMjsmIzExMTsmI3gzMDsmIzY0OyYjMTA5OyYjNDY7JiN4NjM7JiMxMTE7">Hanzo0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjOTc7JiN4NmU7JiMxMjI7JiMxMTE7JiN4MzE7JiM2NDsmI3g2ZDsmIzQ2OyYjOTk7JiN4NmY7">Hanzo1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjeDYxOyYjMTEwOyYjeDdhOyYjeDZmOyYjeDMzOyYjeDQwOyYjeDZkOyYjeDJlOyYjOTk7JiN4NmY7">Hanzo3@m.co</span>“],<br>  [“Kevin”,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiMxMDE7JiMxMTg7JiMxMDU7JiMxMTA7JiN4MzA7JiM2NDsmIzEwOTsmI3gyZTsmI3g2MzsmI3g2Zjs=">Kevin0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjeDY1OyYjeDc2OyYjMTA1OyYjMTEwOyYjNTE7JiN4NDA7JiN4NmQ7JiN4MmU7JiM5OTsmI3g2Zjs=">Kevin3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjMTAxOyYjMTE4OyYjeDY5OyYjMTEwOyYjNTM7JiM2NDsmI3g2ZDsmIzQ2OyYjOTk7JiMxMTE7">Kevin5@m.co</span>“],<br>  [“Fern”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjMTAxOyYjeDcyOyYjMTEwOyYjNDg7JiN4NDA7JiMxMDk7JiM0NjsmIzk5OyYjeDZmOw==">Fern0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzA7JiN4NjU7JiN4NzI7JiMxMTA7JiN4MzE7JiM2NDsmIzEwOTsmIzQ2OyYjeDYzOyYjeDZmOw==">Fern1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjMTAxOyYjMTE0OyYjeDZlOyYjeDM1OyYjNjQ7JiMxMDk7JiM0NjsmIzk5OyYjMTExOw==">Fern5@m.co</span>“]<br>]</p>
+<p>input：<br>accounts &#x3D; [<br>  [“Gabe”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjOTc7JiN4NjI7JiN4NjU7JiM0ODsmI3g0MDsmIzEwOTsmI3gyZTsmIzk5OyYjMTExOw==">Gabe0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiN4NjE7JiN4NjI7JiN4NjU7JiN4MzM7JiN4NDA7JiMxMDk7JiN4MmU7JiN4NjM7JiMxMTE7">Gabe3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiN4NjE7JiM5ODsmI3g2NTsmI3gzMTsmI3g0MDsmI3g2ZDsmI3gyZTsmIzk5OyYjeDZmOw==">Gabe1@m.co</span>“],<br>  [“Kevin”,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiMxMDE7JiN4NzY7JiN4Njk7JiMxMTA7JiN4MzM7JiM2NDsmI3g2ZDsmIzQ2OyYjOTk7JiN4NmY7">Kevin3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiMxMDE7JiMxMTg7JiMxMDU7JiMxMTA7JiM1MzsmIzY0OyYjMTA5OyYjNDY7JiN4NjM7JiMxMTE7">Kevin5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjeDY1OyYjeDc2OyYjeDY5OyYjMTEwOyYjNDg7JiN4NDA7JiN4NmQ7JiM0NjsmIzk5OyYjeDZmOw==">Kevin0@m.co</span>“],<br>  [“Ethan”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjeDc0OyYjMTA0OyYjeDYxOyYjMTEwOyYjNTM7JiN4NDA7JiMxMDk7JiN4MmU7JiN4NjM7JiN4NmY7">Ethan5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiMxMTY7JiN4Njg7JiM5NzsmI3g2ZTsmI3gzNDsmIzY0OyYjeDZkOyYjeDJlOyYjOTk7JiN4NmY7">Ethan4@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiMxMTY7JiN4Njg7JiM5NzsmI3g2ZTsmIzQ4OyYjNjQ7JiMxMDk7JiN4MmU7JiN4NjM7JiN4NmY7">Ethan0@m.co</span>“],<br>  [“Hanzo”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjOTc7JiN4NmU7JiMxMjI7JiMxMTE7JiN4MzM7JiM2NDsmI3g2ZDsmIzQ2OyYjOTk7JiN4NmY7">Hanzo3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjeDYxOyYjeDZlOyYjeDdhOyYjeDZmOyYjeDMxOyYjNjQ7JiMxMDk7JiM0NjsmI3g2MzsmIzExMTs=">Hanzo1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjeDYxOyYjeDZlOyYjeDdhOyYjeDZmOyYjeDMwOyYjNjQ7JiN4NmQ7JiN4MmU7JiN4NjM7JiN4NmY7">Hanzo0@m.co</span>“],<br>  [“Fern”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjMTAxOyYjeDcyOyYjMTEwOyYjNTM7JiM2NDsmI3g2ZDsmIzQ2OyYjOTk7JiN4NmY7">Fern5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjeDY1OyYjeDcyOyYjeDZlOyYjeDMxOyYjeDQwOyYjeDZkOyYjeDJlOyYjeDYzOyYjeDZmOw==">Fern1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzA7JiN4NjU7JiN4NzI7JiN4NmU7JiN4MzA7JiN4NDA7JiMxMDk7JiM0NjsmI3g2MzsmIzExMTs=">Fern0@m.co</span>“]<br>]<br>output：<br>[<br>  [“Ethan”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjMTE2OyYjMTA0OyYjeDYxOyYjMTEwOyYjNDg7JiM2NDsmI3g2ZDsmI3gyZTsmI3g2MzsmIzExMTs=">Ethan0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiN4NzQ7JiMxMDQ7JiN4NjE7JiN4NmU7JiN4MzQ7JiM2NDsmIzEwOTsmI3gyZTsmIzk5OyYjMTExOw==">Ethan4@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjeDc0OyYjeDY4OyYjOTc7JiMxMTA7JiM1MzsmI3g0MDsmIzEwOTsmI3gyZTsmI3g2MzsmI3g2Zjs=">Ethan5@m.co</span>“],<br>  [“Gabe”,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiM5NzsmI3g2MjsmI3g2NTsmIzQ4OyYjNjQ7JiN4NmQ7JiM0NjsmIzk5OyYjMTExOw==">Gabe0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiN4NjE7JiM5ODsmIzEwMTsmI3gzMTsmI3g0MDsmIzEwOTsmI3gyZTsmIzk5OyYjeDZmOw==">Gabe1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjOTc7JiN4NjI7JiMxMDE7JiN4MzM7JiN4NDA7JiMxMDk7JiN4MmU7JiM5OTsmI3g2Zjs=">Gabe3@m.co</span>“],<br>  [“Hanzo”,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiN4NjE7JiN4NmU7JiN4N2E7JiN4NmY7JiM0ODsmIzY0OyYjeDZkOyYjeDJlOyYjeDYzOyYjMTExOw==">Hanzo0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiN4NjE7JiMxMTA7JiN4N2E7JiMxMTE7JiM0OTsmIzY0OyYjeDZkOyYjeDJlOyYjOTk7JiN4NmY7">Hanzo1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjOTc7JiMxMTA7JiMxMjI7JiN4NmY7JiN4MzM7JiM2NDsmIzEwOTsmI3gyZTsmI3g2MzsmIzExMTs=">Hanzo3@m.co</span>“],<br>  [“Kevin”,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiN4NjU7JiN4NzY7JiN4Njk7JiN4NmU7JiM0ODsmI3g0MDsmI3g2ZDsmI3gyZTsmI3g2MzsmI3g2Zjs=">Kevin0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjeDY1OyYjMTE4OyYjMTA1OyYjMTEwOyYjNTE7JiM2NDsmI3g2ZDsmIzQ2OyYjOTk7JiMxMTE7">Kevin3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjeDY1OyYjMTE4OyYjeDY5OyYjeDZlOyYjeDM1OyYjeDQwOyYjMTA5OyYjeDJlOyYjOTk7JiMxMTE7">Kevin5@m.co</span>“],<br>  [“Fern”,”<span class="exturl" data-url="bWFpbHRvOiYjNzA7JiN4NjU7JiN4NzI7JiN4NmU7JiN4MzA7JiM2NDsmIzEwOTsmIzQ2OyYjOTk7JiMxMTE7">Fern0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjeDY1OyYjMTE0OyYjMTEwOyYjNDk7JiN4NDA7JiN4NmQ7JiM0NjsmI3g2MzsmIzExMTs=">Fern1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzA7JiMxMDE7JiN4NzI7JiMxMTA7JiN4MzU7JiM2NDsmIzEwOTsmIzQ2OyYjeDYzOyYjeDZmOw==">Fern5@m.co</span>“]<br>]</p>
 </blockquote>
 <p><strong>限制</strong></p>
 <blockquote>
@@ -3270,8 +3276,7 @@ Hi~~ = Joseph's Blog</title>
 </blockquote>
 <p><strong>輸入／輸出 範例</strong></p>
 <blockquote>
-<p>注意：題目不需要從標準輸入讀取，也不需要將結果輸出到標準輸出，只需實作 <code>sortColors</code> 函式。  </p>
-<p>Example 1  </p>
+<p>注意：題目不需要從標準輸入讀取，也不需要將結果輸出到標準輸出，只需實作 <code>sortColors</code> 函式。<br>Example 1  </p>
 <p>input：nums &#x3D; [2,0,2,1,1,0]<br>執行後 nums 變為 [0,0,1,1,2,2]  </p>
 </blockquote>
 <blockquote>
@@ -3314,7 +3319,489 @@ Hi~~ = Joseph's Blog</title>
 </ul>
 </li>
 </ul>
+<h2 id="Week-6-9-9"><a href="#Week-6-9-9" class="headerlink" title="Week 6 (9&#x2F;9)"></a>Week 6 (9&#x2F;9)</h2><h3 id="Word-Break"><a href="#Word-Break" class="headerlink" title="Word Break"></a>Word Break</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvd29yZC1icmVhay8=">題目連結</span><br><strong>標籤</strong>: Dynamic Programming, String, Hash Table<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個非空字串 <code>s</code> 和一個包含非空單詞的字典 <code>wordDict</code>，判斷 <code>s</code> 是否可以被空格拆分成一個或多個在字典中出現的單詞序列。  </p>
+<p>注意：  </p>
+<ul>
+<li>字典中同一單詞可能會重複出現，但拆分時只能使用字典中出現過的單詞；  </li>
+<li>拆分時 <code>s</code> 必須完整分割，不能留下任何字符。</li>
+</ul>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:  </p>
+<p>input：s &#x3D; “leetcode”, wordDict &#x3D; [“leet”,”code”]<br>output：true<br>Explanation：可以拆分為 “leet code”。  </p>
+</blockquote>
+<blockquote>
+<p>Example 2:</p>
+<p>input：s &#x3D; “applepenapple”, wordDict &#x3D; [“apple”,”pen”]<br>output：true<br>Explanation：可以拆分為 “apple pen apple”。注意你可以重複使用字典中的單詞。  </p>
+</blockquote>
+<blockquote>
+<p>Example 3:</p>
+<p>input：s &#x3D; “catsandog”, wordDict &#x3D; [“cats”,”dog”,”sand”,”and”,”cat”]<br>output：false  </p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 300</code>  </li>
+<li><code>1 &lt;= wordDict.length &lt;= 1000</code>  </li>
+<li><code>1 &lt;= wordDict[i].length &lt;= 20</code>  </li>
+<li><code>s</code> 和 <code>wordDict[i]</code> 皆由小寫英文字母組成。  </li>
+<li>字典中單詞無重複。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>本題可使用動態規劃（DP）判斷是否可拆分：  </p>
+<ol>
+<li>定義布林陣列 <code>dp</code>，長度為 <code>n+1</code>（<code>n = s.length()</code>），<code>dp[i]</code> 表示 <code>s[0..i-1]</code> 是否可以被拆分成字典單詞序列。  </li>
+<li>初始條件：<code>dp[0] = true</code>（空字串可以視作拆分成功）。  </li>
+<li>狀態轉移：對於每個 <code>i</code>（從 <code>1</code> 到 <code>n</code>），嘗試所有可能的切分位置 <code>j</code>（<code>0 &lt;= j &lt; i</code>），若 <code>dp[j] == true</code> 且 <code>s[j..i-1]</code> 在字典中（可用 <code>unordered_set</code> 快速查詢），則 <code>dp[i] = true</code>，並可立即 <code>break</code>。  </li>
+<li>最終答案為 <code>dp[n]</code>。</li>
+</ol>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">wordBreak</span><span class="params">(<span class="type">const</span> string&amp; s, <span class="type">const</span> vector&lt;string&gt;&amp; wordDict)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">dp</span><span class="params">(n + <span class="number">1</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">        <span class="function">unordered_set&lt;string&gt; <span class="title">dict</span><span class="params">(wordDict.begin(), wordDict.end())</span></span>;</span><br><span class="line">        </span><br><span class="line">        dp[<span class="number">0</span>] = <span class="literal">true</span>;  <span class="comment">// 空字串可拆分</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dp[j] &amp;&amp; dict.<span class="built_in">count</span>(s.<span class="built_in">substr</span>(j, i - j))) &#123;</span><br><span class="line">                    dp[i] = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(n² · k)</p>
+<ul>
+<li>兩層迴圈共 n(n+1)&#x2F;2 次子串檢查，每次子串查詢哈希表成本約 O(k)。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(n + Σ|wordDict[i]|)</p>
+<ul>
+<li>dp 陣列佔 O(n)，哈希表儲存字典佔 O(字典中所有單詞長度總和)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Partition-Equal-Subset-Sum"><a href="#Partition-Equal-Subset-Sum" class="headerlink" title="Partition Equal Subset Sum"></a>Partition Equal Subset Sum</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvcGFydGl0aW9uLWVxdWFsLXN1YnNldC1zdW0v">題目連結</span><br><strong>標籤</strong>: Dynamic Programming, Knapsack<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個只包含正整數的非空陣列 <code>nums</code>，判斷是否可以將這個陣列分成兩個子集，使得兩個子集的元素和相等。  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:  </p>
+<p>input：nums &#x3D; [1,5,11,5]<br>output：true<br>Explanation：可以分成 [1,5,5] 和 [11]，兩者和皆為 11。  </p>
+</blockquote>
+<blockquote>
+<p>Example 2:  </p>
+<p>input：nums &#x3D; [1,2,3,5]<br>output：false<br>Explanation：無法將陣列分成兩個和相等的子集。  </p>
+</blockquote>
+<blockquote>
+<p>Example 3:  </p>
+<p>input：nums &#x3D; [2,2,3,5]<br>output：false  </p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 200</code>  </li>
+<li><code>1 &lt;= nums[i] &lt;= 100</code>  </li>
+<li>陣列總和不超過 2×10⁴</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>本題實質為「從陣列中選取一部分元素，使其總和等於總和的一半」——典型 0&#x2F;1 背包問題：  </p>
+<ol>
+<li>首先計算陣列總和 <code>sum</code>；若 <code>sum</code> 為奇數，則無法平分，直接返回 <code>false</code>。  </li>
+<li>設目標和 <code>target = sum / 2</code>；問題轉化為「能否從 <code>nums</code> 中選取若干元素恰好湊出 <code>target</code>」。  </li>
+<li>定義布林陣列 <code>dp</code>，長度為 <code>target+1</code>，<code>dp[j]</code> 表示「是否存在某子集，其總和恰為 <code>j</code>」。  </li>
+<li>初始條件：<code>dp[0] = true</code>（選取空集，和為 0）。  </li>
+<li>對於陣列中每個數字 <code>num</code>，從 <code>j = target</code> 迴圈到 <code>num</code>：<br>注意要 <strong>逆序</strong> 遍歷以避免重複使用同一元素。  </li>
+<li>最終返回 <code>dp[target]</code>。</li>
+</ol>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">canPartition</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> x : nums) sum += x;</span><br><span class="line">        <span class="comment">// 若總和為奇數，無法平分</span></span><br><span class="line">        <span class="keyword">if</span> (sum % <span class="number">2</span> != <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="type">int</span> target = sum / <span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// dp[j] = 是否能湊出和為 j</span></span><br><span class="line">        <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">dp</span><span class="params">(target + <span class="number">1</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 0/1 背包逆序遍歷</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = target; j &gt;= num; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dp[j - num]) &#123;</span><br><span class="line">                    dp[j] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[target];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="String-to-Integer-atoi"><a href="#String-to-Integer-atoi" class="headerlink" title="String to Integer (atoi)"></a>String to Integer (atoi)</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvc3RyaW5nLXRvLWludGVnZXItYXRvaS8=">題目連結</span><br><strong>標籤</strong>: String, Simulation, Implementation<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 25 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>實作 <code>myAtoi(string s)</code>，將字串 <code>s</code> 轉換成 32 位有號整數（範圍 [-2³¹, 2³¹−1]）。<br>轉換規則如下：  </p>
+<ol>
+<li>忽略前導空格直到遇到第一個非空格字元。  </li>
+<li>若遇到符號字元 <code>&#39;+&#39;</code> 或 <code>&#39;-&#39;</code>，則記錄其正負號，否則預設為正號。  </li>
+<li>讀取接下來的數字字元，直到遇到非數字字元或字串結束為止。  </li>
+<li>將上述讀取到的數字字串轉為整數（忽略前導零），並加上符號。  </li>
+<li>若轉換後超出 32 位整數範圍，需截斷到相應邊界值：負溢出返回 <code>INT_MIN</code>，正溢出返回 <code>INT_MAX</code>。  </li>
+<li>若第一個非空字元即非數字且非符號，則直接返回 <code>0</code>。</li>
+</ol>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:  </p>
+<p>輸入：s &#x3D; “42”<br>輸出：42  </p>
+</blockquote>
+<blockquote>
+<p>Example 2:  </p>
+<p>輸入：s &#x3D; “   -42”<br>輸出：-42<br>解釋：忽略前三個空格後，讀到 ‘-‘，再讀取數字 “42”。  </p>
+</blockquote>
+<blockquote>
+<p>Example 3:  </p>
+<p>輸入：s &#x3D; “4193 with words”<br>輸出：4193<br>解釋：讀取數字到空格前，遇到非數字字元終止。 </p>
+</blockquote>
+<blockquote>
+<p>Example 4:  </p>
+<p>輸入：s &#x3D; “words and 987”<br>輸出：0<br>解釋：第一個非空字元為字母，無法轉換數字。  </p>
+</blockquote>
+<blockquote>
+<p>Example 5:  </p>
+<p>輸入：s &#x3D; “-91283472332”<br>輸出：-2147483648<br>解釋：轉換後小於 INT_MIN，截斷為 -2^31。  </p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>0 &lt;= s.length &lt;= 200</code>  </li>
+<li><code>s</code> 可能包含空格、符號字元、數字字元及其他可列印 ASCII 字符。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>按題目步驟模擬即可：  </p>
+<ol>
+<li>使用索引 <code>i</code> 跳過前導空格（<code>while (i &lt; n &amp;&amp; s[i] == &#39; &#39;) i++;</code>）。  </li>
+<li>判斷符號：若 <code>s[i] == &#39;+&#39;</code> 或 <code>&#39;-&#39;</code>，記錄 <code>sign = ±1</code>，並 <code>i++</code>；否則 <code>sign = 1</code>。  </li>
+<li>逐位讀取數字：  <ul>
+<li>初始化 <code>long result = 0</code>。  </li>
+<li>當 <code>i &lt; n &amp;&amp; isdigit(s[i])</code>：  <ol>
+<li>計算 <code>digit = s[i] - &#39;0&#39;</code>。  </li>
+<li>在加到 <code>result</code> 前檢查溢出：  <ul>
+<li>若 <code>result &gt; INT_MAX/10 || (result == INT_MAX/10 &amp;&amp; digit &gt; INT_MAX%10)</code>，則根據 <code>sign</code> 返回 <code>INT_MAX</code> 或 <code>INT_MIN</code>。</li>
+</ul>
+</li>
+<li>更新 <code>result = result * 10 + digit</code>，<code>i++</code>。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>返回 <code>(int)(sign * result)</code>。</li>
+</ol>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;climits&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">myAtoi</span><span class="params">(<span class="type">const</span> string&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = s.<span class="built_in">size</span>(), i = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 1. 跳過前導空格</span></span><br><span class="line">        <span class="keyword">while</span> (i &lt; n &amp;&amp; s[i] == <span class="string">&#x27; &#x27;</span>) i++;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 2. 處理符號</span></span><br><span class="line">        <span class="type">int</span> sign = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; n &amp;&amp; (s[i] == <span class="string">&#x27;+&#x27;</span> || s[i] == <span class="string">&#x27;-&#x27;</span>)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i] == <span class="string">&#x27;-&#x27;</span>) sign = <span class="number">-1</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 3. 逐位讀取數字並累計</span></span><br><span class="line">        <span class="type">long</span> result = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n &amp;&amp; <span class="built_in">isdigit</span>(s[i])) &#123;</span><br><span class="line">            <span class="type">int</span> digit = s[i] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            <span class="comment">// 檢查溢出</span></span><br><span class="line">            <span class="keyword">if</span> (result &gt; INT_MAX / <span class="number">10</span> ||</span><br><span class="line">               (result == INT_MAX / <span class="number">10</span> &amp;&amp; digit &gt; INT_MAX % <span class="number">10</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> sign == <span class="number">1</span> ? INT_MAX : INT_MIN;</span><br><span class="line">            &#125;</span><br><span class="line">            result = result * <span class="number">10</span> + digit;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> (<span class="type">int</span>)(sign * result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(n)</p>
+<ul>
+<li>單次線性掃描字串長度 n。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(1)</p>
+<ul>
+<li>使用固定數量的輔助變數。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Spiral-Matrix"><a href="#Spiral-Matrix" class="headerlink" title="Spiral Matrix"></a>Spiral Matrix</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvc3BpcmFsLW1hdHJpeC8=">題目連結</span><br><strong>標籤</strong>: Array, Simulation<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個 <code>m x n</code> 的矩陣 <code>matrix</code>，請以螺旋（順時針）順序返回矩陣中的所有元素。  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:  </p>
+<p>input：<br>matrix &#x3D; [<br>  [ 1, 2, 3 ],<br>  [ 4, 5, 6 ],<br>  [ 7, 8, 9 ]<br>]<br>輸出：[1,2,3,6,9,8,7,4,5]</p>
+</blockquote>
+<blockquote>
+<p>Example 2:  </p>
+<p>input：<br>matrix &#x3D; [<br>  [1,  2,  3,  4],<br>  [5,  6,  7,  8],<br>  [9, 10, 11, 12]<br>]<br>output：[1,2,3,4,8,12,11,10,9,5,6,7]</p>
+</blockquote>
+<blockquote>
+<p>Example 3:  </p>
+<p>input：matrix &#x3D; [[1]]<br>outupt：[1]</p>
+</blockquote>
+<blockquote>
+<p>Example 4:  </p>
+<p>input：matrix &#x3D; [[1],[2],[3]]<br>output：[1,2,3]</p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>m == matrix.size()</code>，<code>n == matrix[i].size()</code>。  </li>
+<li><code>1 &lt;= m, n &lt;= 10</code>。  </li>
+<li><code>-100 &lt;= matrix[i][j] &lt;= 100</code>。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>我們可以維護四個邊界 <code>top</code>, <code>bottom</code>, <code>left</code>, <code>right</code>，初始分別為 <code>0, m-1, 0, n-1</code>，然後不斷按「→ ↓ ← ↑」四個方向依次遍歷：  </p>
+<ol>
+<li>從 <code>(top, left)</code> 到 <code>(top, right)</code>，將該行元素加入結果，然後 <code>top++</code>。  </li>
+<li>從 <code>(top, right)</code> 到 <code>(bottom, right)</code>，將該列元素加入結果，然後 <code>right--</code>。  </li>
+<li>若 <code>top &lt;= bottom</code>，從 <code>(bottom, right)</code> 到 <code>(bottom, left)</code>（倒序），加入結果，然後 <code>bottom--</code>。  </li>
+<li>若 <code>left &lt;= right</code>，從 <code>(bottom, left)</code> 到 <code>(top, left)</code>（倒序），加入結果，然後 <code>left++</code>。<br>重複上述步驟直到 <code>top &gt; bottom</code> 或 <code>left &gt; right</code>。</li>
+</ol>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">spiralOrder</span><span class="params">(<span class="type">const</span> vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = matrix.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (m == <span class="number">0</span>) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        <span class="type">int</span> n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> top = <span class="number">0</span>, bottom = m - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (top &lt;= bottom &amp;&amp; left &lt;= right) &#123;</span><br><span class="line">            <span class="comment">// 向右</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = left; j &lt;= right; j++) &#123;</span><br><span class="line">                result.<span class="built_in">push_back</span>(matrix[top][j]);</span><br><span class="line">            &#125;</span><br><span class="line">            top++;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 向下</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = top; i &lt;= bottom; i++) &#123;</span><br><span class="line">                result.<span class="built_in">push_back</span>(matrix[i][right]);</span><br><span class="line">            &#125;</span><br><span class="line">            right--;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 向左</span></span><br><span class="line">            <span class="keyword">if</span> (top &lt;= bottom) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> j = right; j &gt;= left; j--) &#123;</span><br><span class="line">                    result.<span class="built_in">push_back</span>(matrix[bottom][j]);</span><br><span class="line">                &#125;</span><br><span class="line">                bottom--;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 向上</span></span><br><span class="line">            <span class="keyword">if</span> (left &lt;= right) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> i = bottom; i &gt;= top; i--) &#123;</span><br><span class="line">                    result.<span class="built_in">push_back</span>(matrix[i][left]);</span><br><span class="line">                &#125;</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(m × n)</p>
+<ul>
+<li>每個元素恰好被加入一次。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(1)（不含輸出陣列）</p>
+<ul>
+<li>除了輸出結果外，只使用常數級輔助變數。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Binary-Tree-Right-Side-View"><a href="#Binary-Tree-Right-Side-View" class="headerlink" title="Binary Tree Right Side View"></a>Binary Tree Right Side View</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvYmluYXJ5LXRyZWUtcmlnaHQtc2lkZS12aWV3Lw==">題目連結</span><br><strong>標籤</strong>: Tree, BFS, DFS<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 15 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一棵二元樹的根節點 <code>root</code>，請返回從樹的右側能看到的所有節點值（從頂層到底層）。  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:  </p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">input：</span><br><span class="line">    1</span><br><span class="line">   / \</span><br><span class="line">  2   3</span><br><span class="line">   \   \</span><br><span class="line">    5   4</span><br></pre></td></tr></table></figure>
+<p>root &#x3D; [1,2,3,null,5,null,4]<br>output：[1,3,4]<br>Explanation：<br>從右側看，第一層能看到 1，第二層能看到 3，第三層能看到 4。  </p>
+</blockquote>
+<blockquote>
+<p>Example 2:  </p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">iniput：</span><br><span class="line">    1</span><br><span class="line">   /</span><br><span class="line">  2</span><br></pre></td></tr></table></figure></blockquote>
+<blockquote>
+<p>root &#x3D; [1,2]<br>output：[1,2]<br>Explanation：<br>第二層只有節點 2。  </p>
+</blockquote>
+<blockquote>
+<p>Example 3:<br>input：root &#x3D; []<br>output：[]</p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li>樹中節點數目範圍 <code>[0, 100]</code>。  </li>
+<li><code>-100 &lt;= Node.val &lt;= 100</code>。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>可用 <strong>廣度優先搜尋 (BFS)</strong> 或 <strong>深度優先搜尋 (DFS)</strong>：  </p>
+<ol>
+<li><p><strong>BFS 層序遍歷</strong>：  </p>
+<ul>
+<li>每層遍歷時記錄當前層最後一個節點的值，即為該層從右側看到的節點。  </li>
+<li>使用隊列逐層掃描：對每層節點依次出隊，當到達該層最後一個出隊時，將其值加入答案。</li>
+</ul>
+</li>
+<li><p><strong>DFS 右優先</strong>：  </p>
+<ul>
+<li>先遞迴右子樹，再遞迴左子樹，同時記錄當前深度；  </li>
+<li>當首次到達某一深度時，該節點即為該層最右側節點，將其值加入答案。</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p>下面以 <strong>BFS</strong> 方法實現。  </p>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Definition for a binary tree node.</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">TreeNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode *left;</span><br><span class="line">    TreeNode *right;</span><br><span class="line">    <span class="built_in">TreeNode</span>(<span class="type">int</span> x) : <span class="built_in">val</span>(x), <span class="built_in">left</span>(<span class="literal">nullptr</span>), <span class="built_in">right</span>(<span class="literal">nullptr</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rightSideView</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; sz; i++) &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="comment">// 如果是該層最後一個節點，記錄它的值</span></span><br><span class="line">                <span class="keyword">if</span> (i == sz - <span class="number">1</span>) &#123;</span><br><span class="line">                    result.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left)  q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(n)</p>
+<ul>
+<li>每個節點僅入隊&#x2F;出隊一次。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(n)</p>
+<ul>
+<li>隊列最壞情況存儲整棵樹的一層節點，最多 O(n)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Longest-Palindromic-Substring"><a href="#Longest-Palindromic-Substring" class="headerlink" title="Longest Palindromic Substring"></a>Longest Palindromic Substring</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbG9uZ2VzdC1wYWxpbmRyb21pYy1zdWJzdHJpbmcv">題目連結</span><br><strong>標籤</strong>: String, Dynamic Programming, Two Pointers<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 25 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個字串 <code>s</code>，找出其中最長的回文子串。你可以假設字串最長為 1000。  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:<br>input：s &#x3D; “babad”<br>output：”bab” 或 “aba”（兩者皆可）</p>
+</blockquote>
+<blockquote>
+<p>Example 2:<br>input：s &#x3D; “cbbd”<br>output：”bb”</p>
+</blockquote>
+<blockquote>
+<p>Example 3:<br>input：s &#x3D; “a”<br>output：”a”</p>
+</blockquote>
+<blockquote>
+<p>Example 4:<br>input：s &#x3D; “ac”<br>output：”a” 或 “c”</p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 1000</code>  </li>
+<li><code>s</code> 只包含英文字母、數字、標點符號及空格</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>常見解法有三種：  </p>
+<ol>
+<li><strong>中心擴展 (Expand Around Center)</strong>：對每個位置 <code>i</code>，以 <code>i</code> 為中心擴展奇數長回文；以 <code>i</code> 和 <code>i+1</code> 為中心擴展偶數長回文，記錄最長。  </li>
+<li><strong>動態規劃 (DP)</strong>：定義 <code>dp[i][j]</code> 表示 <code>s[i..j]</code> 是否為回文，轉移：<code>dp[i][j] = (s[i]==s[j] &amp;&amp; (j-i&lt;2 || dp[i+1][j-1]))</code>。遍歷所有 <code>i&lt;j</code> 區間，更新最長。  </li>
+<li><strong>Manacher’s Algorithm</strong>（線性時間，但實作較複雜）。</li>
+</ol>
+<p>這裡以 <strong>中心擴展</strong> 方法實現：時間複雜度 O(n²)，程式簡潔。  </p>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">longestPalindrome</span><span class="params">(<span class="type">const</span> string&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>) <span class="keyword">return</span> s;</span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> start = <span class="number">0</span>, maxLen = <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">auto</span> expand = [&amp;](<span class="type">int</span> left, <span class="type">int</span> right) &#123;</span><br><span class="line">            <span class="keyword">while</span> (left &gt;= <span class="number">0</span> &amp;&amp; right &lt; n &amp;&amp; s[left] == s[right]) &#123;</span><br><span class="line">                left--; right++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 此時 [left+1, right-1] 為回文</span></span><br><span class="line">            <span class="type">int</span> len = right - left - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (len &gt; maxLen) &#123;</span><br><span class="line">                maxLen = len;</span><br><span class="line">                start = left + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="comment">// 奇數長回文中心在 i</span></span><br><span class="line">            <span class="built_in">expand</span>(i, i);</span><br><span class="line">            <span class="comment">// 偶數長回文中心在 i, i+1</span></span><br><span class="line">            <span class="built_in">expand</span>(i, i + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> s.<span class="built_in">substr</span>(start, maxLen);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(n²)</p>
+<ul>
+<li>每個 i 執行兩次中心擴展，最壞每次擴展 O(n)。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(1)</p>
+<ul>
+<li>只使用固定輔助變數，未開額外陣列。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Unique-Paths"><a href="#Unique-Paths" class="headerlink" title="Unique Paths"></a>Unique Paths</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvdW5pcXVlLXBhdGhzLw==">題目連結</span><br><strong>標籤</strong>: Dynamic Programming, Combinatorics, Grid<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>一個機器人位於一個 <code>m x n</code> 的網格左上角（起始點在 <code>(0,0)</code>）。機器人每次只能向下或者向右移動一步。機器人試圖到達網格的右下角 <code>(m-1,n-1)</code>。  </p>
+<p>請問總共有多少條不同的路徑可以到達終點？  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:<br>input：m &#x3D; 3, n &#x3D; 7<br>output：28<br>Explanation：總共有 28 條不同路徑。</p>
+</blockquote>
+<blockquote>
+<p>Example 2:<br>input：m &#x3D; 3, n &#x3D; 2<br>output：3<br>Explanation：路徑為 Right-&gt;Down-&gt;Down, Down-&gt;Right-&gt;Down, Down-&gt;Down-&gt;Right。 </p>
+</blockquote>
+<blockquote>
+<p>Example 3:<br>input：m &#x3D; 7, n &#x3D; 3<br>output：28</p>
+</blockquote>
+<blockquote>
+<p>Example 4:<br>input：m &#x3D; 3, n &#x3D; 3<br>output：6 </p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>1 &lt;= m, n &lt;= 100</code>  </li>
+<li>答案保證小於等於 <code>2 * 10^9</code>（符合 32 位有號整數範圍）。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>本題可視為計算機器人需要走 <code>(m-1)</code> 次 Down 與 <code>(n-1)</code> 次 Right，共 <code>m+n-2</code> 步，從中選擇其中任意 <code>m-1</code> 步向下（或選擇 <code>n-1</code> 步向右）的組合數，即<br>$$<br>\binom{m+n-2}{m-1}<br>$$</p>
+</blockquote>
+<blockquote>
+<p>也可用動態規劃：令 <code>dp[i][j]</code> 表示到達格子 <code>(i,j)</code> 的不同路徑數，則轉移方程：<br><code>dp[i][j]</code> &#x3D; <code>dp[i-1][j]</code> + <code>dp[i][j-1]</code></p>
+<p>邊界：第一行和第一列均只有一路徑，<code>dp[0][j] = dp[i][0] = 1</code>。  </p>
+<p>若只需 O(n) 空間，可用一維滾動陣列 <code>dp[j]</code>：  </p>
+<ul>
+<li>初始化 <code>dp[j] = 1</code>（代表第一行）；  </li>
+<li>遍歷每一行 <code>i</code>，對每列 <code>j</code> 從 <code>1</code> 到 <code>n-1</code> 更新：<br>dp[j] &#x3D; dp[j] + dp[j-1];<br>其中 <code>dp[j]</code> 原值是上一行同列 <code>dp[i-1][j]</code>，<code>dp[j-1]</code> 為當前行前一列 <code>dp[i][j-1]</code>。</li>
+</ul>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 一維 dp，長度為 n</span></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(n, <span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="comment">// 從第二行開始，每行更新 dp</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">                dp[j] += dp[j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 最後一列 dp[n-1] 為結果</span></span><br><span class="line">        <span class="keyword">return</span> dp[n - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(m × n)</p>
+<ul>
+<li>需要遍歷 m 行、n 列更新一次。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(n)</p>
+<ul>
+<li>使用長度為 n 的一維 dp 陣列。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal"><a href="#Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal" class="headerlink" title="Construct Binary Tree from Preorder and Inorder Traversal"></a>Construct Binary Tree from Preorder and Inorder Traversal</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvY29uc3RydWN0LWJpbmFyeS10cmVlLWZyb20tcHJlb3JkZXItYW5kLWlub3JkZXItdHJhdmVyc2FsLw==">題目連結</span><br><strong>標籤</strong>: Tree, Recursion, Hash Table<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 25 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定兩個整數陣列 <code>preorder</code> 和 <code>inorder</code>，其中 <code>preorder</code> 是二元樹的先序遍歷結果，<code>inorder</code> 是同一棵樹的中序遍歷結果。請你重建這棵二元樹並返回其根節點。  </p>
+<p>你可以假設樹中無重複值。  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:<br>input：<br>preorder &#x3D; [3,9,20,15,7]<br>inorder  &#x3D; [9,3,15,20,7]</p>
+<p>返回的二元樹為：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">   / \</span><br><span class="line">  15  7</span><br></pre></td></tr></table></figure>
+
+<p>Example 2:  </p>
+<p>input：<br>preorder &#x3D; [-1]<br>inorder  &#x3D; [-1]<br>output：<br>返回只有一個節點值 -1 的樹。</p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>1 &lt;= preorder.length == inorder.length &lt;= 3000</code>  </li>
+<li><code>-3000 &lt;= preorder[i], inorder[i] &lt;= 3000</code>  </li>
+<li><code>preorder</code> 和 <code>inorder</code> 中的值 <strong>互不相同</strong>。  </li>
+<li>保證 <code>inorder</code> 是樹的中序遍歷結果，<code>preorder</code> 是同一棵樹的先序遍歷結果。</li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>先序遍歷的第一個值一定是樹的根節點，然後在中序遍歷中找到這個根節點的位置，就能知道左子樹和右子樹的節點範圍。遞迴地對每個子區間重複同樣過程即可重建整棵樹。  </p>
+<ol>
+<li>建立一個哈希表 <code>idx</code>，將中序遍歷值映射到其索引，以便 O(1) 查找根在中序中的位置。  </li>
+<li>定義遞迴函式 <code>build(preL, preR, inL, inR)</code>：  <ul>
+<li><p>如果 <code>preL &gt; preR</code>，回傳 <code>nullptr</code>（空樹）。  </p>
+</li>
+<li><p>根節點值 <code>rootVal = preorder[preL]</code>，在 <code>inorder</code> 中查到位置 <code>i = idx[rootVal]</code>。  </p>
+</li>
+<li><p>左子樹節點個數 <code>leftSize = i - inL</code>。  </p>
+</li>
+<li><p>創建節點 <code>TreeNode* root = new TreeNode(rootVal)</code>。  </p>
+</li>
+<li><p>遞迴構建：<br>root-&gt;left  &#x3D; build(preL+1, preL+leftSize, inL,     i-1);<br>root-&gt;right &#x3D; build(preL+leftSize+1, preR,   i+1, inR);</p>
+</li>
+<li><p>回傳 <code>root</code>。</p>
+</li>
+</ul>
+</li>
+<li>初次呼叫 <code>build(0, n-1, 0, n-1)</code>。</li>
+</ol>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Definition for a binary tree node.</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">TreeNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode *left;</span><br><span class="line">    TreeNode *right;</span><br><span class="line">    <span class="built_in">TreeNode</span>(<span class="type">int</span> x): <span class="built_in">val</span>(x), <span class="built_in">left</span>(<span class="literal">nullptr</span>), <span class="built_in">right</span>(<span class="literal">nullptr</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; preorder, <span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; inorder)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = preorder.<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">// 建立中序值到索引的映射</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            idx[inorder[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">build</span>(preorder, <span class="number">0</span>, n - <span class="number">1</span>, <span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; idx;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">build</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; pre, <span class="type">int</span> preL, <span class="type">int</span> preR, <span class="type">int</span> inL, <span class="type">int</span> inR)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (preL &gt; preR) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> rootVal = pre[preL];</span><br><span class="line">        <span class="type">int</span> i = idx[rootVal];</span><br><span class="line">        <span class="type">int</span> leftSize = i - inL;</span><br><span class="line"></span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(rootVal);</span><br><span class="line">        <span class="comment">// 構建左子樹</span></span><br><span class="line">        root-&gt;left = <span class="built_in">build</span>(pre, preL + <span class="number">1</span>, preL + leftSize,inL, i - <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 構建右子樹</span></span><br><span class="line">        root-&gt;right = <span class="built_in">build</span>(pre, preL + leftSize + <span class="number">1</span>, preR,i + <span class="number">1</span>, inR);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(n)</p>
+<ul>
+<li>建表 O(n)，遞迴每個節點做一次常數操作。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(n)</p>
+<ul>
+<li>哈希表佔 O(n)，遞迴棧深度最壞 O(n)。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Week-7-7-7"><a href="#Week-7-7-7" class="headerlink" title="Week 7 (7&#x2F;7)"></a>Week 7 (7&#x2F;7)</h2><h3 id="Container-With-Most-Water"><a href="#Container-With-Most-Water" class="headerlink" title="Container With Most Water"></a>Container With Most Water</h3>
   </div>
 
    <footer>
@@ -3324,8 +3811,8 @@ Hi~~ = Joseph's Blog</title>
     <span class="icon">
       <i class="ic i-calendar-check"></i>
     </span>
-    <span class="text">Edited on</span>
-    <time title="Modified: 2025-06-08 23:06:32" itemprop="dateModified" datetime="2025-06-08T23:06:32+08:00">2025-06-08</time>
+    <span class="text">編集日</span>
+    <time title="修正日：2025-06-09 23:50:22" itemprop="dateModified" datetime="2025-06-09T23:50:22+08:00">2025-06-09</time>
   </span>
 </div>
 
@@ -3334,14 +3821,14 @@ Hi~~ = Joseph's Blog</title>
 <div id="copyright">
 <ul>
   <li class="author">
-    <strong>Post author:  </strong>品逸 <i class="ic i-at"><em>@</em></i>Joseph's Blog
+    <strong>著者： </strong>品逸 <i class="ic i-at"><em>@</em></i>Joseph's Blog
   </li>
   <li class="link">
-    <strong>Post link: </strong>
+    <strong>記事へのリンク：</strong>
     <a href="http://localhost:4000/grind75/index.html" title="LeetCode Grind 75">http://localhost:4000/grind75/index.html</a>
   </li>
   <li class="license">
-    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9odHRwczovL2NyZWF0aXZlY29tbW9ucy5vcmcvbGljZW5zZXMvYnktbmMtc2EvNC4wL2xlZ2FsY29kZS56aC10dw=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
+    <strong>著作権表示： </strong>このブログ内のすべての記事は、特別な記載がない限り <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9odHRwczovL2NyZWF0aXZlY29tbW9ucy5vcmcvbGljZW5zZXMvYnktbmMtc2EvNC4wL2xlZ2FsY29kZS56aC10dw=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> の下のライセンスで保護されています。
   </li>
 </ul>
 </div>
@@ -3363,12 +3850,12 @@ Hi~~ = Joseph's Blog</title>
 
   <div class="panels">
     <div class="inner">
-      <div class="contents panel pjax" data-title="Contents">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Grind-75"><span class="toc-number">1.</span> <span class="toc-text">Grind 75</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-1-13-13"><span class="toc-number">1.1.</span> <span class="toc-text">Week 1 (13&#x2F;13)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Two-Sum"><span class="toc-number">1.1.1.</span> <span class="toc-text">Two Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Parentheses"><span class="toc-number">1.1.2.</span> <span class="toc-text">Valid Parentheses</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Two-Sorted-Lists"><span class="toc-number">1.1.3.</span> <span class="toc-text">Merge Two Sorted Lists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Best-Time-to-Buy-and-Sell-Stock"><span class="toc-number">1.1.4.</span> <span class="toc-text">Best Time to Buy and Sell Stock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Palindrome"><span class="toc-number">1.1.5.</span> <span class="toc-text">Valid Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invert-Binary-Tree"><span class="toc-number">1.1.6.</span> <span class="toc-text">Invert Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Anagram"><span class="toc-number">1.1.7.</span> <span class="toc-text">Valid Anagram</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Search"><span class="toc-number">1.1.8.</span> <span class="toc-text">Binary Search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flood-Fill"><span class="toc-number">1.1.9.</span> <span class="toc-text">Flood Fill</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Search-Tree"><span class="toc-number">1.1.10.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Balanced-Binary-Tree"><span class="toc-number">1.1.11.</span> <span class="toc-text">Balanced Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linked-List-Cycle"><span class="toc-number">1.1.12.</span> <span class="toc-text">Linked List Cycle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Queue-using-Stacks"><span class="toc-number">1.1.13.</span> <span class="toc-text">Implement Queue using Stacks</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-2-12-12"><span class="toc-number">1.2.</span> <span class="toc-text">Week 2 (12&#x2F;12)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#First-Bad-Version"><span class="toc-number">1.2.1.</span> <span class="toc-text">First Bad Version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ransom-Note"><span class="toc-number">1.2.2.</span> <span class="toc-text">Ransom Note</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Climbing-Stairs"><span class="toc-number">1.2.3.</span> <span class="toc-text">Climbing Stairs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Palindrome"><span class="toc-number">1.2.4.</span> <span class="toc-text">Longest Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-Linked-List"><span class="toc-number">1.2.5.</span> <span class="toc-text">Reverse Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Majority-Element"><span class="toc-number">1.2.6.</span> <span class="toc-text">Majority Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-Binary"><span class="toc-number">1.2.7.</span> <span class="toc-text">Add Binary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Diameter-of-Binary-Tree"><span class="toc-number">1.2.8.</span> <span class="toc-text">Diameter of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Middle-of-the-Linked-List"><span class="toc-number">1.2.9.</span> <span class="toc-text">Middle of the Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Depth-of-Binary-Tree"><span class="toc-number">1.2.10.</span> <span class="toc-text">Maximum Depth of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Contains-Duplicate"><span class="toc-number">1.2.11.</span> <span class="toc-text">Contains Duplicate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Subarray"><span class="toc-number">1.2.12.</span> <span class="toc-text">Maximum Subarray</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-3-8-8"><span class="toc-number">1.3.</span> <span class="toc-text">Week 3 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Insert-Interval"><span class="toc-number">1.3.1.</span> <span class="toc-text">Insert Interval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#01-Matrix"><span class="toc-number">1.3.2.</span> <span class="toc-text">01 Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-Closest-Points-to-Origin"><span class="toc-number">1.3.3.</span> <span class="toc-text">K Closest Points to Origin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Substring-Without-Repeating-Characters"><span class="toc-number">1.3.4.</span> <span class="toc-text">Longest Substring Without Repeating Characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3Sum"><span class="toc-number">1.3.5.</span> <span class="toc-text">3Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Tree-Level-Order-Traversal"><span class="toc-number">1.3.6.</span> <span class="toc-text">Binary Tree Level Order Traversal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Clone-Graph"><span class="toc-number">1.3.7.</span> <span class="toc-text">Clone Graph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Evaluate-Reverse-Polish-Notation"><span class="toc-number">1.3.8.</span> <span class="toc-text">Evaluate Reverse Polish Notation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-4-8-8"><span class="toc-number">1.4.</span> <span class="toc-text">Week 4 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Course-Schedule"><span class="toc-number">1.4.1.</span> <span class="toc-text">Course Schedule</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Trie-Prefix-Tree"><span class="toc-number">1.4.2.</span> <span class="toc-text">Implement Trie (Prefix Tree)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Coin-Change"><span class="toc-number">1.4.3.</span> <span class="toc-text">Coin Change</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Product-of-Array-Except-Self"><span class="toc-number">1.4.4.</span> <span class="toc-text">Product of Array Except Self</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Min-Stack"><span class="toc-number">1.4.5.</span> <span class="toc-text">Min Stack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Validate-Binary-Search-Tree"><span class="toc-number">1.4.6.</span> <span class="toc-text">Validate Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-of-Islands"><span class="toc-number">1.4.7.</span> <span class="toc-text">Number of Islands</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rotting-Oranges"><span class="toc-number">1.4.8.</span> <span class="toc-text">Rotting Oranges</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-5-8-8"><span class="toc-number">1.5.</span> <span class="toc-text">Week 5 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Search-in-Rotated-Sorted-Array"><span class="toc-number">1.5.1.</span> <span class="toc-text">Search in Rotated Sorted Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Combination-Sum"><span class="toc-number">1.5.2.</span> <span class="toc-text">Combination Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Permutations"><span class="toc-number">1.5.3.</span> <span class="toc-text">Permutations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Intervals"><span class="toc-number">1.5.4.</span> <span class="toc-text">Merge Intervals</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Tree"><span class="toc-number">1.5.5.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Based-Key-Value-Store"><span class="toc-number">1.5.6.</span> <span class="toc-text">Time Based Key-Value Store</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Accounts-Merge"><span class="toc-number">1.5.7.</span> <span class="toc-text">Accounts Merge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sort-Colors"><span class="toc-number">1.5.8.</span> <span class="toc-text">Sort Colors</span></a></li></ol></li></ol></li></ol>
+      <div class="contents panel pjax" data-title="見出し">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Grind-75"><span class="toc-number">1.</span> <span class="toc-text">Grind 75</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-1-13-13"><span class="toc-number">1.1.</span> <span class="toc-text">Week 1 (13&#x2F;13)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Two-Sum"><span class="toc-number">1.1.1.</span> <span class="toc-text">Two Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Parentheses"><span class="toc-number">1.1.2.</span> <span class="toc-text">Valid Parentheses</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Two-Sorted-Lists"><span class="toc-number">1.1.3.</span> <span class="toc-text">Merge Two Sorted Lists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Best-Time-to-Buy-and-Sell-Stock"><span class="toc-number">1.1.4.</span> <span class="toc-text">Best Time to Buy and Sell Stock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Palindrome"><span class="toc-number">1.1.5.</span> <span class="toc-text">Valid Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invert-Binary-Tree"><span class="toc-number">1.1.6.</span> <span class="toc-text">Invert Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Anagram"><span class="toc-number">1.1.7.</span> <span class="toc-text">Valid Anagram</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Search"><span class="toc-number">1.1.8.</span> <span class="toc-text">Binary Search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flood-Fill"><span class="toc-number">1.1.9.</span> <span class="toc-text">Flood Fill</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Search-Tree"><span class="toc-number">1.1.10.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Balanced-Binary-Tree"><span class="toc-number">1.1.11.</span> <span class="toc-text">Balanced Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linked-List-Cycle"><span class="toc-number">1.1.12.</span> <span class="toc-text">Linked List Cycle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Queue-using-Stacks"><span class="toc-number">1.1.13.</span> <span class="toc-text">Implement Queue using Stacks</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-2-12-12"><span class="toc-number">1.2.</span> <span class="toc-text">Week 2 (12&#x2F;12)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#First-Bad-Version"><span class="toc-number">1.2.1.</span> <span class="toc-text">First Bad Version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ransom-Note"><span class="toc-number">1.2.2.</span> <span class="toc-text">Ransom Note</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Climbing-Stairs"><span class="toc-number">1.2.3.</span> <span class="toc-text">Climbing Stairs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Palindrome"><span class="toc-number">1.2.4.</span> <span class="toc-text">Longest Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-Linked-List"><span class="toc-number">1.2.5.</span> <span class="toc-text">Reverse Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Majority-Element"><span class="toc-number">1.2.6.</span> <span class="toc-text">Majority Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-Binary"><span class="toc-number">1.2.7.</span> <span class="toc-text">Add Binary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Diameter-of-Binary-Tree"><span class="toc-number">1.2.8.</span> <span class="toc-text">Diameter of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Middle-of-the-Linked-List"><span class="toc-number">1.2.9.</span> <span class="toc-text">Middle of the Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Depth-of-Binary-Tree"><span class="toc-number">1.2.10.</span> <span class="toc-text">Maximum Depth of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Contains-Duplicate"><span class="toc-number">1.2.11.</span> <span class="toc-text">Contains Duplicate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Subarray"><span class="toc-number">1.2.12.</span> <span class="toc-text">Maximum Subarray</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-3-8-8"><span class="toc-number">1.3.</span> <span class="toc-text">Week 3 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Insert-Interval"><span class="toc-number">1.3.1.</span> <span class="toc-text">Insert Interval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#01-Matrix"><span class="toc-number">1.3.2.</span> <span class="toc-text">01 Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-Closest-Points-to-Origin"><span class="toc-number">1.3.3.</span> <span class="toc-text">K Closest Points to Origin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Substring-Without-Repeating-Characters"><span class="toc-number">1.3.4.</span> <span class="toc-text">Longest Substring Without Repeating Characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3Sum"><span class="toc-number">1.3.5.</span> <span class="toc-text">3Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Tree-Level-Order-Traversal"><span class="toc-number">1.3.6.</span> <span class="toc-text">Binary Tree Level Order Traversal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Clone-Graph"><span class="toc-number">1.3.7.</span> <span class="toc-text">Clone Graph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Evaluate-Reverse-Polish-Notation"><span class="toc-number">1.3.8.</span> <span class="toc-text">Evaluate Reverse Polish Notation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-4-8-8"><span class="toc-number">1.4.</span> <span class="toc-text">Week 4 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Course-Schedule"><span class="toc-number">1.4.1.</span> <span class="toc-text">Course Schedule</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Trie-Prefix-Tree"><span class="toc-number">1.4.2.</span> <span class="toc-text">Implement Trie (Prefix Tree)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Coin-Change"><span class="toc-number">1.4.3.</span> <span class="toc-text">Coin Change</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Product-of-Array-Except-Self"><span class="toc-number">1.4.4.</span> <span class="toc-text">Product of Array Except Self</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Min-Stack"><span class="toc-number">1.4.5.</span> <span class="toc-text">Min Stack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Validate-Binary-Search-Tree"><span class="toc-number">1.4.6.</span> <span class="toc-text">Validate Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-of-Islands"><span class="toc-number">1.4.7.</span> <span class="toc-text">Number of Islands</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rotting-Oranges"><span class="toc-number">1.4.8.</span> <span class="toc-text">Rotting Oranges</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-5-8-8"><span class="toc-number">1.5.</span> <span class="toc-text">Week 5 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Search-in-Rotated-Sorted-Array"><span class="toc-number">1.5.1.</span> <span class="toc-text">Search in Rotated Sorted Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Combination-Sum"><span class="toc-number">1.5.2.</span> <span class="toc-text">Combination Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Permutations"><span class="toc-number">1.5.3.</span> <span class="toc-text">Permutations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Intervals"><span class="toc-number">1.5.4.</span> <span class="toc-text">Merge Intervals</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Tree"><span class="toc-number">1.5.5.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Based-Key-Value-Store"><span class="toc-number">1.5.6.</span> <span class="toc-text">Time Based Key-Value Store</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Accounts-Merge"><span class="toc-number">1.5.7.</span> <span class="toc-text">Accounts Merge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sort-Colors"><span class="toc-number">1.5.8.</span> <span class="toc-text">Sort Colors</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-6-9-9"><span class="toc-number">1.6.</span> <span class="toc-text">Week 6 (9&#x2F;9)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Word-Break"><span class="toc-number">1.6.1.</span> <span class="toc-text">Word Break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partition-Equal-Subset-Sum"><span class="toc-number">1.6.2.</span> <span class="toc-text">Partition Equal Subset Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-to-Integer-atoi"><span class="toc-number">1.6.3.</span> <span class="toc-text">String to Integer (atoi)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spiral-Matrix"><span class="toc-number">1.6.4.</span> <span class="toc-text">Spiral Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Tree-Right-Side-View"><span class="toc-number">1.6.5.</span> <span class="toc-text">Binary Tree Right Side View</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Palindromic-Substring"><span class="toc-number">1.6.6.</span> <span class="toc-text">Longest Palindromic Substring</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unique-Paths"><span class="toc-number">1.6.7.</span> <span class="toc-text">Unique Paths</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal"><span class="toc-number">1.6.8.</span> <span class="toc-text">Construct Binary Tree from Preorder and Inorder Traversal</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-7-7-7"><span class="toc-number">1.7.</span> <span class="toc-text">Week 7 (7&#x2F;7)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Container-With-Most-Water"><span class="toc-number">1.7.1.</span> <span class="toc-text">Container With Most Water</span></a></li></ol></li></ol></li></ol>
       </div>
-      <div class="related panel pjax" data-title="Related">
+      <div class="related panel pjax" data-title="関連記事">
       </div>
-      <div class="overview panel" data-title="Overview">
+      <div class="overview panel" data-title="概要">
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <img class="image" itemprop="image" alt="品逸"
       data-src="/website/images/avatar.jpg">
@@ -3380,19 +3867,19 @@ Hi~~ = Joseph's Blog</title>
     <div class="item posts">
       <a href="/website/archives/">
         <span class="count">1</span>
-        <span class="name">posts</span>
+        <span class="name">ポスト</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/website/categories/">
         <span class="count">1</span>
-        <span class="name">categories</span>
+        <span class="name">カテゴリ</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/website/tags/">
         <span class="count">1</span>
-        <span class="name">tags</span>
+        <span class="name">タグ</span>
       </a>
     </div>
 </nav>
@@ -3404,7 +3891,7 @@ Hi~~ = Joseph's Blog</title>
   
     
   <li class="item">
-    <a href="/website/" rel="section"><i class="ic i-home"></i>Home</a>
+    <a href="/website/" rel="section"><i class="ic i-home"></i>ホーム</a>
   </li>
 
     
@@ -3414,17 +3901,17 @@ Hi~~ = Joseph's Blog</title>
 
     
   <li class="item">
-    <a href="/website/archives/" rel="section"><i class="ic i-archive"></i>Archives</a>
+    <a href="/website/archives/" rel="section"><i class="ic i-archive"></i>アーカイブ</a>
   </li>
 
     
   <li class="item">
-    <a href="/website/categories/" rel="section"><i class="ic i-th"></i>Categories</a>
+    <a href="/website/categories/" rel="section"><i class="ic i-th"></i>カテゴリ</a>
   </li>
 
     
   <li class="item">
-    <a href="/website/about/" rel="section"><i class="ic i-user"></i>About</a>
+    <a href="/website/about/" rel="section"><i class="ic i-user"></i>プロフィール</a>
   </li>
 
 
@@ -3455,13 +3942,13 @@ Hi~~ = Joseph's Blog</title>
         <div class="widgets">
           
 <div class="rpost pjax">
-  <h2>Random Posts</h2>
+  <h2>ランダムな記事</h2>
   <ul>
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/website/categories/uncategorized/" title="In uncategorized">uncategorized</a>
+<a href="/website/categories/uncategorized/" title="カテゴリ uncategorized">uncategorized</a>
 </div>
 
     <span><a href="/website/2025/05/31/hello-world/" title="Hello World">Hello World</a></span>
@@ -3470,7 +3957,7 @@ Hi~~ = Joseph's Blog</title>
   </ul>
 </div>
 <div>
-  <h2>Recent Comments</h2>
+  <h2>最近のコメント</h2>
   <ul class="leancloud-recent-comment"></ul>
 </div>
 
@@ -3497,16 +3984,16 @@ Hi~~ = Joseph's Blog</title>
   var LOCAL = {
     path: 'grind75/',
     favicon: {
-      show: "（●´3｀●）Goooood",
-      hide: "(´Д｀)Booooom"
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
     },
     search : {
-      placeholder: "Search for Posts",
-      empty: "We didn't find any results for the search: ${query}",
-      stats: "${hits} results found in ${time} ms"
+      placeholder: "検索…",
+      empty: "「 ${query} 」については何も見つかりませんでした",
+      stats: "${time} ms以内に ${hits} 件の結果が見つかりました"
     },
     valine: true,fancybox: true,
-    copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',
+    copyright: 'コピーは成功しました。 <br> 再印刷については、 ％s 契約に従ってください。',
     ignores : [
       function(uri) {
         return uri.includes('#');
