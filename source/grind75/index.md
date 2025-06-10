@@ -5123,14 +5123,13 @@ public:
 **輸入／輸出 範例**
 
 > 注意：題目不需要從標準輸入讀取，也不需要將結果輸出到標準輸出，只需實作 `sortColors` 函式。  
->  
 > Example 1  
->    
+> 
 > input：nums = [2,0,2,1,1,0]  
 > 執行後 nums 變為 [0,0,1,1,2,2]  
 
 > Example 2  
->
+> 
 > input：nums = [2,0,1]  
 > 執行後 nums 變為 [0,1,2]
 
@@ -5187,3 +5186,913 @@ public:
 
  - 空間複雜度：O(1)
      - 原地交換，僅使用常數額外變數。
+
+## Week 6 (9/9)
+
+### Word Break
+
+> [題目連結](https://leetcode.com/problems/word-break/)  
+> **標籤**: Dynamic Programming, String, Hash Table  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個非空字串 `s` 和一個包含非空單詞的字典 `wordDict`，判斷 `s` 是否可以被空格拆分成一個或多個在字典中出現的單詞序列。  
+>  
+> 注意：  
+> - 字典中同一單詞可能會重複出現，但拆分時只能使用字典中出現過的單詞；  
+> - 拆分時 `s` 必須完整分割，不能留下任何字符。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：s = "leetcode", wordDict = ["leet","code"]  
+> output：true  
+> Explanation：可以拆分為 "leet code"。  
+
+> Example 2:
+>   
+> input：s = "applepenapple", wordDict = ["apple","pen"]  
+> output：true  
+> Explanation：可以拆分為 "apple pen apple"。注意你可以重複使用字典中的單詞。  
+
+> Example 3:
+>   
+> input：s = "catsandog", wordDict = ["cats","dog","sand","and","cat"]  
+> output：false  
+
+**限制**
+
+> - `1 <= s.length <= 300`  
+> - `1 <= wordDict.length <= 1000`  
+> - `1 <= wordDict[i].length <= 20`  
+> - `s` 和 `wordDict[i]` 皆由小寫英文字母組成。  
+> - 字典中單詞無重複。  
+
+**思路**
+
+> 本題可使用動態規劃（DP）判斷是否可拆分：  
+>  
+> 1. 定義布林陣列 `dp`，長度為 `n+1`（`n = s.length()`），`dp[i]` 表示 `s[0..i-1]` 是否可以被拆分成字典單詞序列。  
+> 2. 初始條件：`dp[0] = true`（空字串可以視作拆分成功）。  
+> 3. 狀態轉移：對於每個 `i`（從 `1` 到 `n`），嘗試所有可能的切分位置 `j`（`0 <= j < i`），若 `dp[j] == true` 且 `s[j..i-1]` 在字典中（可用 `unordered_set` 快速查詢），則 `dp[i] = true`，並可立即 `break`。  
+> 4. 最終答案為 `dp[n]`。   
+
+**程式碼**
+
+```cpp
+#include <string>
+#include <vector>
+#include <unordered_set>
+using namespace std;
+
+class Solution {
+public:
+    bool wordBreak(const string& s, const vector<string>& wordDict) {
+        int n = s.size();
+        vector<bool> dp(n + 1, false);
+        unordered_set<string> dict(wordDict.begin(), wordDict.end());
+        
+        dp[0] = true;  // 空字串可拆分
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (dp[j] && dict.count(s.substr(j, i - j))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[n];
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n² · k)
+     - 兩層迴圈共 n(n+1)/2 次子串檢查，每次子串查詢哈希表成本約 O(k)。
+
+ - 空間複雜度：O(n + Σ|wordDict[i]|)
+     - dp 陣列佔 O(n)，哈希表儲存字典佔 O(字典中所有單詞長度總和)。
+
+### Partition Equal Subset Sum
+
+> [題目連結](https://leetcode.com/problems/partition-equal-subset-sum/)  
+> **標籤**: Dynamic Programming, Knapsack  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個只包含正整數的非空陣列 `nums`，判斷是否可以將這個陣列分成兩個子集，使得兩個子集的元素和相等。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：nums = [1,5,11,5]  
+> output：true  
+> Explanation：可以分成 [1,5,5] 和 [11]，兩者和皆為 11。  
+
+> Example 2:  
+> 
+> input：nums = [1,2,3,5]  
+> output：false  
+> Explanation：無法將陣列分成兩個和相等的子集。  
+
+> Example 3:  
+> 
+> input：nums = [2,2,3,5]  
+> output：false  
+
+**限制**
+
+> - `1 <= nums.length <= 200`  
+> - `1 <= nums[i] <= 100`  
+> - 陣列總和不超過 2×10⁴  
+
+**思路**
+
+> 本題實質為「從陣列中選取一部分元素，使其總和等於總和的一半」——典型 0/1 背包問題：  
+> 1. 首先計算陣列總和 `sum`；若 `sum` 為奇數，則無法平分，直接返回 `false`。  
+> 2. 設目標和 `target = sum / 2`；問題轉化為「能否從 `nums` 中選取若干元素恰好湊出 `target`」。  
+> 3. 定義布林陣列 `dp`，長度為 `target+1`，`dp[j]` 表示「是否存在某子集，其總和恰為 `j`」。  
+> 4. 初始條件：`dp[0] = true`（選取空集，和為 0）。  
+> 5. 對於陣列中每個數字 `num`，從 `j = target` 迴圈到 `num`：  
+>    注意要 **逆序** 遍歷以避免重複使用同一元素。  
+> 6. 最終返回 `dp[target]`。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    bool canPartition(const vector<int>& nums) {
+        int sum = 0;
+        for (int x : nums) sum += x;
+        // 若總和為奇數，無法平分
+        if (sum % 2 != 0) return false;
+        int target = sum / 2;
+        
+        // dp[j] = 是否能湊出和為 j
+        vector<bool> dp(target + 1, false);
+        dp[0] = true;
+        
+        // 0/1 背包逆序遍歷
+        for (int num : nums) {
+            for (int j = target; j >= num; j--) {
+                if (dp[j - num]) {
+                    dp[j] = true;
+                }
+            }
+        }
+        return dp[target];
+    }
+};
+```
+
+### String to Integer (atoi)
+
+> [題目連結](https://leetcode.com/problems/string-to-integer-atoi/)  
+> **標籤**: String, Simulation, Implementation  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 實作 `myAtoi(string s)`，將字串 `s` 轉換成 32 位有號整數（範圍 \[-2³¹, 2³¹−1\]）。  
+> 轉換規則如下：  
+> 1. 忽略前導空格直到遇到第一個非空格字元。  
+> 2. 若遇到符號字元 `'+'` 或 `'-'`，則記錄其正負號，否則預設為正號。  
+> 3. 讀取接下來的數字字元，直到遇到非數字字元或字串結束為止。  
+> 4. 將上述讀取到的數字字串轉為整數（忽略前導零），並加上符號。  
+> 5. 若轉換後超出 32 位整數範圍，需截斷到相應邊界值：負溢出返回 `INT_MIN`，正溢出返回 `INT_MAX`。  
+> 6. 若第一個非空字元即非數字且非符號，則直接返回 `0`。  
+
+**範例**
+
+> Example 1:  
+>
+> 輸入：s = "42"  
+> 輸出：42  
+
+> Example 2:  
+> 
+> 輸入：s = "   -42"  
+> 輸出：-42  
+> 解釋：忽略前三個空格後，讀到 '-'，再讀取數字 "42"。  
+
+> Example 3:  
+> 
+> 輸入：s = "4193 with words"  
+> 輸出：4193  
+> 解釋：讀取數字到空格前，遇到非數字字元終止。 
+
+> Example 4:  
+> 
+> 輸入：s = "words and 987"  
+> 輸出：0  
+> 解釋：第一個非空字元為字母，無法轉換數字。  
+
+> Example 5:  
+> 
+> 輸入：s = "-91283472332"  
+> 輸出：-2147483648  
+> 解釋：轉換後小於 INT_MIN，截斷為 -2^31。  
+
+**限制**
+
+> - `0 <= s.length <= 200`  
+> - `s` 可能包含空格、符號字元、數字字元及其他可列印 ASCII 字符。  
+
+**思路**
+
+> 按題目步驟模擬即可：  
+> 1. 使用索引 `i` 跳過前導空格（`while (i < n && s[i] == ' ') i++;`）。  
+> 2. 判斷符號：若 `s[i] == '+'` 或 `'-'`，記錄 `sign = ±1`，並 `i++`；否則 `sign = 1`。  
+> 3. 逐位讀取數字：  
+>    - 初始化 `long result = 0`。  
+>    - 當 `i < n && isdigit(s[i])`：  
+>      1. 計算 `digit = s[i] - '0'`。  
+>      2. 在加到 `result` 前檢查溢出：  
+>         - 若 `result > INT_MAX/10 || (result == INT_MAX/10 && digit > INT_MAX%10)`，則根據 `sign` 返回 `INT_MAX` 或 `INT_MIN`。  
+>      3. 更新 `result = result * 10 + digit`，`i++`。  
+> 4. 返回 `(int)(sign * result)`。  
+
+**程式碼**
+
+```cpp
+#include <string>
+#include <climits>
+using namespace std;
+
+class Solution {
+public:
+    int myAtoi(const string& s) {
+        int n = s.size(), i = 0;
+        // 1. 跳過前導空格
+        while (i < n && s[i] == ' ') i++;
+        
+        // 2. 處理符號
+        int sign = 1;
+        if (i < n && (s[i] == '+' || s[i] == '-')) {
+            if (s[i] == '-') sign = -1;
+            i++;
+        }
+        
+        // 3. 逐位讀取數字並累計
+        long result = 0;
+        while (i < n && isdigit(s[i])) {
+            int digit = s[i] - '0';
+            // 檢查溢出
+            if (result > INT_MAX / 10 ||
+               (result == INT_MAX / 10 && digit > INT_MAX % 10)) {
+                return sign == 1 ? INT_MAX : INT_MIN;
+            }
+            result = result * 10 + digit;
+            i++;
+        }
+        
+        return (int)(sign * result);
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 單次線性掃描字串長度 n。
+
+ - 空間複雜度：O(1)
+     - 使用固定數量的輔助變數。
+
+### Spiral Matrix
+
+> [題目連結](https://leetcode.com/problems/spiral-matrix/)  
+> **標籤**: Array, Simulation  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個 `m x n` 的矩陣 `matrix`，請以螺旋（順時針）順序返回矩陣中的所有元素。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：
+> matrix = [
+>   [ 1, 2, 3 ],
+>   [ 4, 5, 6 ],
+>   [ 7, 8, 9 ]
+> ]
+> 輸出：[1,2,3,6,9,8,7,4,5]
+> 
+> 
+
+> Example 2:  
+> 
+> input：
+> matrix = [
+>   [1,  2,  3,  4],
+>   [5,  6,  7,  8],
+>   [9, 10, 11, 12]
+> ]
+> output：[1,2,3,4,8,12,11,10,9,5,6,7]
+> 
+> 
+
+> Example 3:  
+> 
+> input：matrix = [[1]]
+> outupt：[1]
+>   
+> 
+
+> Example 4:  
+> 
+> input：matrix = [[1],[2],[3]]
+> output：[1,2,3]
+> 
+> 
+
+**限制**
+
+> - `m == matrix.size()`，`n == matrix[i].size()`。  
+> - `1 <= m, n <= 10`。  
+> - `-100 <= matrix[i][j] <= 100`。  
+
+**思路**
+
+> 我們可以維護四個邊界 `top`, `bottom`, `left`, `right`，初始分別為 `0, m-1, 0, n-1`，然後不斷按「→ ↓ ← ↑」四個方向依次遍歷：  
+> 1. 從 `(top, left)` 到 `(top, right)`，將該行元素加入結果，然後 `top++`。  
+> 2. 從 `(top, right)` 到 `(bottom, right)`，將該列元素加入結果，然後 `right--`。  
+> 3. 若 `top <= bottom`，從 `(bottom, right)` 到 `(bottom, left)`（倒序），加入結果，然後 `bottom--`。  
+> 4. 若 `left <= right`，從 `(bottom, left)` 到 `(top, left)`（倒序），加入結果，然後 `left++`。  
+> 重複上述步驟直到 `top > bottom` 或 `left > right`。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> spiralOrder(const vector<vector<int>>& matrix) {
+        int m = matrix.size();
+        if (m == 0) return {};
+        int n = matrix[0].size();
+        
+        int top = 0, bottom = m - 1;
+        int left = 0, right = n - 1;
+        vector<int> result;
+        
+        while (top <= bottom && left <= right) {
+            // 向右
+            for (int j = left; j <= right; j++) {
+                result.push_back(matrix[top][j]);
+            }
+            top++;
+            
+            // 向下
+            for (int i = top; i <= bottom; i++) {
+                result.push_back(matrix[i][right]);
+            }
+            right--;
+            
+            // 向左
+            if (top <= bottom) {
+                for (int j = right; j >= left; j--) {
+                    result.push_back(matrix[bottom][j]);
+                }
+                bottom--;
+            }
+            
+            // 向上
+            if (left <= right) {
+                for (int i = bottom; i >= top; i--) {
+                    result.push_back(matrix[i][left]);
+                }
+                left++;
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(m × n)
+     - 每個元素恰好被加入一次。
+
+ - 空間複雜度：O(1)（不含輸出陣列）
+     - 除了輸出結果外，只使用常數級輔助變數。
+
+### Binary Tree Right Side View
+
+> [題目連結](https://leetcode.com/problems/binary-tree-right-side-view/)  
+> **標籤**: Tree, BFS, DFS  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 15 分鐘  
+
+**題目描述**
+
+> 給定一棵二元樹的根節點 `root`，請返回從樹的右側能看到的所有節點值（從頂層到底層）。  
+
+**範例**
+
+> Example 1:  
+> ```text
+> input：
+>     1
+>    / \
+>   2   3
+>    \   \
+>     5   4
+> ```
+> root = [1,2,3,null,5,null,4]
+> output：[1,3,4]
+> Explanation：  
+> 從右側看，第一層能看到 1，第二層能看到 3，第三層能看到 4。  
+
+> Example 2:  
+> ```text
+> iniput：
+>     1
+>    /
+>   2
+> ```
+
+> root = [1,2]
+> output：[1,2]
+> Explanation：  
+> 第二層只有節點 2。  
+
+> Example 3:  
+> input：root = []
+> output：[]
+
+**限制**
+
+> - 樹中節點數目範圍 `[0, 100]`。  
+> - `-100 <= Node.val <= 100`。  
+
+**思路**
+
+> 可用 **廣度優先搜尋 (BFS)** 或 **深度優先搜尋 (DFS)**：  
+>  
+> 1. **BFS 層序遍歷**：  
+>    - 每層遍歷時記錄當前層最後一個節點的值，即為該層從右側看到的節點。  
+>    - 使用隊列逐層掃描：對每層節點依次出隊，當到達該層最後一個出隊時，將其值加入答案。  
+>  
+> 2. **DFS 右優先**：  
+>    - 先遞迴右子樹，再遞迴左子樹，同時記錄當前深度；  
+>    - 當首次到達某一深度時，該節點即為該層最右側節點，將其值加入答案。  
+
+下面以 **BFS** 方法實現。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <queue>
+using namespace std;
+
+// Definition for a binary tree node.
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> result;
+        if (!root) return result;
+        
+        queue<TreeNode*> q;
+        q.push(root);
+        
+        while (!q.empty()) {
+            int sz = q.size();
+            for (int i = 0; i < sz; i++) {
+                TreeNode* node = q.front(); q.pop();
+                // 如果是該層最後一個節點，記錄它的值
+                if (i == sz - 1) {
+                    result.push_back(node->val);
+                }
+                if (node->left)  q.push(node->left);
+                if (node->right) q.push(node->right);
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 每個節點僅入隊/出隊一次。
+
+ - 空間複雜度：O(n)
+     - 隊列最壞情況存儲整棵樹的一層節點，最多 O(n)。
+
+### Longest Palindromic Substring
+
+> [題目連結](https://leetcode.com/problems/longest-palindromic-substring/)  
+> **標籤**: String, Dynamic Programming, Two Pointers  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 給定一個字串 `s`，找出其中最長的回文子串。你可以假設字串最長為 1000。  
+
+**範例**
+
+> Example 1:  
+> input：s = "babad"
+> output："bab" 或 "aba"（兩者皆可）
+
+> Example 2:  
+> input：s = "cbbd"
+> output："bb"
+
+> Example 3:  
+> input：s = "a"
+> output："a"
+
+> Example 4:  
+> input：s = "ac"
+> output："a" 或 "c"
+
+**限制**
+
+> - `1 <= s.length <= 1000`  
+> - `s` 只包含英文字母、數字、標點符號及空格  
+
+**思路**
+
+> 常見解法有三種：  
+> 1. **中心擴展 (Expand Around Center)**：對每個位置 `i`，以 `i` 為中心擴展奇數長回文；以 `i` 和 `i+1` 為中心擴展偶數長回文，記錄最長。  
+> 2. **動態規劃 (DP)**：定義 `dp[i][j]` 表示 `s[i..j]` 是否為回文，轉移：`dp[i][j] = (s[i]==s[j] && (j-i<2 || dp[i+1][j-1]))`。遍歷所有 `i<j` 區間，更新最長。  
+> 3. **Manacher’s Algorithm**（線性時間，但實作較複雜）。  
+>  
+> 這裡以 **中心擴展** 方法實現：時間複雜度 O(n²)，程式簡潔。  
+
+**程式碼**
+
+```cpp
+#include <string>
+using namespace std;
+
+class Solution {
+public:
+    string longestPalindrome(const string& s) {
+        int n = s.size();
+        if (n < 2) return s;
+        
+        int start = 0, maxLen = 1;
+        
+        auto expand = [&](int left, int right) {
+            while (left >= 0 && right < n && s[left] == s[right]) {
+                left--; right++;
+            }
+            // 此時 [left+1, right-1] 為回文
+            int len = right - left - 1;
+            if (len > maxLen) {
+                maxLen = len;
+                start = left + 1;
+            }
+        };
+        
+        for (int i = 0; i < n; i++) {
+            // 奇數長回文中心在 i
+            expand(i, i);
+            // 偶數長回文中心在 i, i+1
+            expand(i, i + 1);
+        }
+        
+        return s.substr(start, maxLen);
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n²)
+     - 每個 i 執行兩次中心擴展，最壞每次擴展 O(n)。
+
+ - 空間複雜度：O(1)
+     - 只使用固定輔助變數，未開額外陣列。
+
+### Unique Paths
+
+> [題目連結](https://leetcode.com/problems/unique-paths/)  
+> **標籤**: Dynamic Programming, Combinatorics, Grid  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 一個機器人位於一個 `m x n` 的網格左上角（起始點在 `(0,0)`）。機器人每次只能向下或者向右移動一步。機器人試圖到達網格的右下角 `(m-1,n-1)`。  
+>  
+> 請問總共有多少條不同的路徑可以到達終點？  
+
+**範例**
+
+> Example 1:  
+> input：m = 3, n = 7  
+> output：28  
+> Explanation：總共有 28 條不同路徑。
+
+> Example 2:  
+> input：m = 3, n = 2  
+> output：3  
+> Explanation：路徑為 Right->Down->Down, Down->Right->Down, Down->Down->Right。 
+
+> Example 3:  
+> input：m = 7, n = 3  
+> output：28
+
+> Example 4:  
+> input：m = 3, n = 3  
+> output：6 
+
+**限制**
+
+> - `1 <= m, n <= 100`  
+> - 答案保證小於等於 `2 * 10^9`（符合 32 位有號整數範圍）。  
+
+**思路**
+
+> 本題可視為計算機器人需要走 `(m-1)` 次 Down 與 `(n-1)` 次 Right，共 `m+n-2` 步，從中選擇其中任意 `m-1` 步向下（或選擇 `n-1` 步向右）的組合數，即  
+$$
+\binom{m+n-2}{m-1}
+$$
+
+>  
+> 也可用動態規劃：令 `dp[i][j]` 表示到達格子 `(i,j)` 的不同路徑數，則轉移方程：  
+> `dp[i][j]` = `dp[i-1][j]` + `dp[i][j-1]`
+> 
+> 邊界：第一行和第一列均只有一路徑，`dp[0][j] = dp[i][0] = 1`。  
+>  
+> 若只需 O(n) 空間，可用一維滾動陣列 `dp[j]`：  
+> - 初始化 `dp[j] = 1`（代表第一行）；  
+> - 遍歷每一行 `i`，對每列 `j` 從 `1` 到 `n-1` 更新：  
+>   dp[j] = dp[j] + dp[j-1];  
+>   其中 `dp[j]` 原值是上一行同列 `dp[i-1][j]`，`dp[j-1]` 為當前行前一列 `dp[i][j-1]`。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        // 一維 dp，長度為 n
+        vector<int> dp(n, 1);
+        // 從第二行開始，每行更新 dp
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[j] += dp[j - 1];
+            }
+        }
+        // 最後一列 dp[n-1] 為結果
+        return dp[n - 1];
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(m × n)
+     - 需要遍歷 m 行、n 列更新一次。
+
+ - 空間複雜度：O(n)
+     - 使用長度為 n 的一維 dp 陣列。
+
+### Construct Binary Tree from Preorder and Inorder Traversal
+
+> [題目連結](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)  
+> **標籤**: Tree, Recursion, Hash Table  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 給定兩個整數陣列 `preorder` 和 `inorder`，其中 `preorder` 是二元樹的先序遍歷結果，`inorder` 是同一棵樹的中序遍歷結果。請你重建這棵二元樹並返回其根節點。  
+>  
+> 你可以假設樹中無重複值。  
+
+**範例**
+
+> Example 1:  
+> input：
+> preorder = [3,9,20,15,7]
+> inorder  = [9,3,15,20,7]
+>  
+> 返回的二元樹為：
+> ```text
+>     3
+>    / \
+>   9  20
+>      / \
+>     15  7
+> ```
+> 
+> Example 2:  
+> 
+> input：
+> preorder = [-1]
+> inorder  = [-1]
+> output：
+> 返回只有一個節點值 -1 的樹。
+
+**限制**
+
+> - `1 <= preorder.length == inorder.length <= 3000`  
+> - `-3000 <= preorder[i], inorder[i] <= 3000`  
+> - `preorder` 和 `inorder` 中的值 **互不相同**。  
+> - 保證 `inorder` 是樹的中序遍歷結果，`preorder` 是同一棵樹的先序遍歷結果。  
+
+**思路**
+
+> 先序遍歷的第一個值一定是樹的根節點，然後在中序遍歷中找到這個根節點的位置，就能知道左子樹和右子樹的節點範圍。遞迴地對每個子區間重複同樣過程即可重建整棵樹。  
+>  
+> 1. 建立一個哈希表 `idx`，將中序遍歷值映射到其索引，以便 O(1) 查找根在中序中的位置。  
+> 2. 定義遞迴函式 `build(preL, preR, inL, inR)`：  
+>    - 如果 `preL > preR`，回傳 `nullptr`（空樹）。  
+>    - 根節點值 `rootVal = preorder[preL]`，在 `inorder` 中查到位置 `i = idx[rootVal]`。  
+>    - 左子樹節點個數 `leftSize = i - inL`。  
+>    - 創建節點 `TreeNode* root = new TreeNode(rootVal)`。  
+>    - 遞迴構建：  
+>      root->left  = build(preL+1, preL+leftSize, inL,     i-1);
+>      root->right = build(preL+leftSize+1, preR,   i+1, inR);
+> 
+>    - 回傳 `root`。  
+> 3. 初次呼叫 `build(0, n-1, 0, n-1)`。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+// Definition for a binary tree node.
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x): val(x), left(nullptr), right(nullptr) {}
+};
+
+class Solution {
+public:
+    TreeNode* buildTree(const vector<int>& preorder, const vector<int>& inorder) {
+        int n = preorder.size();
+        // 建立中序值到索引的映射
+        for (int i = 0; i < n; i++) {
+            idx[inorder[i]] = i;
+        }
+        return build(preorder, 0, n - 1, 0, n - 1);
+    }
+
+private:
+    unordered_map<int,int> idx;
+
+    TreeNode* build(const vector<int>& pre, int preL, int preR, int inL, int inR) {
+        if (preL > preR) return nullptr;
+
+        int rootVal = pre[preL];
+        int i = idx[rootVal];
+        int leftSize = i - inL;
+
+        TreeNode* root = new TreeNode(rootVal);
+        // 構建左子樹
+        root->left = build(pre, preL + 1, preL + leftSize,inL, i - 1);
+        // 構建右子樹
+        root->right = build(pre, preL + leftSize + 1, preR,i + 1, inR);
+        return root;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 建表 O(n)，遞迴每個節點做一次常數操作。
+
+ - 空間複雜度：O(n)
+     - 哈希表佔 O(n)，遞迴棧深度最壞 O(n)。
+
+## Week 7 (7/7)
+
+### Container With Most Water
+
+> [題目連結](https://leetcode.com/problems/container-with-most-water/)  
+> **標籤**: Two Pointers, Array  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個長度為 `n` 的非負整數陣列 `height`，其中 `height[i]` 表示在座標 `(i, height[i])` 處有一條垂直線。從這些線中選擇兩條線與 x 軸共同構成容器，容器能裝多少水取決於兩條線之間的距離和較低那條線的高度。  
+>  
+> 求容器能裝水的最大面積。  
+
+**範例**
+
+> Example 1:  
+> input：height = [1,8,6,2,5,4,8,3,7]  
+> output：49  
+> Explanation：選擇下標 1 處和 8 處的兩條線，高度 min(8,7)=7，寬度 8−1=7，面積 7×7=49。  
+
+> Example 2:  
+> input：height = [1,1]  
+> output：1  
+> Explanation：唯一選擇兩條高度均為 1，寬度為 1，面積 1×1=1。  
+
+**限制**
+
+> - `n == height.length`  
+> - `2 <= n <= 10^5`  
+> - `0 <= height[i] <= 10^4`  
+
+**思路**
+
+> 採用 **雙指針**（two pointers）技巧：  
+> 1. 左指針 `l` 設在開頭 (`0`)，右指針 `r` 設在末尾 (`n-1`)；  
+> 2. 每次計算當前容器面積：  
+> $$
+> \text{area} = (r - l) \times \min(\text{height}[l], \text{height}[r])
+> $$
+ 
+>    並更新全局最大值。  
+> 3. 為了嘗試找到更高的界限，需要移動指針：  
+>    - 若 `height[l] < height[r]`，說明左邊較低，移動左指針 `l++`，因為移動右指針不會增大最小高度；  
+>    - 否則移動右指針 `r--`。  
+> 4. 重複上述步驟直到 `l >= r`。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int maxArea(const vector<int>& height) {
+        int l = 0, r = height.size() - 1;
+        int max_area = 0;
+        while (l < r) {
+            int h = min(height[l], height[r]);
+            int w = r - l;
+            max_area = max(max_area, h * w);
+            // 移動較低的一側指針
+            if (height[l] < height[r]) {
+                l++;
+            } else {
+                r--;
+            }
+        }
+        return max_area;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 指針各自最多移動 n 次，一次線性掃描完成。
+
+ - 空間複雜度：O(1)
+     - 僅使用常數個輔助變數。
+
+### 
