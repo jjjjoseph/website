@@ -14,7 +14,6 @@
   <meta http-equiv="Cache-Control" content="no-transform">
   <meta http-equiv="Cache-Control" content="no-siteapp">
 
-
 <link rel="alternate" type="application/rss+xml" title="Joseph's Blog" href="http://localhost:4000/rss.xml" />
 <link rel="alternate" type="application/atom+xml" title="Joseph's Blog" href="http://localhost:4000/atom.xml" />
 <link rel="alternate" type="application/json" title="Joseph's Blog" href="http://localhost:4000/feed.json" />
@@ -23,11 +22,20 @@
 
 <link rel="stylesheet" href="/website/css/app.css?v=0.2.5">
 
+<!-- KaTeX CSS for inline math support -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+
 <!-- MathJax v3 for LaTeX 渲染 -->
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- Prism.js CSS for code highlighting -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-tomorrow.css" />
+
+
+<script src="/website/js/algolia/algoliasearchLite.min.js?v=0.2.5"></script>
+<script src="/website/js/algolia/instantsearch.min.js?v=0.2.5"></script>
+<script src="/website/js/algolia/algoliaSearch.js?v=0.2.5"></script>
 
   
 
@@ -37,8 +45,7 @@
 
   <title>LeetCode Grind 75 |
 Hi~~ = Joseph's Blog</title>
-<meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/website/css/prism-okaidia.css" type="text/css">
-<link rel="stylesheet" href="/website/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
   <div id="loading">
     <div class="cat">
@@ -72,7 +79,7 @@ Hi~~ = Joseph's Blog</title>
         <nav id="nav">
   <div class="inner">
     <div class="toggle">
-      <div class="lines" aria-label="ナビゲーションバーの切り替え">
+      <div class="lines" aria-label="切換導航欄">
         <span class="line"></span>
         <span class="line"></span>
         <span class="line"></span>
@@ -95,12 +102,12 @@ Hi~~ = Joseph's Blog</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipesx5fdwj20zk0m81kx.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicliierfjj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexe4oykj20zk0m87ji.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclize41wj20zk0m87gk.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclip4jbpj20zk0m87cv.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipev1x5e4j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeuv80yoj20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciub8ja1j20zk0m81ky.jpg"></li>
         </ul>
       </div>
     </header>
@@ -3217,7 +3224,7 @@ Hi~~ = Joseph's Blog</title>
 <p><strong>範例</strong></p>
 <blockquote>
 <p>Example 1:  </p>
-<p>input：<br>accounts &#x3D; [<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjMTA0OyYjeDZlOyYjMTE1OyYjMTA5OyYjMTA1OyYjMTE2OyYjeDY4OyYjNjQ7JiMxMDk7JiM5NzsmI3g2OTsmI3g2YzsmI3gyZTsmIzk5OyYjeDZmOyYjMTA5Ow==">johnsmith@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjeDZmOyYjeDY4OyYjeDZlOyYjOTU7JiMxMTA7JiMxMDE7JiMxMTk7JiN4Nzk7JiN4NmY7JiN4NzI7JiN4NmI7JiN4NDA7JiN4NmQ7JiN4NjE7JiN4Njk7JiN4NmM7JiN4MmU7JiN4NjM7JiN4NmY7JiMxMDk7">john_newyork@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjMTA0OyYjeDZlOyYjMTE1OyYjMTA5OyYjeDY5OyYjMTE2OyYjMTA0OyYjNjQ7JiN4NmQ7JiM5NzsmIzEwNTsmIzEwODsmIzQ2OyYjOTk7JiMxMTE7JiMxMDk7">johnsmith@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjeDY4OyYjMTEwOyYjNDg7JiM0ODsmIzY0OyYjeDZkOyYjeDYxOyYjMTA1OyYjMTA4OyYjeDJlOyYjOTk7JiMxMTE7JiMxMDk7">john00@mail.com</span>“],<br>  [“Mary”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZkOyYjeDYxOyYjMTE0OyYjMTIxOyYjNjQ7JiN4NmQ7JiN4NjE7JiN4Njk7JiN4NmM7JiN4MmU7JiN4NjM7JiMxMTE7JiN4NmQ7">mary@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjeDY4OyYjeDZlOyYjeDZlOyYjeDc5OyYjOTg7JiN4NzI7JiN4NjE7JiN4NzY7JiN4NmY7JiM2NDsmI3g2ZDsmIzk3OyYjMTA1OyYjMTA4OyYjNDY7JiN4NjM7JiN4NmY7JiN4NmQ7">johnnybravo@mail.com</span>“]<br>]<br>output：<br>[<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjMTA0OyYjeDZlOyYjNDg7JiM0ODsmI3g0MDsmIzEwOTsmI3g2MTsmIzEwNTsmI3g2YzsmI3gyZTsmIzk5OyYjMTExOyYjMTA5Ow==">john00@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjeDY4OyYjeDZlOyYjOTU7JiN4NmU7JiMxMDE7JiN4Nzc7JiN4Nzk7JiMxMTE7JiN4NzI7JiMxMDc7JiM2NDsmIzEwOTsmI3g2MTsmI3g2OTsmI3g2YzsmIzQ2OyYjOTk7JiN4NmY7JiN4NmQ7">john_newyork@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjMTA0OyYjeDZlOyYjMTE1OyYjMTA5OyYjMTA1OyYjeDc0OyYjMTA0OyYjNjQ7JiMxMDk7JiM5NzsmI3g2OTsmI3g2YzsmIzQ2OyYjOTk7JiMxMTE7JiMxMDk7">johnsmith@mail.com</span>“],<br>  [“Mary”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA5OyYjeDYxOyYjMTE0OyYjMTIxOyYjeDQwOyYjMTA5OyYjeDYxOyYjeDY5OyYjeDZjOyYjeDJlOyYjOTk7JiN4NmY7JiN4NmQ7">mary@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjeDZmOyYjeDY4OyYjMTEwOyYjeDZlOyYjeDc5OyYjeDYyOyYjMTE0OyYjeDYxOyYjMTE4OyYjMTExOyYjeDQwOyYjMTA5OyYjOTc7JiMxMDU7JiN4NmM7JiN4MmU7JiN4NjM7JiMxMTE7JiMxMDk7">johnnybravo@mail.com</span>“]<br>]</p>
+<p>input：<br>accounts &#x3D; [<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjeDZmOyYjMTA0OyYjMTEwOyYjMTE1OyYjeDZkOyYjMTA1OyYjMTE2OyYjeDY4OyYjNjQ7JiN4NmQ7JiM5NzsmIzEwNTsmIzEwODsmI3gyZTsmI3g2MzsmIzExMTsmI3g2ZDs=">johnsmith@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjeDZmOyYjMTA0OyYjeDZlOyYjeDVmOyYjMTEwOyYjMTAxOyYjMTE5OyYjeDc5OyYjeDZmOyYjMTE0OyYjMTA3OyYjeDQwOyYjMTA5OyYjOTc7JiN4Njk7JiMxMDg7JiM0NjsmI3g2MzsmIzExMTsmI3g2ZDs=">john_newyork@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjeDY4OyYjMTEwOyYjeDczOyYjeDZkOyYjeDY5OyYjeDc0OyYjMTA0OyYjeDQwOyYjeDZkOyYjeDYxOyYjMTA1OyYjeDZjOyYjNDY7JiN4NjM7JiN4NmY7JiN4NmQ7">johnsmith@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjeDZmOyYjeDY4OyYjeDZlOyYjNDg7JiN4MzA7JiM2NDsmI3g2ZDsmI3g2MTsmIzEwNTsmI3g2YzsmI3gyZTsmI3g2MzsmIzExMTsmIzEwOTs=">john00@mail.com</span>“],<br>  [“Mary”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZkOyYjeDYxOyYjeDcyOyYjMTIxOyYjNjQ7JiN4NmQ7JiN4NjE7JiMxMDU7JiN4NmM7JiM0NjsmI3g2MzsmI3g2ZjsmIzEwOTs=">mary@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjMTExOyYjMTA0OyYjMTEwOyYjeDZlOyYjMTIxOyYjeDYyOyYjeDcyOyYjOTc7JiN4NzY7JiN4NmY7JiM2NDsmIzEwOTsmI3g2MTsmIzEwNTsmIzEwODsmIzQ2OyYjOTk7JiN4NmY7JiN4NmQ7">johnnybravo@mail.com</span>“]<br>]<br>output：<br>[<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjeDZmOyYjeDY4OyYjMTEwOyYjNDg7JiM0ODsmIzY0OyYjMTA5OyYjeDYxOyYjeDY5OyYjeDZjOyYjeDJlOyYjOTk7JiN4NmY7JiMxMDk7">john00@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjMTExOyYjMTA0OyYjeDZlOyYjOTU7JiN4NmU7JiN4NjU7JiMxMTk7JiN4Nzk7JiN4NmY7JiMxMTQ7JiMxMDc7JiM2NDsmI3g2ZDsmI3g2MTsmIzEwNTsmI3g2YzsmI3gyZTsmIzk5OyYjeDZmOyYjeDZkOw==">john_newyork@mail.com</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDZhOyYjeDZmOyYjeDY4OyYjeDZlOyYjMTE1OyYjMTA5OyYjeDY5OyYjMTE2OyYjMTA0OyYjeDQwOyYjeDZkOyYjOTc7JiMxMDU7JiMxMDg7JiM0NjsmIzk5OyYjeDZmOyYjMTA5Ow==">johnsmith@mail.com</span>“],<br>  [“Mary”,”<span class="exturl" data-url="bWFpbHRvOiYjeDZkOyYjeDYxOyYjeDcyOyYjeDc5OyYjeDQwOyYjeDZkOyYjeDYxOyYjMTA1OyYjeDZjOyYjeDJlOyYjOTk7JiN4NmY7JiMxMDk7">mary@mail.com</span>“],<br>  [“John”,”<span class="exturl" data-url="bWFpbHRvOiYjMTA2OyYjMTExOyYjMTA0OyYjMTEwOyYjeDZlOyYjeDc5OyYjeDYyOyYjMTE0OyYjeDYxOyYjeDc2OyYjMTExOyYjNjQ7JiMxMDk7JiN4NjE7JiN4Njk7JiMxMDg7JiM0NjsmI3g2MzsmIzExMTsmI3g2ZDs=">johnnybravo@mail.com</span>“]<br>]</p>
 <p>Explanation：  </p>
 <ul>
 <li>第一、二 個帳戶都包含 <code>johnsmith@mail.com</code>，合併後郵箱為三個去重且排序後的地址；  </li>
@@ -3226,7 +3233,7 @@ Hi~~ = Joseph's Blog</title>
 </blockquote>
 <blockquote>
 <p>Example 2:  </p>
-<p>input：<br>accounts &#x3D; [<br>  [“Gabe”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjOTc7JiN4NjI7JiN4NjU7JiM0ODsmI3g0MDsmIzEwOTsmI3gyZTsmIzk5OyYjMTExOw==">Gabe0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiN4NjE7JiN4NjI7JiN4NjU7JiN4MzM7JiN4NDA7JiMxMDk7JiN4MmU7JiN4NjM7JiMxMTE7">Gabe3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiN4NjE7JiM5ODsmI3g2NTsmI3gzMTsmI3g0MDsmI3g2ZDsmI3gyZTsmIzk5OyYjeDZmOw==">Gabe1@m.co</span>“],<br>  [“Kevin”,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiMxMDE7JiN4NzY7JiN4Njk7JiMxMTA7JiN4MzM7JiM2NDsmI3g2ZDsmIzQ2OyYjOTk7JiN4NmY7">Kevin3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiMxMDE7JiMxMTg7JiMxMDU7JiMxMTA7JiM1MzsmIzY0OyYjMTA5OyYjNDY7JiN4NjM7JiMxMTE7">Kevin5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjeDY1OyYjeDc2OyYjeDY5OyYjMTEwOyYjNDg7JiN4NDA7JiN4NmQ7JiM0NjsmIzk5OyYjeDZmOw==">Kevin0@m.co</span>“],<br>  [“Ethan”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjeDc0OyYjMTA0OyYjeDYxOyYjMTEwOyYjNTM7JiN4NDA7JiMxMDk7JiN4MmU7JiN4NjM7JiN4NmY7">Ethan5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiMxMTY7JiN4Njg7JiM5NzsmI3g2ZTsmI3gzNDsmIzY0OyYjeDZkOyYjeDJlOyYjOTk7JiN4NmY7">Ethan4@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiMxMTY7JiN4Njg7JiM5NzsmI3g2ZTsmIzQ4OyYjNjQ7JiMxMDk7JiN4MmU7JiN4NjM7JiN4NmY7">Ethan0@m.co</span>“],<br>  [“Hanzo”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjOTc7JiN4NmU7JiMxMjI7JiMxMTE7JiN4MzM7JiM2NDsmI3g2ZDsmIzQ2OyYjOTk7JiN4NmY7">Hanzo3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjeDYxOyYjeDZlOyYjeDdhOyYjeDZmOyYjeDMxOyYjNjQ7JiMxMDk7JiM0NjsmI3g2MzsmIzExMTs=">Hanzo1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjeDYxOyYjeDZlOyYjeDdhOyYjeDZmOyYjeDMwOyYjNjQ7JiN4NmQ7JiN4MmU7JiN4NjM7JiN4NmY7">Hanzo0@m.co</span>“],<br>  [“Fern”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjMTAxOyYjeDcyOyYjMTEwOyYjNTM7JiM2NDsmI3g2ZDsmIzQ2OyYjOTk7JiN4NmY7">Fern5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjeDY1OyYjeDcyOyYjeDZlOyYjeDMxOyYjeDQwOyYjeDZkOyYjeDJlOyYjeDYzOyYjeDZmOw==">Fern1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzA7JiN4NjU7JiN4NzI7JiN4NmU7JiN4MzA7JiN4NDA7JiMxMDk7JiM0NjsmI3g2MzsmIzExMTs=">Fern0@m.co</span>“]<br>]<br>output：<br>[<br>  [“Ethan”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjMTE2OyYjMTA0OyYjeDYxOyYjMTEwOyYjNDg7JiM2NDsmI3g2ZDsmI3gyZTsmI3g2MzsmIzExMTs=">Ethan0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiN4NzQ7JiMxMDQ7JiN4NjE7JiN4NmU7JiN4MzQ7JiM2NDsmIzEwOTsmI3gyZTsmIzk5OyYjMTExOw==">Ethan4@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjeDc0OyYjeDY4OyYjOTc7JiMxMTA7JiM1MzsmI3g0MDsmIzEwOTsmI3gyZTsmI3g2MzsmI3g2Zjs=">Ethan5@m.co</span>“],<br>  [“Gabe”,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiM5NzsmI3g2MjsmI3g2NTsmIzQ4OyYjNjQ7JiN4NmQ7JiM0NjsmIzk5OyYjMTExOw==">Gabe0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiN4NjE7JiM5ODsmIzEwMTsmI3gzMTsmI3g0MDsmIzEwOTsmI3gyZTsmIzk5OyYjeDZmOw==">Gabe1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjOTc7JiN4NjI7JiMxMDE7JiN4MzM7JiN4NDA7JiMxMDk7JiN4MmU7JiM5OTsmI3g2Zjs=">Gabe3@m.co</span>“],<br>  [“Hanzo”,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiN4NjE7JiN4NmU7JiN4N2E7JiN4NmY7JiM0ODsmIzY0OyYjeDZkOyYjeDJlOyYjeDYzOyYjMTExOw==">Hanzo0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiN4NjE7JiMxMTA7JiN4N2E7JiMxMTE7JiM0OTsmIzY0OyYjeDZkOyYjeDJlOyYjOTk7JiN4NmY7">Hanzo1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjOTc7JiMxMTA7JiMxMjI7JiN4NmY7JiN4MzM7JiM2NDsmIzEwOTsmI3gyZTsmI3g2MzsmIzExMTs=">Hanzo3@m.co</span>“],<br>  [“Kevin”,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiN4NjU7JiN4NzY7JiN4Njk7JiN4NmU7JiM0ODsmI3g0MDsmI3g2ZDsmI3gyZTsmI3g2MzsmI3g2Zjs=">Kevin0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjeDY1OyYjMTE4OyYjMTA1OyYjMTEwOyYjNTE7JiM2NDsmI3g2ZDsmIzQ2OyYjOTk7JiMxMTE7">Kevin3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjeDY1OyYjMTE4OyYjeDY5OyYjeDZlOyYjeDM1OyYjeDQwOyYjMTA5OyYjeDJlOyYjOTk7JiMxMTE7">Kevin5@m.co</span>“],<br>  [“Fern”,”<span class="exturl" data-url="bWFpbHRvOiYjNzA7JiN4NjU7JiN4NzI7JiN4NmU7JiN4MzA7JiM2NDsmIzEwOTsmIzQ2OyYjOTk7JiMxMTE7">Fern0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjeDY1OyYjMTE0OyYjMTEwOyYjNDk7JiN4NDA7JiN4NmQ7JiM0NjsmI3g2MzsmIzExMTs=">Fern1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzA7JiMxMDE7JiN4NzI7JiMxMTA7JiN4MzU7JiM2NDsmIzEwOTsmIzQ2OyYjeDYzOyYjeDZmOw==">Fern5@m.co</span>“]<br>]</p>
+<p>input：<br>accounts &#x3D; [<br>  [“Gabe”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ3OyYjeDYxOyYjeDYyOyYjMTAxOyYjeDMwOyYjNjQ7JiMxMDk7JiM0NjsmI3g2MzsmI3g2Zjs=">Gabe0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiN4NjE7JiM5ODsmIzEwMTsmI3gzMzsmI3g0MDsmI3g2ZDsmIzQ2OyYjOTk7JiN4NmY7">Gabe3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiN4NjE7JiM5ODsmIzEwMTsmIzQ5OyYjNjQ7JiN4NmQ7JiN4MmU7JiM5OTsmIzExMTs=">Gabe1@m.co</span>“],<br>  [“Kevin”,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjMTAxOyYjMTE4OyYjMTA1OyYjMTEwOyYjNTE7JiN4NDA7JiMxMDk7JiN4MmU7JiM5OTsmI3g2Zjs=">Kevin3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiMxMDE7JiN4NzY7JiMxMDU7JiMxMTA7JiM1MzsmIzY0OyYjeDZkOyYjNDY7JiM5OTsmIzExMTs=">Kevin5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiN4NjU7JiMxMTg7JiN4Njk7JiMxMTA7JiM0ODsmIzY0OyYjMTA5OyYjNDY7JiN4NjM7JiN4NmY7">Kevin0@m.co</span>“],<br>  [“Ethan”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjMTE2OyYjMTA0OyYjOTc7JiMxMTA7JiM1MzsmI3g0MDsmIzEwOTsmI3gyZTsmIzk5OyYjMTExOw==">Ethan5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjeDc0OyYjMTA0OyYjeDYxOyYjMTEwOyYjNTI7JiN4NDA7JiN4NmQ7JiM0NjsmI3g2MzsmIzExMTs=">Ethan4@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjeDc0OyYjeDY4OyYjOTc7JiN4NmU7JiN4MzA7JiM2NDsmIzEwOTsmIzQ2OyYjeDYzOyYjMTExOw==">Ethan0@m.co</span>“],<br>  [“Hanzo”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjOTc7JiMxMTA7JiMxMjI7JiN4NmY7JiN4MzM7JiN4NDA7JiMxMDk7JiM0NjsmI3g2MzsmI3g2Zjs=">Hanzo3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiN4NjE7JiN4NmU7JiMxMjI7JiMxMTE7JiN4MzE7JiM2NDsmIzEwOTsmI3gyZTsmI3g2MzsmIzExMTs=">Hanzo1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiN4NjE7JiMxMTA7JiMxMjI7JiN4NmY7JiM0ODsmIzY0OyYjMTA5OyYjNDY7JiM5OTsmIzExMTs=">Hanzo0@m.co</span>“],<br>  [“Fern”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjMTAxOyYjeDcyOyYjeDZlOyYjNTM7JiN4NDA7JiMxMDk7JiM0NjsmIzk5OyYjMTExOw==">Fern5@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjMTAxOyYjeDcyOyYjMTEwOyYjeDMxOyYjeDQwOyYjMTA5OyYjNDY7JiM5OTsmIzExMTs=">Fern1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjMTAxOyYjeDcyOyYjMTEwOyYjNDg7JiN4NDA7JiMxMDk7JiM0NjsmIzk5OyYjeDZmOw==">Fern0@m.co</span>“]<br>]<br>output：<br>[<br>  [“Ethan”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjeDc0OyYjeDY4OyYjeDYxOyYjMTEwOyYjeDMwOyYjeDQwOyYjMTA5OyYjeDJlOyYjeDYzOyYjeDZmOw==">Ethan0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ1OyYjeDc0OyYjeDY4OyYjeDYxOyYjeDZlOyYjNTI7JiM2NDsmI3g2ZDsmIzQ2OyYjeDYzOyYjMTExOw==">Ethan4@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNjk7JiMxMTY7JiN4Njg7JiN4NjE7JiN4NmU7JiM1MzsmI3g0MDsmIzEwOTsmIzQ2OyYjOTk7JiMxMTE7">Ethan5@m.co</span>“],<br>  [“Gabe”,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiM5NzsmI3g2MjsmIzEwMTsmI3gzMDsmIzY0OyYjeDZkOyYjNDY7JiN4NjM7JiN4NmY7">Gabe0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiM5NzsmIzk4OyYjeDY1OyYjeDMxOyYjeDQwOyYjMTA5OyYjeDJlOyYjeDYzOyYjeDZmOw==">Gabe1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzE7JiM5NzsmIzk4OyYjMTAxOyYjeDMzOyYjNjQ7JiN4NmQ7JiM0NjsmIzk5OyYjeDZmOw==">Gabe3@m.co</span>“],<br>  [“Hanzo”,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiM5NzsmI3g2ZTsmIzEyMjsmIzExMTsmI3gzMDsmIzY0OyYjeDZkOyYjeDJlOyYjOTk7JiMxMTE7">Hanzo0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzI7JiN4NjE7JiN4NmU7JiN4N2E7JiN4NmY7JiN4MzE7JiM2NDsmI3g2ZDsmI3gyZTsmI3g2MzsmI3g2Zjs=">Hanzo1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ4OyYjOTc7JiMxMTA7JiMxMjI7JiN4NmY7JiN4MzM7JiN4NDA7JiMxMDk7JiN4MmU7JiN4NjM7JiN4NmY7">Hanzo3@m.co</span>“],<br>  [“Kevin”,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiMxMDE7JiMxMTg7JiMxMDU7JiN4NmU7JiN4MzA7JiM2NDsmIzEwOTsmIzQ2OyYjOTk7JiMxMTE7">Kevin0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjeDRiOyYjMTAxOyYjMTE4OyYjMTA1OyYjeDZlOyYjNTE7JiM2NDsmIzEwOTsmIzQ2OyYjeDYzOyYjMTExOw==">Kevin3@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzU7JiMxMDE7JiMxMTg7JiMxMDU7JiN4NmU7JiM1MzsmI3g0MDsmI3g2ZDsmI3gyZTsmIzk5OyYjMTExOw==">Kevin5@m.co</span>“],<br>  [“Fern”,”<span class="exturl" data-url="bWFpbHRvOiYjeDQ2OyYjMTAxOyYjMTE0OyYjeDZlOyYjNDg7JiM2NDsmIzEwOTsmIzQ2OyYjeDYzOyYjeDZmOw==">Fern0@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzA7JiN4NjU7JiN4NzI7JiMxMTA7JiM0OTsmI3g0MDsmIzEwOTsmI3gyZTsmIzk5OyYjeDZmOw==">Fern1@m.co</span>“,”<span class="exturl" data-url="bWFpbHRvOiYjNzA7JiN4NjU7JiMxMTQ7JiN4NmU7JiM1MzsmI3g0MDsmIzEwOTsmIzQ2OyYjOTk7JiN4NmY7">Fern5@m.co</span>“]<br>]</p>
 </blockquote>
 <p><strong>限制</strong></p>
 <blockquote>
@@ -3801,7 +3808,64 @@ Hi~~ = Joseph's Blog</title>
 </ul>
 </li>
 </ul>
-<h2 id="Week-7-7-7"><a href="#Week-7-7-7" class="headerlink" title="Week 7 (7&#x2F;7)"></a>Week 7 (7&#x2F;7)</h2><h3 id="Container-With-Most-Water"><a href="#Container-With-Most-Water" class="headerlink" title="Container With Most Water"></a>Container With Most Water</h3>
+<h2 id="Week-7-7-7"><a href="#Week-7-7-7" class="headerlink" title="Week 7 (7&#x2F;7)"></a>Week 7 (7&#x2F;7)</h2><h3 id="Container-With-Most-Water"><a href="#Container-With-Most-Water" class="headerlink" title="Container With Most Water"></a>Container With Most Water</h3><blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvY29udGFpbmVyLXdpdGgtbW9zdC13YXRlci8=">題目連結</span><br><strong>標籤</strong>: Two Pointers, Array<br><strong>語言</strong>: C++<br><strong>難度</strong>: Medium<br><strong>解題時間</strong>: 20 分鐘  </p>
+</blockquote>
+<p><strong>題目描述</strong></p>
+<blockquote>
+<p>給定一個長度為 <code>n</code> 的非負整數陣列 <code>height</code>，其中 <code>height[i]</code> 表示在座標 <code>(i, height[i])</code> 處有一條垂直線。從這些線中選擇兩條線與 x 軸共同構成容器，容器能裝多少水取決於兩條線之間的距離和較低那條線的高度。  </p>
+<p>求容器能裝水的最大面積。  </p>
+</blockquote>
+<p><strong>範例</strong></p>
+<blockquote>
+<p>Example 1:<br>input：height &#x3D; [1,8,6,2,5,4,8,3,7]<br>output：49<br>Explanation：選擇下標 1 處和 8 處的兩條線，高度 min(8,7)&#x3D;7，寬度 8−1&#x3D;7，面積 7×7&#x3D;49。  </p>
+</blockquote>
+<blockquote>
+<p>Example 2:<br>input：height &#x3D; [1,1]<br>output：1<br>Explanation：唯一選擇兩條高度均為 1，寬度為 1，面積 1×1&#x3D;1。  </p>
+</blockquote>
+<p><strong>限制</strong></p>
+<blockquote>
+<ul>
+<li><code>n == height.length</code>  </li>
+<li><code>2 &lt;= n &lt;= 10^5</code>  </li>
+<li><code>0 &lt;= height[i] &lt;= 10^4</code></li>
+</ul>
+</blockquote>
+<p><strong>思路</strong></p>
+<blockquote>
+<p>採用 <strong>雙指針</strong>（two pointers）技巧：  </p>
+<ol>
+<li>左指針 <code>l</code> 設在開頭 (<code>0</code>)，右指針 <code>r</code> 設在末尾 (<code>n-1</code>)；  </li>
+<li>每次計算當前容器面積：<br>$$<br>\text{area} &#x3D; (r - l) \times \min(\text{height}[l], \text{height}[r])<br>$$</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>   並更新全局最大值。<br>3. 為了嘗試找到更高的界限，需要移動指針：  </p>
+<ul>
+<li>若 <code>height[l] &lt; height[r]</code>，說明左邊較低，移動左指針 <code>l++</code>，因為移動右指針不會增大最小高度；  </li>
+<li>否則移動右指針 <code>r--</code>。</li>
+</ul>
+<ol start="4">
+<li>重複上述步驟直到 <code>l &gt;= r</code>。</li>
+</ol>
+</blockquote>
+<p><strong>程式碼</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxArea</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = height.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> max_area = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="type">int</span> h = <span class="built_in">min</span>(height[l], height[r]);</span><br><span class="line">            <span class="type">int</span> w = r - l;</span><br><span class="line">            max_area = <span class="built_in">max</span>(max_area, h * w);</span><br><span class="line">            <span class="comment">// 移動較低的一側指針</span></span><br><span class="line">            <span class="keyword">if</span> (height[l] &lt; height[r]) &#123;</span><br><span class="line">                l++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                r--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max_area;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>複雜度分析</strong></p>
+<ul>
+<li><p>時間複雜度：O(n)</p>
+<ul>
+<li>指針各自最多移動 n 次，一次線性掃描完成。</li>
+</ul>
+</li>
+<li><p>空間複雜度：O(1)</p>
+<ul>
+<li>僅使用常數個輔助變數。</li>
+</ul>
+</li>
+</ul>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
   </div>
 
    <footer>
@@ -3811,8 +3875,8 @@ Hi~~ = Joseph's Blog</title>
     <span class="icon">
       <i class="ic i-calendar-check"></i>
     </span>
-    <span class="text">編集日</span>
-    <time title="修正日：2025-06-09 23:50:22" itemprop="dateModified" datetime="2025-06-09T23:50:22+08:00">2025-06-09</time>
+    <span class="text">更新於</span>
+    <time title="修改時間：2025-06-11 00:56:54" itemprop="dateModified" datetime="2025-06-11T00:56:54+08:00">2025-06-11</time>
   </span>
 </div>
 
@@ -3821,14 +3885,14 @@ Hi~~ = Joseph's Blog</title>
 <div id="copyright">
 <ul>
   <li class="author">
-    <strong>著者： </strong>品逸 <i class="ic i-at"><em>@</em></i>Joseph's Blog
+    <strong>博主： </strong>品逸 <i class="ic i-at"><em>@</em></i>Joseph's Blog
   </li>
   <li class="link">
-    <strong>記事へのリンク：</strong>
+    <strong>文章連結：</strong>
     <a href="http://localhost:4000/grind75/index.html" title="LeetCode Grind 75">http://localhost:4000/grind75/index.html</a>
   </li>
   <li class="license">
-    <strong>著作権表示： </strong>このブログ内のすべての記事は、特別な記載がない限り <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9odHRwczovL2NyZWF0aXZlY29tbW9ucy5vcmcvbGljZW5zZXMvYnktbmMtc2EvNC4wL2xlZ2FsY29kZS56aC10dw=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> の下のライセンスで保護されています。
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9odHRwczovL2NyZWF0aXZlY29tbW9ucy5vcmcvbGljZW5zZXMvYnktbmMtc2EvNC4wL2xlZ2FsY29kZS56aC10dw=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 許可協議。轉載請註明出處！
   </li>
 </ul>
 </div>
@@ -3850,12 +3914,12 @@ Hi~~ = Joseph's Blog</title>
 
   <div class="panels">
     <div class="inner">
-      <div class="contents panel pjax" data-title="見出し">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Grind-75"><span class="toc-number">1.</span> <span class="toc-text">Grind 75</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-1-13-13"><span class="toc-number">1.1.</span> <span class="toc-text">Week 1 (13&#x2F;13)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Two-Sum"><span class="toc-number">1.1.1.</span> <span class="toc-text">Two Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Parentheses"><span class="toc-number">1.1.2.</span> <span class="toc-text">Valid Parentheses</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Two-Sorted-Lists"><span class="toc-number">1.1.3.</span> <span class="toc-text">Merge Two Sorted Lists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Best-Time-to-Buy-and-Sell-Stock"><span class="toc-number">1.1.4.</span> <span class="toc-text">Best Time to Buy and Sell Stock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Palindrome"><span class="toc-number">1.1.5.</span> <span class="toc-text">Valid Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invert-Binary-Tree"><span class="toc-number">1.1.6.</span> <span class="toc-text">Invert Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Anagram"><span class="toc-number">1.1.7.</span> <span class="toc-text">Valid Anagram</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Search"><span class="toc-number">1.1.8.</span> <span class="toc-text">Binary Search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flood-Fill"><span class="toc-number">1.1.9.</span> <span class="toc-text">Flood Fill</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Search-Tree"><span class="toc-number">1.1.10.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Balanced-Binary-Tree"><span class="toc-number">1.1.11.</span> <span class="toc-text">Balanced Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linked-List-Cycle"><span class="toc-number">1.1.12.</span> <span class="toc-text">Linked List Cycle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Queue-using-Stacks"><span class="toc-number">1.1.13.</span> <span class="toc-text">Implement Queue using Stacks</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-2-12-12"><span class="toc-number">1.2.</span> <span class="toc-text">Week 2 (12&#x2F;12)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#First-Bad-Version"><span class="toc-number">1.2.1.</span> <span class="toc-text">First Bad Version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ransom-Note"><span class="toc-number">1.2.2.</span> <span class="toc-text">Ransom Note</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Climbing-Stairs"><span class="toc-number">1.2.3.</span> <span class="toc-text">Climbing Stairs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Palindrome"><span class="toc-number">1.2.4.</span> <span class="toc-text">Longest Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-Linked-List"><span class="toc-number">1.2.5.</span> <span class="toc-text">Reverse Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Majority-Element"><span class="toc-number">1.2.6.</span> <span class="toc-text">Majority Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-Binary"><span class="toc-number">1.2.7.</span> <span class="toc-text">Add Binary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Diameter-of-Binary-Tree"><span class="toc-number">1.2.8.</span> <span class="toc-text">Diameter of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Middle-of-the-Linked-List"><span class="toc-number">1.2.9.</span> <span class="toc-text">Middle of the Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Depth-of-Binary-Tree"><span class="toc-number">1.2.10.</span> <span class="toc-text">Maximum Depth of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Contains-Duplicate"><span class="toc-number">1.2.11.</span> <span class="toc-text">Contains Duplicate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Subarray"><span class="toc-number">1.2.12.</span> <span class="toc-text">Maximum Subarray</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-3-8-8"><span class="toc-number">1.3.</span> <span class="toc-text">Week 3 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Insert-Interval"><span class="toc-number">1.3.1.</span> <span class="toc-text">Insert Interval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#01-Matrix"><span class="toc-number">1.3.2.</span> <span class="toc-text">01 Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-Closest-Points-to-Origin"><span class="toc-number">1.3.3.</span> <span class="toc-text">K Closest Points to Origin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Substring-Without-Repeating-Characters"><span class="toc-number">1.3.4.</span> <span class="toc-text">Longest Substring Without Repeating Characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3Sum"><span class="toc-number">1.3.5.</span> <span class="toc-text">3Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Tree-Level-Order-Traversal"><span class="toc-number">1.3.6.</span> <span class="toc-text">Binary Tree Level Order Traversal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Clone-Graph"><span class="toc-number">1.3.7.</span> <span class="toc-text">Clone Graph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Evaluate-Reverse-Polish-Notation"><span class="toc-number">1.3.8.</span> <span class="toc-text">Evaluate Reverse Polish Notation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-4-8-8"><span class="toc-number">1.4.</span> <span class="toc-text">Week 4 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Course-Schedule"><span class="toc-number">1.4.1.</span> <span class="toc-text">Course Schedule</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Trie-Prefix-Tree"><span class="toc-number">1.4.2.</span> <span class="toc-text">Implement Trie (Prefix Tree)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Coin-Change"><span class="toc-number">1.4.3.</span> <span class="toc-text">Coin Change</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Product-of-Array-Except-Self"><span class="toc-number">1.4.4.</span> <span class="toc-text">Product of Array Except Self</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Min-Stack"><span class="toc-number">1.4.5.</span> <span class="toc-text">Min Stack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Validate-Binary-Search-Tree"><span class="toc-number">1.4.6.</span> <span class="toc-text">Validate Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-of-Islands"><span class="toc-number">1.4.7.</span> <span class="toc-text">Number of Islands</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rotting-Oranges"><span class="toc-number">1.4.8.</span> <span class="toc-text">Rotting Oranges</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-5-8-8"><span class="toc-number">1.5.</span> <span class="toc-text">Week 5 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Search-in-Rotated-Sorted-Array"><span class="toc-number">1.5.1.</span> <span class="toc-text">Search in Rotated Sorted Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Combination-Sum"><span class="toc-number">1.5.2.</span> <span class="toc-text">Combination Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Permutations"><span class="toc-number">1.5.3.</span> <span class="toc-text">Permutations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Intervals"><span class="toc-number">1.5.4.</span> <span class="toc-text">Merge Intervals</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Tree"><span class="toc-number">1.5.5.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Based-Key-Value-Store"><span class="toc-number">1.5.6.</span> <span class="toc-text">Time Based Key-Value Store</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Accounts-Merge"><span class="toc-number">1.5.7.</span> <span class="toc-text">Accounts Merge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sort-Colors"><span class="toc-number">1.5.8.</span> <span class="toc-text">Sort Colors</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-6-9-9"><span class="toc-number">1.6.</span> <span class="toc-text">Week 6 (9&#x2F;9)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Word-Break"><span class="toc-number">1.6.1.</span> <span class="toc-text">Word Break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partition-Equal-Subset-Sum"><span class="toc-number">1.6.2.</span> <span class="toc-text">Partition Equal Subset Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-to-Integer-atoi"><span class="toc-number">1.6.3.</span> <span class="toc-text">String to Integer (atoi)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spiral-Matrix"><span class="toc-number">1.6.4.</span> <span class="toc-text">Spiral Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Tree-Right-Side-View"><span class="toc-number">1.6.5.</span> <span class="toc-text">Binary Tree Right Side View</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Palindromic-Substring"><span class="toc-number">1.6.6.</span> <span class="toc-text">Longest Palindromic Substring</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unique-Paths"><span class="toc-number">1.6.7.</span> <span class="toc-text">Unique Paths</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal"><span class="toc-number">1.6.8.</span> <span class="toc-text">Construct Binary Tree from Preorder and Inorder Traversal</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-7-7-7"><span class="toc-number">1.7.</span> <span class="toc-text">Week 7 (7&#x2F;7)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Container-With-Most-Water"><span class="toc-number">1.7.1.</span> <span class="toc-text">Container With Most Water</span></a></li></ol></li></ol></li></ol>
+      <div class="contents panel pjax" data-title="文章目錄">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Grind-75"><span class="toc-number">1.</span> <span class="toc-text">Grind 75</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-1-13-13"><span class="toc-number">1.1.</span> <span class="toc-text">Week 1 (13&#x2F;13)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Two-Sum"><span class="toc-number">1.1.1.</span> <span class="toc-text">Two Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Parentheses"><span class="toc-number">1.1.2.</span> <span class="toc-text">Valid Parentheses</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Two-Sorted-Lists"><span class="toc-number">1.1.3.</span> <span class="toc-text">Merge Two Sorted Lists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Best-Time-to-Buy-and-Sell-Stock"><span class="toc-number">1.1.4.</span> <span class="toc-text">Best Time to Buy and Sell Stock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Palindrome"><span class="toc-number">1.1.5.</span> <span class="toc-text">Valid Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invert-Binary-Tree"><span class="toc-number">1.1.6.</span> <span class="toc-text">Invert Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Valid-Anagram"><span class="toc-number">1.1.7.</span> <span class="toc-text">Valid Anagram</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Search"><span class="toc-number">1.1.8.</span> <span class="toc-text">Binary Search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flood-Fill"><span class="toc-number">1.1.9.</span> <span class="toc-text">Flood Fill</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Search-Tree"><span class="toc-number">1.1.10.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Balanced-Binary-Tree"><span class="toc-number">1.1.11.</span> <span class="toc-text">Balanced Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linked-List-Cycle"><span class="toc-number">1.1.12.</span> <span class="toc-text">Linked List Cycle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Queue-using-Stacks"><span class="toc-number">1.1.13.</span> <span class="toc-text">Implement Queue using Stacks</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-2-12-12"><span class="toc-number">1.2.</span> <span class="toc-text">Week 2 (12&#x2F;12)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#First-Bad-Version"><span class="toc-number">1.2.1.</span> <span class="toc-text">First Bad Version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ransom-Note"><span class="toc-number">1.2.2.</span> <span class="toc-text">Ransom Note</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Climbing-Stairs"><span class="toc-number">1.2.3.</span> <span class="toc-text">Climbing Stairs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Palindrome"><span class="toc-number">1.2.4.</span> <span class="toc-text">Longest Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reverse-Linked-List"><span class="toc-number">1.2.5.</span> <span class="toc-text">Reverse Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Majority-Element"><span class="toc-number">1.2.6.</span> <span class="toc-text">Majority Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-Binary"><span class="toc-number">1.2.7.</span> <span class="toc-text">Add Binary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Diameter-of-Binary-Tree"><span class="toc-number">1.2.8.</span> <span class="toc-text">Diameter of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Middle-of-the-Linked-List"><span class="toc-number">1.2.9.</span> <span class="toc-text">Middle of the Linked List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Depth-of-Binary-Tree"><span class="toc-number">1.2.10.</span> <span class="toc-text">Maximum Depth of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Contains-Duplicate"><span class="toc-number">1.2.11.</span> <span class="toc-text">Contains Duplicate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-Subarray"><span class="toc-number">1.2.12.</span> <span class="toc-text">Maximum Subarray</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-3-8-8"><span class="toc-number">1.3.</span> <span class="toc-text">Week 3 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Insert-Interval"><span class="toc-number">1.3.1.</span> <span class="toc-text">Insert Interval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#01-Matrix"><span class="toc-number">1.3.2.</span> <span class="toc-text">01 Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-Closest-Points-to-Origin"><span class="toc-number">1.3.3.</span> <span class="toc-text">K Closest Points to Origin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Substring-Without-Repeating-Characters"><span class="toc-number">1.3.4.</span> <span class="toc-text">Longest Substring Without Repeating Characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3Sum"><span class="toc-number">1.3.5.</span> <span class="toc-text">3Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Tree-Level-Order-Traversal"><span class="toc-number">1.3.6.</span> <span class="toc-text">Binary Tree Level Order Traversal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Clone-Graph"><span class="toc-number">1.3.7.</span> <span class="toc-text">Clone Graph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Evaluate-Reverse-Polish-Notation"><span class="toc-number">1.3.8.</span> <span class="toc-text">Evaluate Reverse Polish Notation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-4-8-8"><span class="toc-number">1.4.</span> <span class="toc-text">Week 4 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Course-Schedule"><span class="toc-number">1.4.1.</span> <span class="toc-text">Course Schedule</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-Trie-Prefix-Tree"><span class="toc-number">1.4.2.</span> <span class="toc-text">Implement Trie (Prefix Tree)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Coin-Change"><span class="toc-number">1.4.3.</span> <span class="toc-text">Coin Change</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Product-of-Array-Except-Self"><span class="toc-number">1.4.4.</span> <span class="toc-text">Product of Array Except Self</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Min-Stack"><span class="toc-number">1.4.5.</span> <span class="toc-text">Min Stack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Validate-Binary-Search-Tree"><span class="toc-number">1.4.6.</span> <span class="toc-text">Validate Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-of-Islands"><span class="toc-number">1.4.7.</span> <span class="toc-text">Number of Islands</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rotting-Oranges"><span class="toc-number">1.4.8.</span> <span class="toc-text">Rotting Oranges</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-5-8-8"><span class="toc-number">1.5.</span> <span class="toc-text">Week 5 (8&#x2F;8)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Search-in-Rotated-Sorted-Array"><span class="toc-number">1.5.1.</span> <span class="toc-text">Search in Rotated Sorted Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Combination-Sum"><span class="toc-number">1.5.2.</span> <span class="toc-text">Combination Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Permutations"><span class="toc-number">1.5.3.</span> <span class="toc-text">Permutations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-Intervals"><span class="toc-number">1.5.4.</span> <span class="toc-text">Merge Intervals</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lowest-Common-Ancestor-of-a-Binary-Tree"><span class="toc-number">1.5.5.</span> <span class="toc-text">Lowest Common Ancestor of a Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Based-Key-Value-Store"><span class="toc-number">1.5.6.</span> <span class="toc-text">Time Based Key-Value Store</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Accounts-Merge"><span class="toc-number">1.5.7.</span> <span class="toc-text">Accounts Merge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sort-Colors"><span class="toc-number">1.5.8.</span> <span class="toc-text">Sort Colors</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-6-9-9"><span class="toc-number">1.6.</span> <span class="toc-text">Week 6 (9&#x2F;9)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Word-Break"><span class="toc-number">1.6.1.</span> <span class="toc-text">Word Break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partition-Equal-Subset-Sum"><span class="toc-number">1.6.2.</span> <span class="toc-text">Partition Equal Subset Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-to-Integer-atoi"><span class="toc-number">1.6.3.</span> <span class="toc-text">String to Integer (atoi)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spiral-Matrix"><span class="toc-number">1.6.4.</span> <span class="toc-text">Spiral Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-Tree-Right-Side-View"><span class="toc-number">1.6.5.</span> <span class="toc-text">Binary Tree Right Side View</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Longest-Palindromic-Substring"><span class="toc-number">1.6.6.</span> <span class="toc-text">Longest Palindromic Substring</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unique-Paths"><span class="toc-number">1.6.7.</span> <span class="toc-text">Unique Paths</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal"><span class="toc-number">1.6.8.</span> <span class="toc-text">Construct Binary Tree from Preorder and Inorder Traversal</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week-7-7-7"><span class="toc-number">1.7.</span> <span class="toc-text">Week 7 (7&#x2F;7)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Container-With-Most-Water"><span class="toc-number">1.7.1.</span> <span class="toc-text">Container With Most Water</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.7.2.</span> <span class="toc-text"></span></a></li></ol></li></ol></li></ol>
       </div>
-      <div class="related panel pjax" data-title="関連記事">
+      <div class="related panel pjax" data-title="系列文章">
       </div>
-      <div class="overview panel" data-title="概要">
+      <div class="overview panel" data-title="本站概覽">
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <img class="image" itemprop="image" alt="品逸"
       data-src="/website/images/avatar.jpg">
@@ -3867,19 +3931,19 @@ Hi~~ = Joseph's Blog</title>
     <div class="item posts">
       <a href="/website/archives/">
         <span class="count">1</span>
-        <span class="name">ポスト</span>
+        <span class="name">文章</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/website/categories/">
         <span class="count">1</span>
-        <span class="name">カテゴリ</span>
+        <span class="name">分類</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/website/tags/">
         <span class="count">1</span>
-        <span class="name">タグ</span>
+        <span class="name">標籤</span>
       </a>
     </div>
 </nav>
@@ -3891,7 +3955,7 @@ Hi~~ = Joseph's Blog</title>
   
     
   <li class="item">
-    <a href="/website/" rel="section"><i class="ic i-home"></i>ホーム</a>
+    <a href="/website/" rel="section"><i class="ic i-home"></i>首頁</a>
   </li>
 
     
@@ -3901,17 +3965,17 @@ Hi~~ = Joseph's Blog</title>
 
     
   <li class="item">
-    <a href="/website/archives/" rel="section"><i class="ic i-archive"></i>アーカイブ</a>
+    <a href="/website/archives/" rel="section"><i class="ic i-archive"></i>歸檔</a>
   </li>
 
     
   <li class="item">
-    <a href="/website/categories/" rel="section"><i class="ic i-th"></i>カテゴリ</a>
+    <a href="/website/categories/" rel="section"><i class="ic i-th"></i>分類</a>
   </li>
 
     
   <li class="item">
-    <a href="/website/about/" rel="section"><i class="ic i-user"></i>プロフィール</a>
+    <a href="/website/about/" rel="section"><i class="ic i-user"></i>關於</a>
   </li>
 
 
@@ -3942,13 +4006,13 @@ Hi~~ = Joseph's Blog</title>
         <div class="widgets">
           
 <div class="rpost pjax">
-  <h2>ランダムな記事</h2>
+  <h2>隨機文章</h2>
   <ul>
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/website/categories/uncategorized/" title="カテゴリ uncategorized">uncategorized</a>
+<a href="/website/categories/uncategorized/" title="分類於 uncategorized">uncategorized</a>
 </div>
 
     <span><a href="/website/2025/05/31/hello-world/" title="Hello World">Hello World</a></span>
@@ -3957,7 +4021,7 @@ Hi~~ = Joseph's Blog</title>
   </ul>
 </div>
 <div>
-  <h2>最近のコメント</h2>
+  <h2>最新評論</h2>
   <ul class="leancloud-recent-comment"></ul>
 </div>
 
@@ -3973,7 +4037,7 @@ Hi~~ = Joseph's Blog</title>
     <span class="author" itemprop="copyrightHolder">品逸 @ Hi~~</span>
   </div>
   <div class="powered-by">
-    Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+    基於 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
   </div>
 </div>
 
@@ -3984,16 +4048,16 @@ Hi~~ = Joseph's Blog</title>
   var LOCAL = {
     path: 'grind75/',
     favicon: {
-      show: "（●´3｀●）やれやれだぜ",
-      hide: "(´Д｀)大変だ！"
+      show: "（●´3｀●）復活成功",
+      hide: "(´Д｀)瀏覽器崩潰啦"
     },
     search : {
-      placeholder: "検索…",
-      empty: "「 ${query} 」については何も見つかりませんでした",
-      stats: "${time} ms以内に ${hits} 件の結果が見つかりました"
+      placeholder: "文章搜索",
+      empty: "關於 「 ${query} 」 ，什麼也沒搜到",
+      stats: "${time} ms 內找到 ${hits} 條結果"
     },
     valine: true,fancybox: true,
-    copyright: 'コピーは成功しました。 <br> 再印刷については、 ％s 契約に従ってください。',
+    copyright: '複製成功，轉載請遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 協議。',
     ignores : [
       function(uri) {
         return uri.includes('#');
