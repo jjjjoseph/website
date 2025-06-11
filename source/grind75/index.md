@@ -6095,4 +6095,731 @@ public:
  - 空間複雜度：O(1)
      - 僅使用常數個輔助變數。
 
-### 
+### Letter Combinations of a Phone Number
+
+> [題目連結](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)  
+> **標籤**: String, Backtracking, DFS  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**  
+
+> 給定一個只包含數字 `2–9` 的字串 `digits`，返回所有它能表示的字母組合。  
+>  
+> 對應按鍵上的字母映射如下（與電話鍵盤相同）：  
+> 2: "abc"  
+> 3: "def"  
+> 4: "ghi"  
+> 5: "jkl"  
+> 6: "mno"  
+> 7: "pqrs"  
+> 8: "tuv"  
+> 9: "wxyz"
+>  
+> 由於 `1` 不對應任何字母，`digits` 中只會出現 `2–9`。請按任意順序返回所有可能的字母組合。如果 `digits` 為空，返回空陣列 `[]`。  
+
+**範例**  
+
+> Example 1:  
+> 
+> input：digits = "23"  
+> output：["ad","ae","af","bd","be","bf","cd","ce","cf"]  
+> 
+
+> Example 2:  
+> 
+> input：digits = ""  
+> output：[]  
+> 
+
+> Example 3:  
+> 
+> input：digits = "2"  
+> output：["a","b","c"]  
+> 
+
+**限制**  
+
+> - `0 <= digits.length <= 4`  
+> - `digits[i]` 為 `'2'` 至 `'9'`  
+
+**思路**  
+
+> 本題典型的回溯（Backtracking）問題：  
+> 1. 建立一個映射 `vector<string> map{"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"}`；  
+> 2. 若輸入 `digits` 為空，直接返回空結果；  
+> 3. 定義遞迴函式 `dfs(pos, path)`：  
+>    - `pos` 表示當前處理到 `digits[pos]`；  
+>    - `path` 保存已選擇的字母組合；  
+>    - 當 `pos == digits.length()` 時，將 `path` 加入結果集；  
+>    - 否則取出當前數字對應的字串 `letters = map[ digits[pos]-'0' ]`，對其中每個字母 `c`：  
+>      1. 將 `c` 加入 `path`；  
+>      2. `dfs(pos+1, path)`；  
+>      3. 回溯時移除最後加入的 `c`。  
+> 4. 最終遍歷完所有分支即可得到全部組合。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <string>
+using namespace std;
+
+class Solution {
+public:
+    vector<string> letterCombinations(const string& digits) {
+        if (digits.empty()) return {};
+        static const vector<string> mp = {
+            "",    "",    "abc",  "def", 
+            "ghi", "jkl", "mno",  "pqrs", 
+            "tuv", "wxyz"
+        };
+        vector<string> result;
+        string path;
+        dfs(digits, 0, path, result, mp);
+        return result;
+    }
+
+private:
+    void dfs(const string& digits, int pos, 
+             string& path, vector<string>& result,
+             const vector<string>& mp) {
+        if (pos == digits.size()) {
+            result.push_back(path);
+            return;
+        }
+        int d = digits[pos] - '0';
+        const string& letters = mp[d];
+        for (char c : letters) {
+            path.push_back(c);
+            dfs(digits, pos + 1, path, result, mp);
+            path.pop_back();
+        }
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(4^n · n)
+     - 每個位置最多 4 個字母（對應數字 7 或 9），共 n 位，總分支數約 4^n，每次加入結果需要複製長度為 n 的字串。
+
+ - 空間複雜度：O(n)（除結果外）
+     - 遞迴深度為 n，path 長度為 n。
+
+### Word Search
+
+> [題目連結](https://leetcode.com/problems/word-search/)  
+> **標籤**: Array, Backtracking, DFS  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個由字母組成的二維字符網格 `board` 和一個字串 `word`，請判斷 `word` 是否存在於網格中。  
+>  
+> 單詞必須按照字母順序，從相鄰（上下左右四個方向）格子內構成，且同一格子內的字母在一次搜尋中 **只能使用一次**。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：
+> board = [
+>   ['A','B','C','E'],
+>   ['S','F','C','S'],
+>   ['A','D','E','E']
+> ]
+> word = "ABCCED"
+> output：true
+> Explanation：A→B→C→C→E→D 成功構成單詞。  
+
+> Example 2:  
+> 
+> input：
+> board = [
+>   ['A','B','C','E'],
+>   ['S','F','C','S'],
+>   ['A','D','E','E']
+> ]
+> word = "SEE"
+> output：true
+> Explanation：S→E→E 成功構成單詞。  
+
+> Example 3:  
+> 
+> input：
+> board = [
+>   ['A','B','C','E'],
+>   ['S','F','C','S'],
+>   ['A','D','E','E']
+> ]
+> word = "ABCB"
+> output：false
+> Explanation：無法重複使用同一格 B。  
+
+**限制**
+
+> - `m == board.size()`，`n == board[i].size()`。  
+> - `1 <= m, n <= 6`  
+> - `1 <= word.length <= 15`  
+> - `board[i][j]` 和 `word` 均為大寫英文字母。  
+
+**思路**
+
+> 使用 **回溯（Backtracking）+ 深度優先搜尋（DFS）**：  
+> 1. 遍歷網格的每個起點 `(i,j)`，若 `board[i][j] == word[0]`，從此啟動 DFS；  
+> 2. 在 DFS 中維護當前匹配的 `index`（對應 `word[index]`），以及標記當前格子是否已訪問；  
+> 3. 若 `index == word.length()` 時，表示已完整匹配，返回 `true`；  
+> 4. 否則從當前格子出發，對四個方向 `(dx,dy)`：  
+>    - 新座標 `(nx,ny)` 在範圍內、未訪問，且 `board[nx][ny] == word[index]`，則標記訪問、遞迴 `dfs(nx,ny,index+1)`；  
+>    - 若子遞迴返回 `true`，則一路返回 `true`；否則回溯，將格子標記未訪問；  
+> 5. 若所有方向均無法匹配，返回 `false`。  
+>  
+> 外層對所有 `(i,j)` 嘗試起點，若任一 `dfs` 成功，則最終返回 `true`；否則返回 `false`。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <string>
+using namespace std;
+
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, const string& word) {
+        m = board.size();
+        n = board[0].size();
+        visited.assign(m, vector<bool>(n, false));
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == word[0]) {
+                    if (dfs(board, word, i, j, 0))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
+private:
+    int m, n;
+    vector<vector<bool>> visited;
+    // 四個方向：上、下、左、右
+    const int dx[4] = {-1,1,0,0};
+    const int dy[4] = {0,0,-1,1};
+
+    bool dfs(vector<vector<char>>& board, const string& word,
+             int x, int y, int index) {
+        if (index == word.size()) return true;
+        // 越界或字母不符或已訪問
+        if (x < 0 || x >= m || y < 0 || y >= n ||
+            visited[x][y] || board[x][y] != word[index]) {
+            return false;
+        }
+        if (index == word.size() - 1) return true;
+
+        visited[x][y] = true;
+        for (int dir = 0; dir < 4; dir++) {
+            int nx = x + dx[dir], ny = y + dy[dir];
+            if (dfs(board, word, nx, ny, index + 1)) {
+                return true;
+            }
+        }
+        visited[x][y] = false;  // 回溯
+        return false;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(m·n·4^L)
+     - m×n 個起點，每次 DFS 最壞沿長度 L（word.length()）探索 4 種方向。
+
+ - 空間複雜度：O(m·n + L)
+     - visited 陣列 O(m·n)，遞迴棧深度最壞 O(L)。
+
+### Find All Anagrams in a String
+
+> [題目連結](https://leetcode.com/problems/find-all-anagrams-in-a-string/)  
+> **標籤**: String, Sliding Window, Hash Table  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定兩個字串 `s` 和 `p`，找出 `s` 中所有 `p` 的字母異位詞（anagram）出現的起始索引。返回所有起始索引的列表，順序不限。  
+>  
+> 字母異位詞指字母相同但順序不同的字串。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：s = "cbaebabacd", p = "abc"  
+> output：[0,6]  
+> Explanation：
+> - 索引 0 處子串 "cba" 是 "abc" 的異位詞。
+> - 索引 6 處子串 "bac" 是 "abc" 的異位詞。
+
+> Example 2:  
+> 
+> input：s = "abab", p = "ab"  
+> output：[0,1,2]  
+> Explanation：
+> - 索引 0 處 "ab"
+> - 索引 1 處 "ba"
+> - 索引 2 處 "ab"
+
+**限制**
+
+> - `1 <= s.length, p.length <= 3×10^4`  
+> - `s` 和 `p` 只包含小寫英文字母。  
+
+**思路**
+
+> 本題可用 **滑動視窗**（sliding window）+ **頻次計數**：  
+> 1. 準備兩個大小 26 的整數陣列 `cntP`、`cntS`，分別記錄 `p` 和當前窗口內 `s` 的字母頻次。  
+> 2. 先統計 `p` 中每個字母的頻次到 `cntP`；窗口右界 `r` 從 `0` 遍歷到 `s.size()-1`，將 `s[r]` 加入 `cntS`。  
+> 3. 當窗口長度大於 `p.size()` 時，窗口左界 `l` 也要右移：將 `s[l]` 從 `cntS` 減去，然後 `l++`。  
+> 4. 每次當窗口長度等於 `p.size()`，比較 `cntS` 和 `cntP` 是否相等，若相等就將當前 `l` 加入答案。  
+> 5. 最後返回所有符合條件的起始索引。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <string>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> findAnagrams(const string& s, const string& p) {
+        int n = s.size(), m = p.size();
+        if (n < m) return {};
+
+        vector<int> cntP(26, 0), cntS(26, 0), res;
+        // 統計 p 的頻次
+        for (char c : p) {
+            cntP[c - 'a']++;
+        }
+
+        int l = 0;
+        for (int r = 0; r < n; r++) {
+            // 窗口右移：加入 s[r]
+            cntS[s[r] - 'a']++;
+            // 若窗口大於 m，左移窗口並移除 s[l]
+            if (r - l + 1 > m) {
+                cntS[s[l] - 'a']--;
+                l++;
+            }
+            // 當窗口長度正好為 m，檢查是否為異位詞
+            if (r - l + 1 == m && cntS == cntP) {
+                res.push_back(l);
+            }
+        }
+        return res;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n * 26) ≈ O(n)
+     - 窗口滑動共 O(n) 步，每步比較長度 26 的陣列。
+
+ - 空間複雜度：O(1)
+     - 只使用固定大小的兩個長度為 26 的頻次陣列和結果向量。
+
+### Minimum Height Trees
+
+> [題目連結](https://leetcode.com/problems/minimum-height-trees/)  
+> **標籤**: Graph, BFS, Topological Sort  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個有 `n` 個節點的樹（無向連通無環圖），節點編號從 `0` 到 `n-1`。再給一個長度為 `n-1` 的邊列表 `edges`，其中 `edges[i] = [u_i, v_i]` 表示在節點 `u_i` 和 `v_i` 之間有一條無向邊。  
+>  
+> 對於這棵樹，選擇一個節點作為根，樹的高度定義為從根到最遠葉節點的距離。請找出所有能使樹高度 **最小** 的節點，即返回所有 **最小高度樹** 的根節點列表。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：n = 4, edges = [[1,0],[1,2],[1,3]]
+> output：[1]
+> Explanation：
+> ```text
+>  0
+>   |
+>   1
+>  / \
+> 2   3
+> ```
+> 將 1 作為根，高度為 1，是最小可能。  
+
+> Example 2:  
+> 
+> input：n = 6, edges = [[3,0],[3,1],[3,2],[3,4],[5,4]]
+> output：[3,4]
+> Explanation：
+> ```text
+>   0   1   2
+>     \  |  /
+>        3
+>        |
+>        4
+>        |
+>        5
+> ```
+> 對根為 3 或 4，高度都為 3，均為最小。  
+
+**限制**
+
+> - `1 <= n <= 2 * 10^4`  
+> - `edges.length == n - 1`  
+> - `0 <= u_i, v_i < n`  
+> - `所有邊互不相同，圖為一棵樹`  
+
+**思路**
+
+> 本題可視為「求樹的重心（centroid）」。對於樹，最小高度根必定出現在 1 或 2 個重心上。可以透過 **拓撲排序類似** 的方式，**從葉節點開始逐層剝除**，最後剩下的 1～2 個節點即為答案：  
+>  
+> 1. 構建鄰接表與度數陣列 `degree[i]`；  
+> 2. 將所有度數為 1（葉節點）的節點入隊 `queue<int> leaves`；  
+> 3. 當剩餘節點數 `remaining > 2` 時：  
+>    - 令 `size = leaves.size()`，`remaining -= size`；  
+>    - 處理這一批葉節點：對每個 `u`，遍歷其相鄰節點 `v`，將 `degree[v]--`，若 `degree[v] == 1`，則把 `v` 推入新一輪 `leaves`；  
+> 4. 最後隊列中剩下的節點即為所有最小高度樹的根。  
+>  
+> 時間複雜度 O(n)，空間 O(n)。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <queue>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+        if (n == 1) return {0};
+
+        vector<vector<int>> adj(n);
+        vector<int> degree(n, 0);
+        for (auto& e : edges) {
+            int u = e[0], v = e[1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+            degree[u]++;
+            degree[v]++;
+        }
+
+        queue<int> leaves;
+        for (int i = 0; i < n; i++) {
+            if (degree[i] == 1) {
+                leaves.push(i);
+            }
+        }
+
+        int remaining = n;
+        while (remaining > 2) {
+            int sz = leaves.size();
+            remaining -= sz;
+            for (int i = 0; i < sz; i++) {
+                int u = leaves.front(); leaves.pop();
+                for (int v : adj[u]) {
+                    if (--degree[v] == 1) {
+                        leaves.push(v);
+                    }
+                }
+            }
+        }
+
+        vector<int> res;
+        while (!leaves.empty()) {
+            res.push_back(leaves.front());
+            leaves.pop();
+        }
+        return res;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 建構鄰接表 O(n)，每條邊、每個節點只訪問常數次。
+
+ - 空間複雜度：O(n)
+     - 鄰接表、度數陣列及佇列均為 O(n)。
+
+### Task Scheduler
+
+> [題目連結](https://leetcode.com/problems/task-scheduler/)  
+> **標籤**: Greedy, Heap, Simulation  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 20 分鐘  
+
+**題目描述**
+
+> 給定一個由大寫字母 A–Z 組成的任務陣列 `tasks`，每個任務代表必須執行的一個工作。CPU 執行這些任務需要按照陣列順序，但在任意兩個相同任務之間必須間隔至少 `n` 個時間單位，在這段間隔內可以執行其他任務或保持空閒（idle）。  
+>  
+> 返回完成所有任務所需的最少時間單位數。
+
+**範例**
+
+> Example 1:  
+> 
+> input：tasks = ["A","A","A","B","B","B"], n = 2  
+> output：8  
+> Explanation：一種可行排程為 A → B → idle → A → B → idle → A → B，共 8 個時間單位。  
+>   
+
+> Example 2:  
+> 
+> input：tasks = ["A","A","A","B","B","B"], n = 0  
+> output：6  
+> Explanation：不需要冷卻時間，直接連續執行所有任務即可。  
+>  
+
+> Example 3:  
+> 
+> input：tasks = ["A","A","A","A","A","A","B","C","D","E","F","G"], n = 2  
+> output：16  
+> Explanation：可行排程為  
+>   A → B → C → A → D → E → A → F → G → A → idle → idle → A → idle → idle → A  
+> 總共 16 個時間單位。  
+> 
+
+**限制**
+
+> - `1 <= tasks.length <= 10^4`  
+> - `tasks[i]` 是大寫字母 `A`–`Z`  
+> - `0 <= n <= 100`  
+
+**思路**
+
+> 本題可以使用 **貪心 + 最大堆**：  
+> 1. 統計每個任務（字母）的出現次數，放入一個最大堆（priority_queue），每次取出當前剩餘次數最多的任務執行；  
+> 2. 在一個「時間區間」內最多可以執行 `n+1` 個任務（或者任務 + idle），我們從堆中最多取出 `n+1` 個不同任務依次執行，並將它們的剩餘次數減一後暫存；  
+> 3. 完成這個區間後，將暫存還剩餘次數的任務再推回堆中，累加時間為取出的任務數或 `n+1`（如果堆已空且暫存也空，則最後一輪不需要補 idle）；  
+> 4. 重複直到堆空。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <queue>
+#include <array>
+using namespace std;
+
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        array<int,26> cnt = {0};
+        for (char c : tasks) cnt[c - 'A']++;
+        priority_queue<int> pq;
+        for (int x : cnt) if (x > 0) pq.push(x);
+
+        int time = 0;
+        // 暫存當前區間取出的任務剩餘次數
+        vector<int> temp;
+        while (!pq.empty()) {
+            temp.clear();
+            int k = n + 1;  // 一個區間最多執行 n+1 個
+            // 在一個區間內取出最多 n+1 個任務
+            while (k-- > 0 && !pq.empty()) {
+                int x = pq.top(); pq.pop();
+                // 執行一次，剩餘次數減一
+                if (--x > 0) temp.push_back(x);
+                time++;
+            }
+            // 把暫存剩餘的任務重新放回堆中
+            for (int x : temp) pq.push(x);
+            // 如果堆已空，最後一輪不需要補 idle
+            if (pq.empty()) break;
+            // 否則補足整個區間（包含 idle）
+            time += k + 1;
+        }
+        return time;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(T log 26) ≈ O(T)，其中 T 為 tasks.length，因為最多有 26 種任務，每次堆操作為 log26 常數。
+
+ - 空間複雜度：O(26) ≈ O(1)，使用固定大小的計數陣列和堆。
+
+ ### LRU Cache
+
+> [題目連結](https://leetcode.com/problems/lru-cache/)  
+> **標籤**: Design, Hash Table, Linked List  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 實作一個 **最近最少使用**（LRU，Least Recently Used）快取結構 `LRUCache`，支援以下兩個操作：  
+> 1. `get(key)`：如果鍵存在於快取中，返回其對應的值，並將該鍵設為「最近使用」。否則返回 `-1`。  
+> 2. `put(key, value)`：如果鍵已存在，更新其值並設為「最近使用」。如果鍵不存在，插入該鍵值對；若插入後快取容量超過預設的 `capacity`，則移除最久未使用的鍵值對。
+
+**輸入／輸出 範例**
+
+> 注意：題目只需實作類別接口，不需從標準輸入輸出讀取資料。  
+>  
+> 
+> input：
+> ["LRUCache","put","put","get","put","get","put","get","get","get"]
+> [[2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
+> 
+> output：
+> [null,null,null,1,null,-1,null,-1,3,4]
+> 
+> Explanation：
+> LRUCache cache = new LRUCache(2);
+> cache.put(1, 1); // {1=1}
+> cache.put(2, 2); // {1=1,2=2}
+> cache.get(1);    // 返回 1，cache 更新為 {2=2,1=1}
+> cache.put(3, 3); // 插入 3，容量溢出，移除最久未使用的 key=2，cache={1=1,3=3}
+> cache.get(2);    // 返回 -1（未找到）
+> cache.put(4, 4); // 插入 4，移除最久未使用的 key=1，cache={3=3,4=4}
+> cache.get(1);    // 返回 -1
+> cache.get(3);    // 返回 3
+> cache.get(4);    // 返回 4
+> 
+
+**限制**
+
+> - `1 <= capacity <= 3000`  
+> - `0 <= key, value <= 10^4`  
+> - 每次 `get` 和 `put` 操作的次數總合在 `[1, 3×10^4]` 範圍內。  
+> - 要求 `get` 和 `put` 操作的平均時間複雜度為 O(1)。  
+
+**思路**
+
+> 為了在 O(1) 時間內同時完成插入、查找並維護「最近使用」順序，我們結合 **哈希表** 和 **雙向鏈表**：  
+>  
+> 1. **哈希表 (`unordered_map<int, Node*>`)**：  
+>    - Key → 指向雙向鏈表節點的指標，用於 O(1) 查找節點。  
+> 2. **雙向鏈表**：  
+>    - 節點包含 `(key, value)`。  
+>    - 新使用或更新的節點移到表頭；最久未使用的節點位於表尾。  
+>    - 當容量超限時，刪除表尾節點並從哈希表移除其對應條目。  
+>  
+> `get(key)` 流程：  
+> - 如果哈希表中無該鍵，返回 -1。  
+> - 否則取出節點，移到表頭，返回該節點的 value。  
+>  
+> `put(key, value)` 流程：  
+> - 如果哈希表中已有該鍵，更新節點的 value，並移到表頭。  
+> - 否則：  
+>   1. 若當前大小已達 `capacity`，先刪除鏈表尾節點並從哈希表刪除該鍵；  
+>   2. 建立新節點 `(key,value)`，插入表頭，並在哈希表中添加映射。  
+
+**程式碼**
+
+```cpp
+#include <unordered_map>
+using namespace std;
+
+struct Node {
+    int key, value;
+    Node* prev;
+    Node* next;
+    Node(int k, int v): key(k), value(v), prev(nullptr), next(nullptr) {}
+};
+
+class LRUCache {
+public:
+    LRUCache(int capacity): cap(capacity) {
+        // 建立虛擬頭尾節點
+        head = new Node(0, 0);
+        tail = new Node(0, 0);
+        head->next = tail;
+        tail->prev = head;
+    }
+
+    int get(int key) {
+        if (mp.find(key) == mp.end()) return -1;
+        Node* node = mp[key];
+        // 移動到表頭
+        remove(node);
+        insertToHead(node);
+        return node->value;
+    }
+
+    void put(int key, int value) {
+        if (mp.find(key) != mp.end()) {
+            // 更新並移到表頭
+            Node* node = mp[key];
+            node->value = value;
+            remove(node);
+            insertToHead(node);
+        } else {
+            if (mp.size() == cap) {
+                // 刪除最久未使用的節點（表尾前一個）
+                Node* del = tail->prev;
+                remove(del);
+                mp.erase(del->key);
+                delete del;
+            }
+            // 插入新節點到表頭
+            Node* node = new Node(key, value);
+            insertToHead(node);
+            mp[key] = node;
+        }
+    }
+
+    ~LRUCache() {
+        // 清理所有節點
+        Node* cur = head;
+        while (cur) {
+            Node* nxt = cur->next;
+            delete cur;
+            cur = nxt;
+        }
+    }
+
+private:
+    int cap;
+    unordered_map<int, Node*> mp;
+    Node* head;
+    Node* tail;
+
+    // 將節點從當前位置移除
+    void remove(Node* node) {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+    }
+
+    // 插入節點到表頭（head 之後）
+    void insertToHead(Node* node) {
+        node->next = head->next;
+        node->prev = head;
+        head->next->prev = node;
+        head->next = node;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：
+     - get 與 put 均為 O(1)（哈希表查找+雙向鏈表節點操作）。
+
+ - 空間複雜度：O(capacity)
+     - 哈希表與雙向鏈表共存儲最多 capacity 個節點。
