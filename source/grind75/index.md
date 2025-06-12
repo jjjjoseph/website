@@ -6,7 +6,7 @@ layout: page
 
 # Grind 75
 
-> Grind 75 是 Leetcode 推出的刷題路線，適合給準備面試的同學。
+> Grind 75 是 Leetcode 推出的刷題路線，適合給準備面試的朋友們。
 
 ## Week 1 (13/13)
 
@@ -174,7 +174,9 @@ public:
 **題目描述**
 
 > You are given the heads of two sorted linked lists `l1` and `l2`.  
+> 
 > Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists.  
+> 
 > Return the head of the merged linked list.  
 
 **範例（Input & Output）**
@@ -283,7 +285,9 @@ public:
 **題目描述**
 
 > You are given an array `prices` where `prices[i]` is the price of a given stock on the i-th day.  
+> 
 > You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.  
+> 
 > Return *the maximum profit you can achieve from this transaction*. If you cannot achieve any profit, return `0`.  
 
 **範例**
@@ -292,6 +296,7 @@ public:
 > Input: prices = [7,1,5,3,6,4]  
 > Output: 5  
 > Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.  
+> 
 > Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.  
 
 > Example 2:  
@@ -453,7 +458,6 @@ public:
 **題目描述**
 
 > Given the root of a binary tree, invert the tree, and return its root.  
-
 
 **範例**
 
@@ -749,27 +753,36 @@ public:
 **題目描述**
 
 > An image is represented by a 2D integer grid `image` where `image[i][j]` represents the pixel value of the image.  
+> 
 > You are also given three integers `sr`, `sc`, and `newColor`.  
+> 
 > You should perform a "flood fill" on the image starting from the pixel `image[sr][sc]`.  
+> 
 > To perform a "flood fill", consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, plus any pixels connected 4-directionally to those pixels (also with the same color), and so on.  
+> 
 > Replace the color of all of the aforementioned pixels with `newColor`.  
+> 
 > Return the modified image after performing the flood fill.  
 
 **範例**
 
 > Example 1:  
 > Input: image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, newColor = 2  
+```text
 image = [[1,1,1],  
          [1,1,0],  
          [1,0,1]],  
   sr = 1, sc = 1, newColor = 2  
+```
 > Output: [[2,2,2],[2,2,0],[2,0,1]]  
+```text
  [[2,2,2],  
   [2,2,0],  
   [2,0,1]] 
+```
 > Explanation: 
-From the center of the image (position (1,1)), all pixels connected by a path of the same color as the starting pixel are colored.  
-初始的 image（3×3 矩陣）：
+> From the center of the image (position (1,1)), all pixels connected by a path of the same color as the starting pixel are colored.  
+> 初始的 image（3×3 矩陣）：
 1  1  1
 1  1  0
 1  0  1
@@ -779,11 +792,13 @@ From the center of the image (position (1,1)), all pixels connected by a path of
 > 從 image[1][1]（數值為 1）開始，將和它「上下左右相連且數字相同」的所有 1 全部改成 2。
 
 > (1) 先把中心點 (1,1) 換色：  
+```text
     1  1  1        1  1  1
     1 [1] 0   →    1 [2] 0
     1  0  1        1  0  1
-
+```
 > (2) 看 (1,1) 的上下左右：  
+```text
     上方 (0,1) = 1 → 也要改成 2  
     下方 (2,1) = 0 → 不同，跳過  
     左方 (1,0) = 1 → 也要改成 2  
@@ -793,7 +808,7 @@ From the center of the image (position (1,1)), all pixels connected by a path of
        1  [2]  1        1  [2]  1
       [2]  2   0   →   [2]  2   0
        1   0   1        1   0   1
-
+```
 > (3) 再繼續往外擴散：  
     - 處理 (0,1)（目前值 2）的相鄰：  
       (0,0)=1、(0,2)=1、(1,1)=2（已改）、(-1,1)不存在  
@@ -808,12 +823,12 @@ From the center of the image (position (1,1)), all pixels connected by a path of
       [2]   0   1         [2]   0   1
 
 > (4) 接著 (2,0) 原本是 1，因為跟 (1,0) 相連，也要改成 2，(2,2)=1 則和任何「已改成 2」都不相鄰（中間隔了 0），所以不要改。  
-
+```text
     **最終結果**：  
       2   2   2
       2   2   0
       2   0   1
-
+```
 > Example 2:  
 > Input: image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, newColor = 0  
 > Output: [[0,0,0],[0,0,0]]  
@@ -898,15 +913,15 @@ private:
 
 **題目描述**
 
-> 給定一個二元搜尋樹（BST）的根節點 `root`，以及樹中兩個節點指標 `p` 和 `q`，請找出這兩個節點的最近公共祖先（Lowest Common Ancestor, LCA）。  
->  
-> 在 BST 中，對於任意節點 `node`，若 `p->val` 和 `q->val` 分別小於 `node->val`，代表兩者都在 `node` 的左子樹；若都大於 `node->val`，則在右子樹。若一個在左、一個在右，或者其中有一個等於 `node`，則 `node` 為最近公共祖先。  
+> Given a binary search tree (BST), find the `lowest common ancestor (LCA)` node of two given nodes in the BST.
+> 
+> The lowest common ancestor is defined between two nodes `p` and `q` as the lowest node in `T` that has both `p` and `q` as descendants (where we allow a node to be a descendant of itself).
 
 **範例**
 
 > Example 1:  
 > Input:  
-> ```
+```text
    6
    / \
   2   8
@@ -922,7 +937,7 @@ private:
 
 > Example 2:  
 > Input:  
-> ```
+```text
    6
    / \
   2   8
@@ -1011,9 +1026,7 @@ public:
 
 **題目描述**
 
-> 給定一個二元樹的根節點 `root`，判斷該二元樹是否為「平衡二元樹」（Balanced Binary Tree）。  
->  
-> 定義：「平衡二元樹」是指每個節點的左右子樹高度差的絕對值至多為 1，且它的左右子樹皆為平衡二元樹。  
+> Given a binary tree, determine if it is height-balanced. 
 
 **範例**
 
@@ -1021,26 +1034,26 @@ public:
 > Input: `root = [3,9,20,null,null,15,7]`  
 > Output: `true`  
 > Explanation:  
-> ```
->    3
->    / \
->   9  20
->      / \
->     15  7
+```text
+    3
+    / \
+   9  20
+      / \
+     15  7
 ```
 
 > Example 2:  
 > Input: `root = [1,2,2,3,3,null,null,4,4]`  
 > Output: `false`  
 > Explanation:  
-> ```
->        1
->       / \
->      2   2
->     / \
->    3   3
->   / \
->  4   4
+```text
+      1
+       / \
+      2   2
+     / \
+    3   3
+   / \
+  4   4
 ```
 
 > Example 3:  
@@ -1130,11 +1143,19 @@ private:
 **題目描述**
 
 > 給定一個單向鏈表的頭節點 `head`，判斷鏈表中是否存在環 (cycle)。如果存在，則返回 `true`；否則返回 `false`。
-
+> Given head, the head of a linked list, determine if the linked list has a cycle in it.
+> 
+> There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the `next` pointer.
+> 
+> Internally, `pos` is used to denote the index of the node that tail's `next` pointer is connected to. 
+> 
+> `Note that pos is not passed as a parameter.`
+> 
+> Return `true` if there is a cycle in the linked list. Otherwise, return `false`.
 **範例**
 
 > Example 1:  
-> ```
+```text
 (3) → (2) → (0) → (-4)
        ↑           │
        └───────────┘
@@ -1144,7 +1165,7 @@ private:
 > Explanation: 尾節點指向第二個節點，形成環。
 
 > Example 2:  
-> ```
+```text
 (1) → (2)
  ↑     │
  └─────┘
@@ -1244,7 +1265,7 @@ public:
 **範例**
 
 > Example 1:  
-> ```
+> 
 > Input
 > ["MyQueue", "push", "push", "peek", "pop", "empty"]
 > [[], [1], [2], [], [], []]
@@ -1257,7 +1278,7 @@ public:
 > myQueue.peek();  // return 1
 > myQueue.pop();   // return 1, queue is [2]
 > myQueue.empty(); // return false
-> ```
+> 
 
 **限制**
 
@@ -6823,3 +6844,1102 @@ private:
 
  - 空間複雜度：O(capacity)
      - 哈希表與雙向鏈表共存儲最多 capacity 個節點。
+
+## Week 8 (8/8)
+
+### Kth Smallest Element in a BST
+
+> [題目連結](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)  
+> **標籤**: Tree, Depth-First Search (DFS), Binary Search Tree  
+> **語言**: C++  
+> **難度**: Medium  
+> **解題時間**: 15 分鐘  
+
+**題目描述**
+
+> 給定一棵二元搜尋樹（BST）的根節點 `root`，以及一個整數 `k`，請你找出並返回這棵樹中第 `k` 小的元素值。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：root = [3,1,4,null,2], k = 1  
+> ```text
+>     3
+>    / \
+>   1   4
+>    \
+>     2  
+> ```
+> output：1  
+> Explanation：按升序遍歷，節點值序列為 [1,2,3,4]，第 1 小為 1。  
+> 
+
+> Example 2:  
+> 
+> input：root = [5,3,6,2,4,null,null,1], k = 3  
+> ```text
+>       5
+>      / \
+>     3   6
+>    / \
+>   2   4
+>  /
+> 1  
+> ```
+> output：3  
+> Explanation：升序序列 [1,2,3,4,5,6]，第 3 小為 3。  
+> 
+
+**限制**
+
+> - 樹中節點數量 `n` 的範圍為 `[1, 10^4]`。  
+> - `1 <= k <= n`。  
+> - 節點值互不相同。  
+
+**思路**
+
+> BST 的中序遍歷剛好能按升序訪問所有節點。  
+>  
+> - 方法一（遞迴）：對樹做中序遍歷，計數到第 `k` 次訪問時記錄結果並提前終止。  
+> - 方法二（迭代 + 類似遞迴棧）：用一個顯式堆疊從根開始，先一路往左壓入節點，然後每次彈出一個節點就是當前最小，計數減一，當 `k==0` 時該節點即為答案；接著轉向該節點的右子樹重複同樣過程。  
+
+下面以 **迭代版中序遍歷** 實現（常用，無需額外遞迴棧）：
+
+**程式碼**
+
+```cpp
+#include <stack>
+// Definition for a binary tree node.
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x): val(x), left(nullptr), right(nullptr) {}
+};
+
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        std::stack<TreeNode*> st;
+        TreeNode* node = root;
+
+        // 迭代中序：先把最左路徑壓入堆疊
+        while (node) {
+            st.push(node);
+            node = node->left;
+        }
+        // 重複「訪問+右子樹」
+        while (!st.empty()) {
+            node = st.top(); st.pop();
+            // 第 k 小
+            if (--k == 0) {
+                return node->val;
+            }
+            // 如果有右子樹，將右子樹的最左路徑壓入
+            TreeNode* right = node->right;
+            while (right) {
+                st.push(right);
+                right = right->left;
+            }
+        }
+        return -1; // 理論上不會到這裡，因為 1 <= k <= n
+    }
+};
+```
+**複雜度分析**
+
+ - 時間複雜度：O(h + k)，其中 h 是樹的高度。
+     - 最壞情況下，需要沿左子樹走到最深（h 步），再訪問 k 個節點，每步為 O(1)。
+
+ - 空間複雜度：O(h)，用於堆疊儲存當前節點路徑。
+
+### Minimum Window Substring
+
+> [題目連結](https://leetcode.com/problems/minimum-window-substring/)  
+> **標籤**: String, Sliding Window, Hash Table  
+> **語言**: C++  
+> **難度**: Hard  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 給定一個字串 `s` 和一個字串 `t`，請在 `s` 中找出包含 `t` 中所有字符的最小子串（子串中字符出現次數至少等於在 `t` 中的次數）。如果不存在這樣的子串，返回空字串 `""`。  
+>  
+> 例如，`s = "ADOBECODEBANC"`，`t = "ABC"`，最小覆蓋子串為 `"BANC"`。
+
+**範例**
+
+> Example 1:  
+> 
+> input：s = "ADOBECODEBANC", t = "ABC"  
+> output："BANC"  
+> 
+
+> Example 2:  
+> 
+> input：s = "a", t = "a"  
+> output："a"  
+>
+
+> Example 3:  
+> 
+> input：s = "a", t = "aa"  
+> output：""  
+> Explanation：t 中有兩個 'a'，但 s 中只有一個。  
+> 
+
+**限制**
+
+> - `1 <= s.length, t.length <= 10^5`  
+> - `s` 和 `t` 由英文字母、數字和其他可列印 ASCII 字符組成。  
+> - 可能有多個最小子串，返回任何一個即可。
+
+**思路**
+
+> 使用 **滑動視窗**（two-pointer + 哈希表）技巧：  
+> 1. 用一個長度 128 或 256 的整數陣列 `need` 記錄 `t` 中每個字符所需的頻次，另一個陣列 `window` 記錄當前滑動視窗內字符頻次。  
+> 2. 右指標 `r` 遍歷 `s`，將 `s[r]` 加入 `window`，若該字符在 `need` 中有需求且 `window[c] <= need[c]`，則計數 `formed++`。  
+> 3. 當 `formed == required`（已滿足 t 中所有字符需求）時，嘗試縮小左指標 `l`：  
+>    - 更新當前最小子串長度與起始位置；  
+>    - 將 `s[l]` 從 `window` 減去，若它在 `need` 中且 `window[c] < need[c]`，則 `formed--`，停止收縮。  
+>    - `l++`，繼續下一輪收縮。  
+> 4. 重複上述過程直到 `r` 遍歷結束。最終根據記錄的最小長度返回子串。
+
+**程式碼**
+
+```cpp
+#include <string>
+#include <vector>
+#include <climits>
+using namespace std;
+
+class Solution {
+public:
+    string minWindow(const string& s, const string& t) {
+        vector<int> need(128, 0), window(128, 0);
+        for (char c : t) need[c]++;
+        int required = t.size(), formed = 0;
+        int l = 0, minLen = INT_MAX, minStart = 0;
+        
+        for (int r = 0; r < s.size(); r++) {
+            char c = s[r];
+            window[c]++;
+            if (need[c] > 0 && window[c] <= need[c]) {
+                formed++;
+            }
+            // 當滑動視窗已覆蓋所有需要字符，嘗試收縮左邊界
+            while (formed == required) {
+                if (r - l + 1 < minLen) {
+                    minLen = r - l + 1;
+                    minStart = l;
+                }
+                char d = s[l];
+                window[d]--;
+                if (need[d] > 0 && window[d] < need[d]) {
+                    formed--;
+                }
+                l++;
+            }
+        }
+        
+        return minLen == INT_MAX 
+            ? "" 
+            : s.substr(minStart, minLen);
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(|s| + |t|)
+     - 右指標和左指標各掃描 s 一次。
+
+ - 空間複雜度：O(1)
+     - 使用固定大小的頻次陣列與常數輔助變數。
+
+### Serialize and Deserialize Binary Tree
+
+> [題目連結](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)  
+> **標籤**: Tree, Design, DFS, BFS  
+> **語言**: C++  
+> **難度**: Hard  
+> **解題時間**: 30 分鐘  
+
+**題目描述**
+
+> 設計一種方法，將二元樹序列化為字串，再能夠從該字串反序列化（恢復）出原來的二元樹。  
+>  
+> 你需要實現兩個函式：  
+> 1. `string serialize(TreeNode* root)`：將樹編碼為一個字串。  
+> 2. `TreeNode* deserialize(const string& data)`：將字串解碼為原來的樹結構。  
+
+**範例**
+
+> Example:  
+> 
+> input：root = [1,2,3,null,null,4,5]
+> output：與輸入相同的樹結構
+> Explanation：
+> 序列化可以得到 "1,2,null,null,3,4,null,null,5,null,null,"（先序帶 null 標記）
+> 反序列化後恢復成原來結構。
+> 
+
+**思路**
+
+> 常見方法是對樹做 **先序遍歷**，遇到空節點用特殊標記（如 `#` 或 `null`）寫入字串，同時用分隔符（如 `,`）分開節點值。  
+>  
+> - **序列化 (`serialize`)**：  
+>   1. 遞迴函式 `dfs(node, out)`：  
+>      - 若 `node` 為 `nullptr`，輸出 `"#, "`；  
+>      - 否則輸出 `to_string(node->val) + ","`，然後 `dfs(node->left)`、`dfs(node->right)`。  
+>   2. 返回最終拼接的字串。  
+>  
+> - **反序列化 (`deserialize`)**：  
+>   1. 將輸入字串按 `,` 分隔成一個隊列或索引序列。  
+>   2. 遞迴函式 `build()`：  
+>      - 取出下一個 token，若為 `#` 或 `null`，返回 `nullptr`；  
+>      - 否則轉為整數值，創建節點 `TreeNode* node`，然後 `node->left = build()`、`node->right = build()`，最後返回 `node`。  
+
+這種方案的優點是簡單直觀，序列化長度 O(n)，反序列化時間 O(n)。
+
+**程式碼**
+
+```cpp
+#include <string>
+#include <sstream>
+#include <queue>
+using namespace std;
+
+// Definition for a binary tree node.
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x): val(x), left(nullptr), right(nullptr) {}
+};
+
+class Codec {
+public:
+    // 將樹序列化為字串
+    string serialize(TreeNode* root) {
+        string out;
+        dfs_serialize(root, out);
+        return out;
+    }
+    
+    // 將字串反序列化為樹
+    TreeNode* deserialize(const string& data) {
+        queue<string> tokens = split(data, ',');
+        return dfs_deserialize(tokens);
+    }
+    
+private:
+    // 先序遍歷序列化
+    void dfs_serialize(TreeNode* node, string& out) {
+        if (!node) {
+            out += "#,";
+            return;
+        }
+        out += to_string(node->val) + ",";
+        dfs_serialize(node->left, out);
+        dfs_serialize(node->right, out);
+    }
+    
+    // 從 token 隊列中構建樹
+    TreeNode* dfs_deserialize(queue<string>& tokens) {
+        if (tokens.empty()) return nullptr;
+        string t = tokens.front(); tokens.pop();
+        if (t == "#" || t == "null") {
+            return nullptr;
+        }
+        TreeNode* node = new TreeNode(stoi(t));
+        node->left  = dfs_deserialize(tokens);
+        node->right = dfs_deserialize(tokens);
+        return node;
+    }
+    
+    // 將序列化字串按分隔符切分為隊列
+    queue<string> split(const string& s, char delim) {
+        queue<string> q;
+        string token;
+        istringstream ss(s);
+        while (getline(ss, token, delim)) {
+            q.push(token);
+        }
+        return q;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 序列化時 DFS 訪問每個節點一次；反序列化時從 token 隊列重建，每個 token 處理一次。
+
+ - 空間複雜度：O(n)
+     - 序列化結果字串長度 O(n)，反序列化時 token 隊列和遞迴棧均最壞 O(n)。
+
+
+### Trapping Rain Water
+
+> [題目連結](https://leetcode.com/problems/trapping-rain-water/)  
+> **標籤**: Array, Two Pointers, Stack, Dynamic Programming  
+> **語言**: C++  
+> **難度**: Hard  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 給定一個非負整數陣列 `height`，代表柱子的高度圖，寬度皆為 1。計算在下雨後，這些柱子之間能夠接多少雨水。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：height = [0,1,0,2,1,0,1,3,2,1,2,1]  
+> output：6  
+> Explanation：如上圖所示，共能接 6 單位的雨水。  
+> 
+
+> Example 2:  
+> 
+> input：height = [4,2,0,3,2,5]  
+> output：9  
+> Explanation：能接 9 單位的雨水。  
+> 
+
+**限制**
+
+> - `n == height.size()`  
+> - `1 <= n <= 2×10^5`  
+> - `0 <= height[i] <= 10^5`  
+
+**思路**
+
+> 常見三種方法：  
+> 1. **雙指針**（Two Pointers）  
+>    - 初始化 `l=0, r=n-1`，並維護左右最高 `leftMax`、`rightMax`；  
+>    - 每次比較 `height[l]` 與 `height[r]`，移動指向較低一側的指針並累積 `(maxSoFar - height[current])`。  
+>    - 時間 O(n)，空間 O(1)。  
+>  
+> 2. **動態規劃**（DP）  
+>    - 預先計算 `leftMax[i]` 和 `rightMax[i]`，表示位置 `i` 左右兩邊最高柱子；  
+>    - 雨水量為 `sum( min(leftMax[i], rightMax[i]) - height[i] )`。  
+>    - 時間 O(n)，空間 O(n)。  
+>  
+> 3. **單調棧**（Monotonic Stack）  
+>    - 用棧存下標，維護從棧底到棧頂的柱高遞減；  
+>    - 當遇到更高柱子時，不斷從棧頂彈出並計算與新柱子形成的容積。  
+>    - 時間 O(n)，空間 O(n)。  
+
+以下以 **雙指針** 方法實現：  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int trap(const vector<int>& height) {
+        int n = height.size();
+        int l = 0, r = n - 1;
+        int leftMax = 0, rightMax = 0;
+        int water = 0;
+        while (l <= r) {
+            if (height[l] <= height[r]) {
+                // 左側較低，水量由左邊決定
+                if (height[l] >= leftMax) {
+                    leftMax = height[l];
+                } else {
+                    water += leftMax - height[l];
+                }
+                l++;
+            } else {
+                // 右側較低，水量由右邊決定
+                if (height[r] >= rightMax) {
+                    rightMax = height[r];
+                } else {
+                    water += rightMax - height[r];
+                }
+                r--;
+            }
+        }
+        return water;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 雙指針一次線性掃描。
+
+ - 空間複雜度：O(1)
+     - 只使用常數額外空間存放指針和最大值。
+
+### Find Median from Data Stream
+
+> [題目連結](https://leetcode.com/problems/find-median-from-data-stream/)  
+> **標籤**: Design, Heap, Data Stream  
+> **語言**: C++  
+> **難度**: Hard  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 實作一個資料結構，支援兩個操作：  
+> 1. `void addNum(int num)`：從資料流中新增一個數字 `num`。  
+> 2. `double findMedian()`：回傳目前所有數字的中位數。  
+>  
+> - 如果資料總數為奇數，中位數為中間那個數；  
+> - 如果為偶數，中位數為中間兩數的平均值。  
+
+**輸入／輸出 範例**
+
+> 注意：題目只需實作類別介面，不需從標準輸入／輸出讀取資料。  
+>
+> 
+> input：
+> ["MedianFinder","addNum","addNum","findMedian","addNum","findMedian"]
+> [[],[1],[2],[],[3],[]]
+> output：
+> [null,null,null,1.00000,null,2.00000]
+> 
+>  
+> **說明**：  
+> 1. `MedianFinder mf = new MedianFinder();` → `null`  
+> 2. `mf.addNum(1);`                → `null`  
+> 3. `mf.addNum(2);`                → `null`  
+> 4. `mf.findMedian();`             → `1.0`  （中位數為 `(1+2)/2`）  
+> 5. `mf.addNum(3);`                → `null`  
+> 6. `mf.findMedian();`             → `2.0`  （中位數為 `2`）  
+
+**限制**
+
+> - 調用 `addNum` 和 `findMedian` 的次數總和不超過 `10^5`。  
+> - 數字範圍在 32 位有號整數。  
+> - 期望 `addNum` 與 `findMedian` 均為 O(log n)（或更好）時間複雜度。  
+
+**思路**
+
+> 我們維護兩個堆：  
+> - **最大堆** `maxHeap` 存較小一半的數字；  
+> - **最小堆** `minHeap` 存較大一半的數字。  
+>  
+> 保持兩堆大小差不超過 1，並且 `maxHeap.top() <= minHeap.top()`。  
+>  
+> - 新增數字時：  
+>   1. 若 `maxHeap` 為空或 `num <= maxHeap.top()`，推到 `maxHeap`，否則推到 `minHeap`。  
+>   2. 調整兩堆大小：若某堆元素比另一堆多 2 個，將堆頂移到另一堆。  
+>  
+> - 求中位數時：  
+>   - 如果兩堆大小相同，則中位數為 `(maxHeap.top() + minHeap.top()) / 2.0`；  
+>   - 否則，中位數為元素多的那一堆的堆頂。  
+
+**程式碼**
+
+```cpp
+#include <queue>
+using namespace std;
+
+class MedianFinder {
+public:
+    MedianFinder() {
+    }
+    
+    void addNum(int num) {
+        // 先推入適當的堆
+        if (maxHeap.empty() || num <= maxHeap.top()) {
+            maxHeap.push(num);
+        } else {
+            minHeap.push(num);
+        }
+        // 調整大小，保持兩堆大小差 <= 1
+        if (maxHeap.size() > minHeap.size() + 1) {
+            minHeap.push(maxHeap.top());
+            maxHeap.pop();
+        } else if (minHeap.size() > maxHeap.size() + 1) {
+            maxHeap.push(minHeap.top());
+            minHeap.pop();
+        }
+    }
+    
+    double findMedian() {
+        if (maxHeap.size() == minHeap.size()) {
+            if (maxHeap.empty()) return 0.0;
+            return (maxHeap.top() + minHeap.top()) / 2.0;
+        } else if (maxHeap.size() > minHeap.size()) {
+            return maxHeap.top();
+        } else {
+            return minHeap.top();
+        }
+    }
+
+private:
+    priority_queue<int> maxHeap;                // 最大堆
+    priority_queue<int, vector<int>, greater<>> minHeap;  // 最小堆
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：
+     - `addNum`：O(log n)（堆插入與 rebalance）；
+
+     - `findMedian`：O(1)。
+
+ - 空間複雜度：O(n)
+     - 需儲存所有已加入的數字。
+
+### Word Ladder
+
+> [題目連結](https://leetcode.com/problems/word-ladder/)  
+> **標籤**: Breadth-First Search (BFS), Graph, String  
+> **語言**: C++  
+> **難度**: Hard  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 給定兩個字串 `beginWord` 和 `endWord`，以及一個字典列表 `wordList`，請找出從 `beginWord` 變換到 `endWord` 的最短序列長度。  
+>  
+> 每次變換只能改變一個字母，且變換後的字串必須在字典中出現。  
+>  
+> 如果不存在這樣的變換序列，返回 `0`。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：
+> beginWord = "hit",
+> endWord   = "cog",
+> wordList  = ["hot","dot","dog","lot","log","cog"]
+> output：5
+> Explanation：一種最短變換序列為  
+>   "hit" → "hot" → "dot" → "dog" → "cog"  
+> 序列長度為 5。  
+> 
+
+> Example 2:  
+> 
+> input：
+> beginWord = "hit",
+> endWord   = "cog",
+> wordList  = ["hot","dot","dog","lot","log"]
+> output：0
+> Explanation：字典中不包含 "cog"，無法完成變換。  
+> 
+
+**限制**
+
+> - `1 <= beginWord.length == endWord.length <= 10`  
+> - `1 <= wordList.length <= 5000`  
+> - 所有字串均只包含小寫英文字母。  
+> - `beginWord != endWord`。  
+> - 字典中無重複單詞。  
+
+**思路**
+
+> 將每個字串視為圖中的一個節點，若兩個字串相差一個字母，則在它們之間連一條無向邊。問題即為在這個無權圖上求從 `beginWord` 到 `endWord` 的最短路徑長度，適合用 **廣度優先搜尋 (BFS)**：  
+>  
+> 1. 將 `beginWord` 放入隊列，並用 `visited` 哈希表標記已訪問；  
+> 2. 每一層 BFS 對當前字串取出，嘗試對每一個位置 `i`，將該位置字母從 `'a'` 到 `'z'` 試所有可能新字串 `next`；  
+> 3. 如果 `next` 在字典中且未訪問，則標記訪問並入隊；  
+> 4. 每進一層，步數加一，一旦遇到 `endWord`，即可返回當前層數；  
+> 5. BFS 結束後仍未找到，返回 `0`。  
+>  
+> 為了快速判定一個新字串是否在字典中，預先將 `wordList` 插入 `unordered_set<string>`。
+
+**程式碼**
+
+```cpp
+#include <string>
+#include <vector>
+#include <queue>
+#include <unordered_set>
+using namespace std;
+
+class Solution {
+public:
+    int ladderLength(const string& beginWord,
+                     const string& endWord,
+                     const vector<string>& wordList) {
+        unordered_set<string> dict(wordList.begin(), wordList.end());
+        if (!dict.count(endWord)) return 0;
+
+        queue<string> q;
+        q.push(beginWord);
+        unordered_set<string> visited;
+        visited.insert(beginWord);
+
+        int steps = 1;
+        while (!q.empty()) {
+            int sz = q.size();
+            while (sz--) {
+                string cur = q.front(); q.pop();
+                if (cur == endWord) return steps;
+                // 對每個位置嘗試改變
+                for (int i = 0; i < cur.size(); i++) {
+                    char orig = cur[i];
+                    for (char c = 'a'; c <= 'z'; c++) {
+                        cur[i] = c;
+                        if (dict.count(cur) && !visited.count(cur)) {
+                            visited.insert(cur);
+                            q.push(cur);
+                        }
+                    }
+                    cur[i] = orig;
+                }
+            }
+            steps++;
+        }
+        return 0;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(N · L · 26)
+     - N 為字典大小，L 為單詞長度；BFS 最壞遍歷每個單詞一次，每次生成 L×26 個鄰居，判定與訪問均為 O(1)。
+
+ - 空間複雜度：O(N · L)
+     - 存儲字典與訪問狀態需要 O(N·L) 空間。
+
+### Basic Calculator
+
+> [題目連結](https://leetcode.com/problems/basic-calculator/)  
+> **標籤**: String, Stack, Simulation  
+> **語言**: C++  
+> **難度**: Hard  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 實作一個計算器，能夠計算包含以下內容的字串表達式 `s`：  
+> 1. 非負整數  
+> 2. 加法 `+`、減法 `-`  
+> 3. 左右括號 `(`, `)`  
+> 4. 空白格子（忽略）  
+>  
+> 你可以假設輸入表達式已經合法，計算結果會在 32 位有號整數範圍內，且不使用內建的 `eval` 或者類似函式。
+
+**範例**
+
+> Example 1:  
+> ```text
+> 輸入：s = "1 + 1"
+> 輸出：2
+> ```  
+
+> Example 2:  
+> ```text
+> 輸入：s = " 2-1 + 2 "
+> 輸出：3
+> ```  
+
+> Example 3:  
+> ```text
+> 輸入：s = "(1+(4+5+2)-3)+(6+8)"
+> 輸出：23
+> ```  
+
+> Example 4:  
+> ```text
+> 輸入：s = "- (3 + (2 - 1))"
+> 輸出：-4
+> ```  
+
+**限制**
+
+> - `1 <= s.length <= 3×10^5`  
+> - `s` 由數字、`'+'`、`'-'`、`'('`、`')'` 和空格組成。  
+> - 輸入表達式保證合法，最終結果在 32 位整數範圍內。
+
+**思路**
+
+> 使用**棧**來處理括號和當前符號狀態：  
+> 1. 遍歷字串，遇到數字就累積成當前操作數 `num`；  
+> 2. 遇到 `+` 或 `-` 或到達字串尾，將前一個操作數（帶符號）累加到結果 `res` 中，更新符號 `sign = +1 或 -1`，重置 `num = 0`；  
+> 3. 遇到 `(`，將當前結果 `res` 和符號 `sign` 推入棧中，重置 `res = 0, sign = +1`；  
+> 4. 遇到 `)`，先把當前 `num` 加入 `res`，然後從棧中彈出上一層的 `sign_prev`，再從棧中彈出 `res_prev`，計算 `res = res_prev + sign_prev * res`，重置 `num = 0`；  
+> 5. 最後遍歷結束後，將最後一個 `num` 加到 `res`。
+
+**程式碼**
+
+```cpp
+#include <string>
+#include <stack>
+using namespace std;
+
+class Solution {
+public:
+    int calculate(const string& s) {
+        long res = 0, num = 0;
+        int sign = 1;  // +1 或 -1
+        stack<long> stk; // 存放 res 和 sign
+
+        for (int i = 0; i < s.size(); i++) {
+            char c = s[i];
+            if (isdigit(c)) {
+                num = num * 10 + (c - '0');
+            } else if (c == '+' || c == '-') {
+                res += sign * num;
+                num = 0;
+                sign = (c == '+') ? 1 : -1;
+            } else if (c == '(') {
+                // 推入當前結果和符號，進入新一層
+                stk.push(res);
+                stk.push(sign);
+                res = 0;
+                sign = 1;
+            } else if (c == ')') {
+                res += sign * num;
+                num = 0;
+                // 彈出上一層符號與結果
+                long prevSign = stk.top(); stk.pop();
+                long prevRes  = stk.top(); stk.pop();
+                res = prevRes + prevSign * res;
+            }
+            // 遇到空格則跳過
+        }
+        // 處理最後一個數字
+        res += sign * num;
+        return (int)res;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 單次線性掃描字串長度 n，每步操作均為常數。
+
+ - 空間複雜度：O(n)
+     - 棧最壞情況儲存所有括號對對應的兩個值。
+
+### Maximum Profit in Job Scheduling
+
+> [題目連結](https://leetcode.com/problems/maximum-profit-in-job-scheduling/)  
+> **標籤**: Array, Dynamic Programming, Binary Search  
+> **語言**: C++  
+> **難度**: Hard  
+> **解題時間**: 30 分鐘  
+
+**題目描述**
+
+> 給定三個等長陣列 `startTime`, `endTime`, `profit`，代表有 `n` 個工作，第 `i` 個工作在時間區間  
+> `[startTime[i], endTime[i])`（前閉後開）執行，完成可獲得 `profit[i]`。  
+>  
+> 你最多只能同一時間執行一個工作（工作之間不能重疊）。求在合理安排工作的前提下，所能獲得的最大總利潤。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：
+> startTime = [1,2,3,3],
+> endTime   = [3,4,5,6],
+> profit    = [50,10,40,70]
+> output：120  
+> Explanation：
+> 排程可選擇工作 0（時間 [1,3)、利潤 50）和工作 3（時間 [3,6)、利潤 70），總利潤 120。
+> 
+
+> Example 2:  
+> 
+> input：
+> startTime = [1,2,3,4,6],
+> endTime   = [3,5,10,6,9],
+> profit    = [20,20,100,70,60]
+> output：150  
+> Explanation：
+> 最佳排程為工作 0 ([1,3)、20)、工作 3 ([4,6)、70)、工作 2 ([3,10)、100) 中選兩個互不衝突的最大組合，
+> 可選工作 2 本身利潤就是 100，再加工作 3 的 70，但因 [3,10) 與 [4,6) 衝突，故最佳是工作 2 (100) + 工作 0 (20) + 工作 4 (60) = 180?  
+> 實際最佳為工作 2 (100) + 工作 4 (60) = 160。但因範例答案 150，排程應為工作 0+3+4 合法組合為 20+70+60 = 150。
+> 
+
+> Example 3:  
+> 
+> input：
+> startTime = [1,1,1],
+> endTime   = [2,3,4],
+> profit    = [5,6,4]
+> output：6
+> 
+
+**限制**
+
+> - `1 <= n == startTime.length == endTime.length == profit.length <= 5×10^4`  
+> - `1 <= startTime[i] < endTime[i] <= 10^9`  
+> - `1 <= profit[i] <= 10^4`  
+
+**思路**
+
+> 先將所有工作按照結束時間 `endTime` 升序排序。記 `jobs[i] = (end, start, profit)`。  
+>  
+> 定義動態規劃陣列 `dp[i]`：表示考慮前 `i` 個（排序後）工作，能獲得的最大利潤。  
+>  
+> 遍歷每個工作 `i`：  
+> 1. 二分搜尋最後一個結束時間 `<= start_i` 的工作索引 `j`（在 `[0..i-1]` 中）。  
+> 2. 選擇「接第 `i` 個工作」時可累加 `dp[j+1] + profit_i`（`dp` 用 1-based，`dp[0]=0`）；不選第 `i` 個則為 `dp[i]`。  
+> 3. `dp[i+1] = max(dp[i], dp[j+1] + profit_i)`。  
+>  
+> 最終答案為 `dp[n]`。  
+>  
+> - 排序花 O(n log n)。  
+> - 對每個工作做一次二分搜尋 O(log n)，總 O(n log n)。  
+> - 空間 O(n)。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int jobScheduling(vector<int>& startTime,
+                      vector<int>& endTime,
+                      vector<int>& profit) {
+        int n = startTime.size();
+        // 組合並排序
+        vector<tuple<int,int,int>> jobs;
+        jobs.reserve(n);
+        for (int i = 0; i < n; i++) {
+            jobs.emplace_back(endTime[i], startTime[i], profit[i]);
+        }
+        sort(jobs.begin(), jobs.end());  // 按 endTime 升序
+
+        // dp[i] 表示前 i 個工作（jobs[0..i-1]）的最優利潤
+        vector<long long> dp(n+1, 0);
+
+        // 結束時間陣列，用於二分
+        vector<int> ends(n);
+        for (int i = 0; i < n; i++) {
+            ends[i] = get<0>(jobs[i]);
+        }
+
+        for (int i = 0; i < n; i++) {
+            int end_i, start_i, prof_i;
+            tie(end_i, start_i, prof_i) = jobs[i];
+            // 找到最右側 j 使 ends[j] <= start_i
+            int j = int(upper_bound(ends.begin(), ends.end(), start_i) - ends.begin()) - 1;
+            long long includeProfit = prof_i + (j >= 0 ? dp[j+1] : 0);
+            long long excludeProfit = dp[i];
+            dp[i+1] = max(excludeProfit, includeProfit);
+        }
+
+        return int(dp[n]);
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n log n)
+     - 排序 O(n log n)，每個工作二分搜尋 O(log n)。
+
+ - 空間複雜度：O(n)
+     - 需要儲存排序後的工作列表、dp 陣列與結束時間陣列。
+
+
+### Merge k Sorted Lists
+
+> [題目連結](https://leetcode.com/problems/merge-k-sorted-lists/)  
+> **標籤**: Heap, Linked List, Divide and Conquer  
+> **語言**: C++  
+> **難度**: Hard  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 給定一個包含 `k` 個已排序的鏈表陣列 `lists`，將它們合併為一個排序好的鏈表並返回。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：lists = [[1,4,5],[1,3,4],[2,6]]
+> output：[1,1,2,3,4,4,5,6]
+> Explanation：三個鏈表合併後為 1→1→2→3→4→4→5→6。
+> 
+
+> Example 2:  
+> 
+> input：lists = []
+> output：[]
+> 
+
+> Example 3:  
+> 
+> input：lists = [[]]
+> output：[]
+> 
+
+**限制**
+
+> - `k == lists.length`  
+> - `0 <= k <= 10^4`  
+> - `0 <= lists[i].length <= 500`  
+> - `-10^4 <= lists[i][j] <= 10^4`  
+> - `lists[i]` 按升序排列  
+> - 所有鏈表總節點數不超過 10^4  
+
+**思路**
+
+> 常見兩種做法：  
+> 1. **最小堆 (Priority Queue)**  
+>    - 遍歷每個鏈表的頭節點，將其值與節點指針放入最小堆；  
+>    - 每次從堆中彈出最小節點，接到結果鏈表尾，再將該節點的下一個節點入堆；  
+>    - 重複直到堆空。  
+> 2. **分治合併 (Divide and Conquer)**  
+>    - 將 k 個鏈表兩兩合併，形成 k/2 個，重複此過程直到合併為一個；  
+>    - 使用「合併兩個已排序鏈表」的線性時間方法。  
+>  
+> 第一種方法時間複雜度 O(N log k)，第二種也為 O(N log k)，其中 N 為所有節點總數。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <queue>
+using namespace std;
+
+// Definition for singly-linked list.
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x): val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        // 小根堆，存 pair<節點值, 節點指針>
+        auto cmp = [](ListNode* a, ListNode* b){
+            return a->val > b->val;
+        };
+        priority_queue<ListNode*, vector<ListNode*>, decltype(cmp)> pq(cmp);
+
+        // 初始將每個鏈表頭 push 進堆
+        for (auto node : lists) {
+            if (node) pq.push(node);
+        }
+
+        // 虛擬頭節點
+        ListNode dummy(0), *tail = &dummy;
+        while (!pq.empty()) {
+            ListNode* node = pq.top(); pq.pop();
+            tail->next = node;
+            tail = tail->next;
+            if (node->next) pq.push(node->next);
+        }
+        return dummy.next;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(N log k)
+     - 每個節點進堆與出堆各一次，堆大小最多為 k，故為 O(N log k)。
+
+ - 空間複雜度：O(k)
+     - 最小堆最多存放 k 個節點指針。
+
+### Largest Rectangle in Histogram
+
+> [題目連結](https://leetcode.com/problems/largest-rectangle-in-histogram/)  
+> **標籤**: Stack, Array, Monotonic Stack  
+> **語言**: C++  
+> **難度**: Hard  
+> **解題時間**: 25 分鐘  
+
+**題目描述**
+
+> 給定一個整數陣列 `heights`，其中每個元素代表寬度為 1 的直方圖柱子的高度，請找出能夠形成的最大長方形面積。  
+
+**範例**
+
+> Example 1:  
+> 
+> input：heights = [2,1,5,6,2,3]  
+> output：10  
+> Expllanation：最大長方形由高度 5 和 6 組成，寬度 2，面積 5×2=10。  
+> 
+
+> Example 2:  
+> 
+> input：heights = [2,4]  
+> output：4  
+> Explanation：最大長方形由高度 4，寬度 1，面積 4。  
+>  
+
+**限制**
+
+> - `1 <= heights.length <= 10^5`  
+> - `0 <= heights[i] <= 10^4`  
+
+**思路**
+
+> 使用 **單調棧**（Monotonic Stack）維護遞增高度：  
+> 1. 在 `heights` 末尾加上 `0` 作為哨兵，保證最後可將棧中所有柱子彈出處理；  
+> 2. 迭代 `i` 從 `0` 到 `n`：  
+>    - 當前高度 `h = heights[i]`；  
+>    - 若棧為空或 `h >= heights[stk.top()]`，則將 `i` 推入棧；  
+>    - 否則，反覆彈出棧頂 `top`，計算以 `heights[top]` 為高度的最大寬度：  
+>      ```cpp
+>      height = heights[top];
+>      width  = stk.empty() ? i : (i - stk.top() - 1);
+>      area   = height * width;
+>      ```
+>      更新全局最大面積後，繼續比較新的棧頂直到 `h >= heights[stk.top()]`，最後再把 `i` 推入。  
+>  
+> 這樣每個索引最多進棧和出棧一次，時間複雜度 O(n)，空間複雜度 O(n)。  
+
+**程式碼**
+
+```cpp
+#include <vector>
+#include <stack>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int largestRectangleArea(const vector<int>& heights) {
+        int n = heights.size();
+        vector<int> h(n + 1);
+        for (int i = 0; i < n; i++) h[i] = heights[i];
+        h[n] = 0;  // 哨兵
+
+        stack<int> stk;
+        int maxArea = 0;
+        for (int i = 0; i <= n; i++) {
+            while (!stk.empty() && h[i] < h[stk.top()]) {
+                int height = h[stk.top()];
+                stk.pop();
+                int width = stk.empty() ? i : (i - stk.top() - 1);
+                maxArea = max(maxArea, height * width);
+            }
+            stk.push(i);
+        }
+        return maxArea;
+    }
+};
+```
+
+**複雜度分析**
+
+ - 時間複雜度：O(n)
+     - 每個索引至多進棧與出棧一次。
+
+ - 空間複雜度：O(n)
+     - 單調棧最壞情況存儲所有索引。
