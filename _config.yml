@@ -7,7 +7,7 @@ title: Joseph's Blog                      # 需要改：這是網站名稱，顯
 subtitle: ''                              # 可選改：若想顯示副標題，可填簡短文字；不需要就留空或刪除。
                                          # 例如： subtitle: "學程式、寫程式、分享程式"
 
-description: '使用 Hexo + Shoka 架設的靜態網站'  # 建議改：這段會放在 HTML 的 <meta name="description"> 裡，對 SEO 有幫助。請改成你的網站描述，例如：
+description: '品逸的網站'  # 建議改：這段會放在 HTML 的 <meta name="description"> 裡，對 SEO 有幫助。請改成你的網站描述，例如：
                                          # description: '小明的技術隨筆，記錄前端、後端、部署等筆記。'
 
 keywords: 帥企鵝, gj94fu4k6                # 建議改：相當於 meta keywords，用來告訴搜尋引擎你的網站主題。填你想排名的關鍵字，例如：
@@ -106,7 +106,7 @@ ignore:
 # ─── Algolia Search ───────────────────────
 search:
   type:        algolia
-  applicationId: DJ8L2IATSB          # ← “Id” 中的 d 一定要小写
+  applicationId: DJ8L2IATSB          
   apiKey:        224a452355678563ff1440f28cc86fc8  # ← Search-Only API Key
   indexName:     shoka
   hits:
@@ -129,7 +129,7 @@ deploy:
 
 
 algolia:
-  appId:    DJ8L2IATSB          # ← 一定要叫 `appId`
+  appId:    DJ8L2IATSB          
   apiKey:   6529b16c4f5d7f8ad0317a0b8d7e64c0
   indexName: shoka
   chunkSize: 5000
@@ -156,3 +156,8 @@ renderer:
       linkify: true
 
 
+# _config.yml (根目錄)
+# 在 'inject' 區塊／自訂 header 區段載入你的 custom.css
+inject:
+  head:
+    - <link rel="stylesheet" href="/css/custom.css">

@@ -1349,7 +1349,7 @@ private:
 
 **複雜度分析**
 
- - 時間複雜度：O(1)（攤銷）
+ - 時間複雜度：O(1)
      - 每個元素最多被移動一次：從 inStack 推到 outStack；其餘操作（push、pop、peek、empty）均為常數時間。
 
  - 空間複雜度：O(n)
