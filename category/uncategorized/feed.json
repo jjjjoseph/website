@@ -1,7 +1,7 @@
 {
     "version": "https://jsonfeed.org/version/1",
     "title": "Joseph's Blog • All posts by \"uncategorized\" category",
-    "description": "使用 Hexo + Shoka 架設的靜態網站",
+    "description": "品逸的網站",
     "home_page_url": "http://localhost:4000",
     "items": [
         {

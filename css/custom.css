@@ -1,0 +1,10 @@
+/* 側邊欄連結滑鼠移上去變灰 */
+.sidebar .links a:hover {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+  }
+  
+  /* 側邊欄當前頁面連結常駐灰 */
+  .sidebar .links a.active {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+  }
+  
