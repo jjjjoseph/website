@@ -102,12 +102,12 @@ Hi~~ = Joseph's Blog</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclip4jbpj20zk0m87cv.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhtuo6nj20zk0m8ttm.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclwuom7cj20zk0m8dvn.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph4baakhj20zk0m8h5q.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciusoyjnj219g0u0x56.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclize41wj20zk0m87gk.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
         </ul>
       </div>
     </header>
@@ -177,6 +177,7 @@ Hi~~ = Joseph's Blog</title>
 <li><strong>MQTT 協定</strong>：了解通訊流程，可在裝置與 Web Server 間完成狀態收發與同步</li>
 <li><strong>Nandflash 讀寫操作與演算法</strong></li>
 </ul>
+<hr>
 <h2 id="程式語言與演算法"><a class="markdownIt-Anchor" href="#程式語言與演算法">#</a> 程式語言與演算法</h2>
 <ul>
 <li><strong>語言</strong>：C, C++, Python, HTML, CSS, JavaScript, MySQL</li>
@@ -191,53 +192,110 @@ Hi~~ = Joseph's Blog</title>
 <h2 id="a-method-to-reduce-readwrite-head-movement-for-smr-disks-碩士論文"><a class="markdownIt-Anchor" href="#a-method-to-reduce-readwrite-head-movement-for-smr-disks-碩士論文">#</a> A Method to Reduce Read/Write Head Movement for SMR Disks (碩士論文)</h2>
 <p><strong>期間</strong>：2022/09 – 2025/02</p>
 <ul>
-<li>建立 SMR 磁碟內部架構模擬 (PC 與 NDA 區域)、混合磁碟運作邏輯與資料流</li>
-<li>設計並實作 C-Look 優化排序演算法：依 I/O 特性分配至 PC/NDA，加入區域存取次數限制，平衡效能與公平性</li>
-<li>多磁碟模擬與效能量測：測試高負載情境下 I/O 負載平均化與 seek time 降低效果</li>
-<li>實驗資料分析：解析實際 I/O trace，統計平均 seek time、I/O 延遲、傳輸總時間等指標</li>
-<li>成效：在高負載環境下，減少約 20–40% 平均 seek time，顯著提升 SMR 效能</li>
+<li>
+<p>提出混合存取框架，結合  <code>SMR</code>  與  <code>CMR</code>  的硬體結構</p>
+</li>
+<li>
+<p>建立 SMR 磁碟內部架構模擬 (PC ( <code>persistent cache</code> ) 與 NDA ( <code>native data area</code> ) 區域)、 <code>混合磁碟</code> 運作 (SMR、CMR) 與資料流</p>
+</li>
+<li>
+<p>設計並實作 <code>優化的 C-Look 排序演算法</code> ，依  <code>I/O 特性(hot/cold、sequential/random data)</code>  分配至 PC/NDA，加入區域存取量限制，評估負載平衡與公平性</p>
+</li>
+<li>
+<p><code>多顆硬碟平行運作模擬</code> 與效能量測：測試高負載情境下 I/O 負載平均化與 seek time (磁碟移動時間) 降低效果</p>
+</li>
+<li>
+<p>實驗資料解析：分析實際 I/O trace，統計平均 seek time、I/O 延遲、long tail latency (長尾延遲)、傳輸總時間等指標</p>
+</li>
+<li>
+<p>結果：在高負載環境下， <code>減少約 20~40%</code>  平均 seek time，顯著提升 SMR 效能</p>
+</li>
+<li>
+<p><a href="attachments/NTUST_Thesis.pdf">碩士論文 A Method to Reduce Read/Write Head Movement for SMR Disks (PDF)</a></p>
+</li>
 </ul>
+<hr>
 <h2 id="panda-多功能自走車專題實作"><a class="markdownIt-Anchor" href="#panda-多功能自走車專題實作">#</a> Panda 多功能自走車（專題實作）</h2>
 <p><strong>期間</strong>：2020 – 2021</p>
-<p><strong>專題目標</strong>：<br>
-開發一款可跨樓層自主巡邏的多功能自走車，並結合網頁／App 作為資訊整合平台，以達成「安全無死角」的社區／大樓防護。</p>
+<p><strong>專題目標</strong>：</p>
+<ul>
+<li>開發一款可跨樓層自主巡邏的多功能自走車用做 <code>傳輸運送車</code> 、 <code>遠端校園導覽車</code> 、 <code>一般巡邏車</code> ，結合網頁作為資訊整合平台。</li>
+<li>兼顧防疫旅館「送餐任務」，降低人員接觸風險。</li>
+</ul>
 <p><strong>已實作功能</strong>：</p>
 <ul>
-<li><strong>網頁遠端控制</strong>：使用者透過網頁介面發送控制指令，並即時監控車體狀態。</li>
-<li><strong>即時影像輸出</strong>：整合 WebRTC 技術串流車載鏡頭畫面，搭配 OpenVINO 做人臉偵測與標註。</li>
-<li><strong>非接觸式電梯控制</strong>：採用 MQTT 與 CoAP 協定，實現自走車上下樓層的電梯按鈕非接觸式觸發。</li>
+<li>
+<p><strong>網頁遠端控制</strong>：使用者透過網頁介面發送控制指令，並即時監控車體狀態。</p>
+</li>
+<li>
+<p><strong>即時影像輸出</strong>：整合 WebRTC 技術串流車載鏡頭畫面，搭配 OpenVINO 做人臉偵測與標註並做影像回傳。</p>
+</li>
+<li>
+<p><strong>非接觸式電梯控制</strong>：採用 MQTT 與 CoAP 協定，實現自走車上下樓層的電梯按鈕非接觸式觸發。</p>
+</li>
+<li>
+<p><strong>遠端行駛</strong>：透過網頁端控制車體移動。</p>
+</li>
 </ul>
 <p><strong>關鍵技術</strong>：</p>
 <ul>
-<li><strong>ROS（hector_slam）</strong> — 建圖與導航</li>
-<li><strong>MQTT／CoAP</strong> — 雲端與單晶片之間的即時通訊</li>
-<li><strong>Jetson Nano、Raspberry Pi、ESP32</strong> — 邊緣運算與感測器驅動</li>
+<li>
+<p>系統採用  <code>Raspberry Pi</code>  作為邊緣運算節點，透過  <code>MQTT</code>  通訊協定接收來自 Web Server 的指令與狀態資訊，實現低延遲、高效率的雙向即時資料交換與設備整合。</p>
+</li>
+<li>
+<p>裝置可自動建立與電梯 <code>按鈕微控制器(Esp32)</code>  之間的連線，並透過預先設定之認證機制確保 <code>連線安全性</code> 與指令正確性，以提升使用者操作的便利性與系統穩定性。</p>
+</li>
+<li>
+<p>控制訊息透過  <code>CoAP</code>  傳遞至電梯控制模組，於資源受限設備並確保高可靠性與即時反應能力。</p>
+</li>
+<li>
+<p>結合 <code>紅外線距離感測器</code> 與 <code>光敏電阻模組</code> 對電梯實體按鍵進行狀態偵測，透過  <code>ESP32 微控制器</code> 進行邏輯判斷與控制觸發，實現 <code>無接觸式虛擬按鍵</code> 觸發機制，提供更高衛生與安全性的操作體驗。</p>
+</li>
 </ul>
-<p><strong>因應防疫應用擴充</strong>：</p>
+<p><strong>成果與未來展望</strong>：</p>
 <ul>
-<li>可達到遠端校園導覽。</li>
-<li>兼顧防疫旅館「送餐任務」，降低人員接觸風險。</li>
+<li>待整合全自動巡邏路徑規劃、人臉辨識與行動 App 推出，即可廣泛應用於社區、商業大樓、醫療與防疫場所。</li>
 </ul>
-<p><strong>成果與未來展望</strong>：<br>
-實現跨樓層監控與控制，已完成遠端行駛、影像回傳、電梯控制等基礎功能。<br>
-待整合全自動巡邏路徑規劃、人臉辨識微調與行動 App 推出，即可廣泛應用於社區、商業大樓、醫療與防疫場所。</p>
-<h2 id="台灣微軟身心障礙大學培育計畫"><a class="markdownIt-Anchor" href="#台灣微軟身心障礙大學培育計畫">#</a> 台灣微軟身心障礙大學培育計畫</h2>
-<p><strong>期間</strong>：2023/06 – 2023/08</p>
+<p><a href="attachments/%E5%B0%88%E9%A1%8C%E5%A0%B1%E5%91%8A%E6%9B%B80311.doc">專題報告書 (DOC)</a></p>
+<p><strong>得獎紀錄</strong>：</p>
+<p>此項專題榮獲:</p>
 <ul>
-<li>與團隊合作開發細胞自動模擬遊戲「生命遊戲」</li>
-<li>使用 Python + Pygame 實現細胞狀態與滑鼠事件互動；地圖顯示、狀態處理皆具備</li>
+<li><code>109 學年度電機資訊學院創意競賽首獎</code> <a href="attachments/%E9%99%A2%E5%B1%95%E7%8D%8E%E7%8B%80.pdf">學校之畢業專題得獎紀錄 (PDF)</a></li>
+<li><code>109 學年度專題作品競賽暨成果展佳作</code></li>
 </ul>
 <hr>
-<!-- 附件 -->
-<h1 id="附件"><a class="markdownIt-Anchor" href="#附件">#</a> 附件</h1>
+<h2 id="台灣微軟身心障礙大學培育計畫"><a class="markdownIt-Anchor" href="#台灣微軟身心障礙大學培育計畫">#</a> 台灣微軟身心障礙大學培育計畫</h2>
+<p><strong>期間</strong>：2023/06 – 2023/08</p>
+<p><strong>專案簡介</strong></p>
 <ul>
-<li><a href="attachments/%E9%99%A2%E5%B1%95%E7%8D%8E%E7%8B%80.pdf">學校之畢業專題得獎紀錄 (PDF)</a></li>
-<li><a href="attachments/%E5%B0%88%E9%A1%8C%E5%A0%B1%E5%91%8A%E6%9B%B80311.doc">專題報告書 (DOC)</a></li>
-<li><a href="attachments/NTUST_Thesis.pdf">碩士論文 A Method to Reduce Read/Write Head Movement for SMR Disks (PDF)</a></li>
-<li><a href="attachments/%E5%BE%AE%E8%BB%9F%E5%B0%88%E6%A1%88%E8%AD%89%E6%98%8E.pdf">台灣微軟專案證明 (PDF)</a></li>
-<li><a href="attachments/%E6%9E%97%E5%93%81%E9%80%B8_%E5%B1%A5%E6%AD%B7(%E4%B8%AD).pdf">個人履歷 (中) (PDF)</a></li>
-<li><a href="attachments/%E6%9E%97%E5%93%81%E9%80%B8_%E5%B1%A5%E6%AD%B7(%E8%8B%B1).pdf">個人履歷 (英) (PDF)</a></li>
+<li>
+<p>本專案以知名的「康威生命遊戲（Conway’s Game of Life）」為主題，是一種由數學家 John Conway 於 1970 年提出的「零玩家」細胞自動機模擬系統。</p>
+</li>
+<li>
+<p>專案主要以 Python 為開發語言，搭配圖形化工具（如 Pygame 或 Qt Designer）實作視覺化介面。細胞狀態以二維陣列儲存，進行每一代（generation）的演化模擬。詳細設計與實作請參考專案附件。</p>
+</li>
+<li>
+<p>遊戲透過簡單的規則，模擬出細胞的出生與死亡，展現出豐富且不可預測的生命演化現象。</p>
+</li>
+<li>
+<p>生命遊戲的運行是在一個無邊界的二維網格上，每個格子（cell）可以是「活的」或「死的」。細胞的狀態轉變遵循以下規則：</p>
+</li>
+<li>
+<p>若一個活細胞周圍活細胞數量：<br>
+(1) &lt; 2：會因孤單而死亡。<br>
+(2) = 2 或 3：繼續存活。<br>
+(3) 3：會因擁擠而死亡。</p>
+</li>
+<li>
+<p>若一個死細胞周圍活細胞數量 = 3：會復活。</p>
+</li>
 </ul>
+<p><a href="attachments/%E5%BE%AE%E8%BB%9F%E5%B0%88%E6%A1%88%E8%AD%89%E6%98%8E.pdf">台灣微軟專案證明 (PDF)</a></p>
+<hr>
+<!-- 附件 -->
+<h1 id="履歷附件"><a class="markdownIt-Anchor" href="#履歷附件">#</a> 履歷附件</h1>
+<p><a href="attachments/%E6%9E%97%E5%93%81%E9%80%B8_%E5%B1%A5%E6%AD%B7(%E4%B8%AD).pdf">個人履歷 (中) (PDF)</a><br>
+<a href="attachments/%E6%9E%97%E5%93%81%E9%80%B8_%E5%B1%A5%E6%AD%B7(%E8%8B%B1).pdf"> 個人履歷 (英) (PDF)</a></p>
 <hr>
 <!-- 自傳 -->
 <h1 id="自傳"><a class="markdownIt-Anchor" href="#自傳">#</a> 自傳</h1>
@@ -268,7 +326,7 @@ Hi~~ = Joseph's Blog</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">Edited on</span>
-    <time title="Modified: 2025-06-15 10:48:36" itemprop="dateModified" datetime="2025-06-15T10:48:36+08:00">2025-06-15</time>
+    <time title="Modified: 2025-06-21 17:47:52" itemprop="dateModified" datetime="2025-06-21T17:47:52+08:00">2025-06-21</time>
   </span>
 </div>
 
@@ -307,7 +365,7 @@ Hi~~ = Joseph's Blog</title>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="Contents">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%80%8B%E4%BA%BA%E7%B0%A1%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text"> 個人簡述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%99%E8%82%B2%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text"> 教育背景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E7%B6%93%E6%AD%B7"><span class="toc-number">3.</span> <span class="toc-text"> 工作經歷</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%88%E9%95%B7"><span class="toc-number">4.</span> <span class="toc-text"> 專長</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%B3%BB%E7%B5%B1%E8%88%87%E9%80%9A%E8%A8%8A%E6%8A%80%E8%A1%93"><span class="toc-number">4.1.</span> <span class="toc-text"> 嵌入式系統與通訊技術</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95"><span class="toc-number">4.2.</span> <span class="toc-text"> 程式語言與演算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E6%88%90%E5%B0%B1"><span class="toc-number">5.</span> <span class="toc-text"> 專案成就</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#a-method-to-reduce-readwrite-head-movement-for-smr-disks-%E7%A2%A9%E5%A3%AB%E8%AB%96%E6%96%87"><span class="toc-number">5.1.</span> <span class="toc-text"> A Method to Reduce Read&#x2F;Write Head Movement for SMR Disks (碩士論文)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#panda-%E5%A4%9A%E5%8A%9F%E8%83%BD%E8%87%AA%E8%B5%B0%E8%BB%8A%E5%B0%88%E9%A1%8C%E5%AF%A6%E4%BD%9C"><span class="toc-number">5.2.</span> <span class="toc-text"> Panda 多功能自走車（專題實作）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%B0%E7%81%A3%E5%BE%AE%E8%BB%9F%E8%BA%AB%E5%BF%83%E9%9A%9C%E7%A4%99%E5%A4%A7%E5%AD%B8%E5%9F%B9%E8%82%B2%E8%A8%88%E7%95%AB"><span class="toc-number">5.3.</span> <span class="toc-text"> 台灣微軟身心障礙大學培育計畫</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%84%E4%BB%B6"><span class="toc-number">6.</span> <span class="toc-text"> 附件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%82%B3"><span class="toc-number">7.</span> <span class="toc-text"> 自傳</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%80%8B%E4%BA%BA%E7%B0%A1%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text"> 個人簡述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%99%E8%82%B2%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text"> 教育背景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E7%B6%93%E6%AD%B7"><span class="toc-number">3.</span> <span class="toc-text"> 工作經歷</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%88%E9%95%B7"><span class="toc-number">4.</span> <span class="toc-text"> 專長</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%B3%BB%E7%B5%B1%E8%88%87%E9%80%9A%E8%A8%8A%E6%8A%80%E8%A1%93"><span class="toc-number">4.1.</span> <span class="toc-text"> 嵌入式系統與通訊技術</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95"><span class="toc-number">4.2.</span> <span class="toc-text"> 程式語言與演算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E6%88%90%E5%B0%B1"><span class="toc-number">5.</span> <span class="toc-text"> 專案成就</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#a-method-to-reduce-readwrite-head-movement-for-smr-disks-%E7%A2%A9%E5%A3%AB%E8%AB%96%E6%96%87"><span class="toc-number">5.1.</span> <span class="toc-text"> A Method to Reduce Read&#x2F;Write Head Movement for SMR Disks (碩士論文)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#panda-%E5%A4%9A%E5%8A%9F%E8%83%BD%E8%87%AA%E8%B5%B0%E8%BB%8A%E5%B0%88%E9%A1%8C%E5%AF%A6%E4%BD%9C"><span class="toc-number">5.2.</span> <span class="toc-text"> Panda 多功能自走車（專題實作）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%B0%E7%81%A3%E5%BE%AE%E8%BB%9F%E8%BA%AB%E5%BF%83%E9%9A%9C%E7%A4%99%E5%A4%A7%E5%AD%B8%E5%9F%B9%E8%82%B2%E8%A8%88%E7%95%AB"><span class="toc-number">5.3.</span> <span class="toc-text"> 台灣微軟身心障礙大學培育計畫</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B1%A5%E6%AD%B7%E9%99%84%E4%BB%B6"><span class="toc-number">6.</span> <span class="toc-text"> 履歷附件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%82%B3"><span class="toc-number">7.</span> <span class="toc-text"> 自傳</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="Related">
       </div>
