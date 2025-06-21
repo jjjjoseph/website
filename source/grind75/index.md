@@ -6,7 +6,7 @@ layout: page
 
 # Grind 75
 
-> Grind 75 是 Leetcode 推出的刷題路線，適合給準備面試的朋友們。
+> Grind 75 是 Leetcode 推出的刷題路線，適合給準備面試的朋友們，加油。
 
 ## Week 1 (13/13)
 
