@@ -2,16 +2,16 @@
 <rss version="2.0">
     <channel>
         <title>Joseph&#39;s Blog • Posts by &#34;uncategorized&#34; category</title>
-        <link>http://localhost:4000</link>
+        <link>https://jjjjoseph.github.io/website</link>
         <description>品逸的網站</description>
         <language>zh-TW</language>
         <pubDate>Sat, 31 May 2025 00:00:00 +0800</pubDate>
         <lastBuildDate>Sat, 31 May 2025 00:00:00 +0800</lastBuildDate>
         <category>hello</category>
         <item>
-            <guid isPermalink="true">http://localhost:4000/2025/05/31/hello-world/</guid>
+            <guid isPermalink="true">https://jjjjoseph.github.io/website/2025/05/31/hello-world/</guid>
             <title>Hello World</title>
-            <link>http://localhost:4000/2025/05/31/hello-world/</link>
+            <link>https://jjjjoseph.github.io/website/2025/05/31/hello-world/</link>
             <category>hello</category>
             <pubDate>Sat, 31 May 2025 00:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;link rel=&#34;stylesheet&#34; type=&#34;text&amp;#x2F;css&#34; href=&#34;https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css&#34;&gt;&lt;p&gt;Welcome to &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9oZXhvLmlvLw==&#34;&gt;Hexo&lt;/span&gt;! This is your very first post. Check &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9oZXhvLmlvL2RvY3Mv&#34;&gt;documentation&lt;/span&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9oZXhvLmlvL2RvY3MvdHJvdWJsZXNob290aW5nLmh0bWw=&#34;&gt;troubleshooting&lt;/span&gt; or you can ask me on &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL2hleG9qcy9oZXhvL2lzc3Vlcw==&#34;&gt;GitHub&lt;/span&gt;.&lt;/p&gt;
