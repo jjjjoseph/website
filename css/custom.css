@@ -4,7 +4,23 @@
   }
   
   /* 側邊欄當前頁面連結常駐灰 */
+  
   .sidebar .links a.active {
     background-color: rgba(0, 0, 0, 0.08) !important;
   }
   
+  /* ——— 自定义：侧边栏“文章”下拉菜单 ——— */
+
+/* 1. 隐藏所有自定义链接的子菜单 */
+.custom-sidebar-links .submenu {
+  display: none !important;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* 2. 当鼠标 hover 或 focus 到“文章”那一行（假设它的 class 是 btn-post）时，展开下一个 .submenu */
+.custom-sidebar-links .btn-post:hover + .submenu,
+.custom-sidebar-links .btn-post:focus + .submenu {
+  display: block !important;
+  opacity: 1;
+}
