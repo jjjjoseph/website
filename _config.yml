@@ -1,7 +1,7 @@
 # Hexo 根目錄 _config.yml
 
 # ─── Site 基本資訊 ───────────────────────────
-title: Joseph's Blog                      # 需要改：這是網站名稱，顯示在瀏覽器分頁標題以及部分佈景中。請改成你的網站中文名稱，例如：
+title:                       # 需要改：這是網站名稱，顯示在瀏覽器分頁標題以及部分佈景中。請改成你的網站中文名稱，例如：
 
 
 subtitle: ''                              # 可選改：若想顯示副標題，可填簡短文字；不需要就留空或刪除。
@@ -16,14 +16,14 @@ keywords: 帥企鵝, gj94fu4k6                # 建議改：相當於 meta keywo
 author: 品逸                             # 必須改：網站作者／博主名稱，預設是 John Doe，請改為你的名字或網路暱稱。例如：
                                          # author: "小明"
 
-language: zh-tw                          # 若你確實是以「繁體中文」為主，可保留 zh-tw。如果想用簡體就改為 zh-cn，或者全站英文就改 en。
+language: zh-TW                          # 若你確實是以「繁體中文」為主，可保留 zh-tw。如果想用簡體就改為 zh-cn，或者全站英文就改 en。
                                          # 例如： language: zh-cn
 
 timezone: Asia/Taipei                    # 若你所在時區是臺北，可保留。若你身在其他時區，也請對應改為正確時區，例如：
                                          # Asia/Shanghai（中國大陸）、America/New_York（美東）、Europe/London（倫敦）等。
 
 # ─── URL 設定 ─────────────────────────────
-url: http://localhost:4000   # 必須改：這裡填的是「你的 GitHub Pages 網址」或「自有網域」。**絕對不要**留成 .git 結尾。  
+url: https://jjjjoseph.github.io/website   # 必須改：這裡填的是「你的 GitHub Pages 網址」或「自有網域」。**絕對不要**留成 .git 結尾。  
                                            # 若你走 GitHub Pages，剛才我們部署成功的網址是：
                                            #   https://jjjjoseph.github.io/website/
                                            # 如果未來改成自有域名，例如 blog.mydomain.com，就改成：
@@ -161,3 +161,12 @@ renderer:
 inject:
   head:
     - <link rel="stylesheet" href="/css/custom.css">
+
+
+
+# ─── i18n (多语言) 配置 ───────────────────────
+i18n:
+  # languages 目录相对于项目根目录的位置
+  path: themes/shoka/languages
+  # 默认使用的语言标识，必须跟你 languages 目录下的文件名保持一致（不含后缀）
+  default: zh-TW
