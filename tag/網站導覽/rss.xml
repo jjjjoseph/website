@@ -1,16 +1,22 @@
 <?xml version="1.0"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://jjjjoseph.github.io/website</id>
-    <title></title>
-    <link href="https://jjjjoseph.github.io/website" />
-    <updated>2025-05-30T16:00:00.000Z</updated>
-    <category term="網站導覽" />
-    <category term="首篇文章" />
-    <entry>
-        <id>https://jjjjoseph.github.io/website/2025/05/31/%E6%AD%A1%E8%BF%8E%E4%BE%86%E5%88%B0%E5%93%81%E9%80%B8%E7%9A%84%E7%B6%B2%E7%AB%99/</id>
-        <title>歡迎來到品逸的網站</title>
-        <link rel="alternate" href="https://jjjjoseph.github.io/website/2025/05/31/%E6%AD%A1%E8%BF%8E%E4%BE%86%E5%88%B0%E5%93%81%E9%80%B8%E7%9A%84%E7%B6%B2%E7%AB%99/"/>
-        <content type="html">&lt;link rel=&#34;stylesheet&#34; type=&#34;text&amp;#x2F;css&#34; href=&#34;https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css&#34;&gt;&lt;h4 style=&#34;font-size: 1.75rem; font-weight: bold;&#34;&gt;嗨，我叫品逸，歡迎你來到我的個人網站 👋&lt;/h4&gt;
+<rss version="2.0">
+    <channel>
+        <title> • Posts by &#34;網站導覽&#34; tag</title>
+        <link>https://jjjjoseph.github.io/website</link>
+        <description>品逸的網站</description>
+        <language>zh-TW</language>
+        <pubDate>Sat, 31 May 2025 00:00:00 +0800</pubDate>
+        <lastBuildDate>Sat, 31 May 2025 00:00:00 +0800</lastBuildDate>
+        <category>網站導覽</category>
+        <category>首篇文章</category>
+        <item>
+            <guid isPermalink="true">https://jjjjoseph.github.io/website/2025/05/31/%E6%AD%A1%E8%BF%8E%E4%BE%86%E5%88%B0%E5%93%81%E9%80%B8%E7%9A%84%E7%B6%B2%E7%AB%99/</guid>
+            <title>歡迎來到品逸的網站</title>
+            <link>https://jjjjoseph.github.io/website/2025/05/31/%E6%AD%A1%E8%BF%8E%E4%BE%86%E5%88%B0%E5%93%81%E9%80%B8%E7%9A%84%E7%B6%B2%E7%AB%99/</link>
+            <category>網站導覽</category>
+            <category>首篇文章</category>
+            <pubDate>Sat, 31 May 2025 00:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;link rel=&#34;stylesheet&#34; type=&#34;text&amp;#x2F;css&#34; href=&#34;https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css&#34;&gt;&lt;h4 style=&#34;font-size: 1.75rem; font-weight: bold;&#34;&gt;嗨，我叫品逸，歡迎你來到我的個人網站 👋&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;這個網站是我自己從零開始利用 Hexo 架設的，目的是整理自己的學習紀錄、專案經驗與成長歷程，之後也會持續分享一些生活、想法以及個人觀察。&lt;/li&gt;
 &lt;/ul&gt;
@@ -30,9 +36,7 @@
 &lt;p&gt;&lt;strong&gt;「沒試過不知道，錯了學會才知道。」&lt;/strong&gt;&lt;br&gt;
 這是我一直以來很相信的一句話，也希望透過這個網站讓你認識我更多。&lt;/p&gt;
 &lt;/blockquote&gt;
-</content>
-        <category term="網站導覽" />
-        <category term="首篇文章" />
-        <updated>2025-05-30T16:00:00.000Z</updated>
-    </entry>
-</feed>
+ ]]></description>
+        </item>
+    </channel>
+</rss>
